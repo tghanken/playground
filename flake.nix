@@ -78,7 +78,7 @@
         packages.default = pkgs.hello;
 
         devShells.default = pkgs.mkShell {
-          buildImputs = with pkgs; [];
+          buildInputs = with pkgs; [];
         };
       };
 
