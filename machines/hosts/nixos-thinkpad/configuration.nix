@@ -12,8 +12,8 @@ with config; {
     ./hardware-configuration.nix
 
     # Include any additional apps desired
-    ../../apps/jetbrains.nix
-    ../../apps/steam.nix
+    ../../desktop/apps/jetbrains.nix
+    ../../desktop/apps/steam.nix
   ];
 
   networking.hostName = "nixos-thinkpad"; # Define your hostname.
