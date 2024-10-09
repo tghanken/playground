@@ -1,0 +1,9 @@
+[package]
+authors.workspace = true
+edition.workspace = true
+name = "api-sdk"
+publish.workspace = true
+version.workspace = true
+
+[dependencies]
+my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }

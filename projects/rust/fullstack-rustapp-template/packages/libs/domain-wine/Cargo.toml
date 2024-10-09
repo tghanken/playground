@@ -1,0 +1,27 @@
+[package]
+authors.workspace = true
+edition.workspace = true
+name = "domain-wine"
+publish.workspace = true
+version.workspace = true
+
+[dependencies]
+chrono = { workspace = true }
+my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
+snafu = { workspace = true }
+sqlx = { workspace = true, features = [
+  "postgres",
+  "uuid",
+  "chrono",
+  "derive",
+  "macros",
+  "runtime-tokio",
+  "tls-rustls",
+] }
+uuid = { workspace = true, features = ["v4", "fast-rng"] }
+
+[dev-dependencies]
+proptest = { workspace = true }
+
+[lints]
+workspace = true

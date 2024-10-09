@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="EMPTY_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/packages/libs/api-sdk/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/bins/dioxus-client/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/tests/integration-tests/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/bins/trunk-client/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/bins/backend/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/bins/frontend/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/libs/frontend-ui/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/libs/vite-manifest-parser/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/libs/wine-service/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/libs/domain-wine/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/bins/server/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/my-workspace-hack/src" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/libs/api-sdk/target" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/bins/frontend/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/packages/libs/frontend-ui/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/.direnv" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>
