@@ -78,7 +78,7 @@
         packages.default = pkgs.hello;
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [];
+          packages = with pkgs; [agenix.packages.${system}.default];
         };
       };
 

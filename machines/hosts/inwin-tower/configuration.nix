@@ -16,17 +16,16 @@ with config; {
     # Include any additional apps desired
     ../../desktop/apps/jetbrains.nix
     ../../desktop/apps/steam.nix
-
-    # inputs.nix-serve-ng.nixosModules.default
   ];
 
   networking.hostName = "inwin-tower"; # Define your hostname.
   networking.hostId = "a39c3d72"; # Generate using `head -c 8 /etc/machine-id`
 
-  boot.binfmt.emulatedSystems = ["aarch64-linux"];
-
-  boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+  disko.devices = import ./devices.nix;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
+  boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
+
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
   # Enable OpenGL
   hardware.opengl = {

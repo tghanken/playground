@@ -3,64 +3,49 @@
 localFlake:
 # Regular module arguments; self, inputs, etc all reference the final user flake,
 # where this module was imported.
-{inputs, ...}: {
+{inputs, ...}:
+with inputs; let
+  home = [
+    home-manager.nixosModules.home-manager
+    {
+      home-manager = {
+        useGlobalPkgs = true;
+        useUserPackages = true;
+        users.tghanken = import ./home-manager/home.nix;
+      };
+    }
+  ];
+  builder = [nix-serve-ng.nixosModules.default];
+  secrets = [agenix.nixosModules.default ../secrets/mod.nix];
+  server_mods = [] ++ builder;
+  desktop_mods = [] ++ server_mods;
+  common_mods = [disko.nixosModules.disko ./common/common.nix] ++ home ++ secrets;
+in {
   flake = {
     nixosConfigurations = {
       inwin-tower = inputs.nixpkgs.lib.nixosSystem {
-        modules = with inputs; [
-          ./hosts/inwin-tower/configuration.nix
-          ./common/common.nix
-          ../secrets/mod.nix
-
-          nix-serve-ng.nixosModules.default
-          agenix.nixosModules.default
-          {
-            # TODO: Split this into a flake-part module
-            environment.systemPackages = [agenix.packages."x86_64-linux".default];
-          }
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.tghanken = import ./home-manager/home.nix;
-          }
-          disko.nixosModules.disko
-          {
-            disko.devices = import ./hosts/inwin-tower/devices.nix;
-          }
-        ];
+        modules =
+          [
+            ./hosts/inwin-tower/configuration.nix
+          ]
+          ++ common_mods
+          ++ desktop_mods;
       };
       nixos-thinkpad = inputs.nixpkgs.lib.nixosSystem {
-        modules = with inputs; [
-          ./hosts/nixos-thinkpad/configuration.nix
-          ./common/common.nix
-          ../secrets/mod.nix
-
-          nix-serve-ng.nixosModules.default
-          agenix.nixosModules.default
-          {
-            # TODO: Split this into a flake-part module
-            environment.systemPackages = [agenix.packages."x86_64-linux".default];
-          }
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.users.tghanken = import ./home-manager/home.nix;
-          }
-          disko.nixosModules.disko
-          {
-            disko.devices = import ./hosts/nixos-thinkpad/devices.nix;
-          }
-        ];
+        modules =
+          [
+            ./hosts/nixos-thinkpad/configuration.nix
+          ]
+          ++ common_mods
+          ++ desktop_mods;
       };
       nixos-usb = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [
-          ./hosts/nixos-usb/configuration.nix
-        ];
+        modules =
+          [
+            ./hosts/nixos-usb/configuration.nix
+          ]
+          ++ common_mods;
       };
     };
   };
