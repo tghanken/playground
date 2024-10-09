@@ -57,8 +57,8 @@
     }: let
       inherit (flake-parts-lib) importApply;
       flakeModules.clusters = importApply ./clusters/clusters.nix {inherit withSystem;};
-      flakeModules.machines = importApply ./machines/machines.nix {inherit withSystem;};
-      flakeModules.projects = importApply ./projects/projects.nix {inherit withSystem;};
+      flakeModules.machines = import ./machines/machines.nix;
+      flakeModules.projects = import ./projects/projects.nix;
     in {
       imports = [
         flakeModules.clusters
@@ -74,12 +74,6 @@
         ...
       }: {
         formatter = pkgs.alejandra;
-
-        packages.default = pkgs.hello;
-
-        devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [];
-        };
       };
 
       flake = {
