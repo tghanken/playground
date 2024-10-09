@@ -1,4 +1,7 @@
 {inputs, ...}: {
+  imports = [
+    ./rust/fullstack-rustapp-template/workspace.nix
+  ];
   perSystem = {
     pkgs,
     system,
