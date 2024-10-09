@@ -58,7 +58,7 @@
       inherit (flake-parts-lib) importApply;
       flakeModules.clusters = importApply ./clusters/clusters.nix {inherit withSystem;};
       flakeModules.machines = import ./machines/machines.nix;
-      flakeModules.projects = importApply ./projects/projects.nix {inherit withSystem;};
+      flakeModules.projects = import ./projects/projects.nix;
     in {
       imports = [
         flakeModules.clusters
@@ -74,12 +74,6 @@
         ...
       }: {
         formatter = pkgs.alejandra;
-
-        packages.default = pkgs.hello;
-
-        devShells.default = pkgs.mkShell {
-          packages = with pkgs; [agenix.packages.${system}.default];
-        };
       };
 
       flake = {
