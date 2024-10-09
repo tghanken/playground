@@ -57,7 +57,7 @@
     }: let
       inherit (flake-parts-lib) importApply;
       flakeModules.clusters = importApply ./clusters/clusters.nix {inherit withSystem;};
-      flakeModules.machines = importApply ./machines/machines.nix {inherit withSystem;};
+      flakeModules.machines = import ./machines/machines.nix;
       flakeModules.projects = importApply ./projects/projects.nix {inherit withSystem;};
     in {
       imports = [
