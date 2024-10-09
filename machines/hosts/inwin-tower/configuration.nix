@@ -18,7 +18,7 @@ with config; {
   ];
 
   networking.hostName = "inwin-tower"; # Define your hostname.
-  networking.hostId = "a39c3d72"; # Generate using `head -c 8 /etc/machine-id`
+  networking.hostId = "89cc1717"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
