@@ -200,10 +200,12 @@
         hyper-backup = {
           type = "zfs_fs";
           mountpoint = "/mnt/hyper-backup";
+          options.mountpoint = "legacy";
         };
         repos = {
           type = "zfs_fs";
           mountpoint = "/mnt/repos";
+          options.mountpoint = "legacy";
         };
         reserved = {
           type = "zfs_fs";
