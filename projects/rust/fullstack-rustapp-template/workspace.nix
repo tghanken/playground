@@ -8,6 +8,10 @@
     with inputs; let
       inherit pkgs lib;
 
+      pkgs-unstable = import inputs.nixpkgs-unstable {
+        inherit system;
+      };
+
       rustToolchain = pkgs.pkgsBuildHost.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
       craneLib = (crane.mkLib pkgs).overrideToolchain rustToolchain;
 
@@ -249,7 +253,7 @@
           '';
 
           nativeBuildInputs = [
-            pkgs.cargo-hakari
+            pkgs-unstable.cargo-hakari
           ];
         };
       };
