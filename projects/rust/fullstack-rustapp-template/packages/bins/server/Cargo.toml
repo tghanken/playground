@@ -1,0 +1,46 @@
+[package]
+authors.workspace = true
+edition.workspace = true
+name = "server"
+publish.workspace = true
+version.workspace = true
+
+[dependencies]
+# Other monorepo packages
+frontend-ui = { path = "../../libs/frontend-ui" }
+
+# Core infrastructure
+axum = { workspace = true, features = ["http2"] }
+mimalloc = { workspace = true }
+tokio = { workspace = true, features = ["full"] }
+tower = { workspace = true }
+tower-http = { workspace = true, features = [
+  "fs",
+  "trace",
+  "compression-full",
+] }
+tower-livereload = { workspace = true, optional = true }
+
+# Debug
+my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
+sentry = { workspace = true, features = [
+  "rustls",
+  "reqwest",
+  "panic",
+  "backtrace",
+  "contexts",
+  "debug-images",
+  "log",
+  "tracing",
+] }
+sentry-tower = { workspace = true, features = ["http"] }
+snafu = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true, features = ["env-filter"] }
+
+[lints]
+workspace = true
+
+[features]
+default = []
+dev = ["tower-livereload"]

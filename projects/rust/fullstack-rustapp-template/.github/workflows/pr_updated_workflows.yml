@@ -1,0 +1,106 @@
+name: PR Updated
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+env:
+  NEON_PROJECT_ID: ${{ vars.NEON_PROJECT_ID }} # You can find this in your Neon project settings
+  NEON_USERNAME: ${{ vars.NEON_USERNAME }} # Change this to the role you use to connect to your database
+  NEON_DATABASE: ${{ vars.NEON_DATABASE }} # Change this to the database you want to use for the preview deployment
+  NEON_API_KEY: ${{ secrets.NEON_API_KEY }} # Generate an API key in your Neon account settings
+  FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }} # You can generate a Fly API token in your account settings
+  SENTRY_DSN: ${{ secrets.SENTRY_DSN }} # You can generate a Sentry DSN in your Sentry account settings
+
+jobs:
+  deploy-preview:
+    name: 🚀 Create Preview Environment
+    runs-on: ubuntu-latest
+
+    # Only run one deployment at a time per PR.
+    concurrency:
+      group: pr-${{ github.event.number }}
+    environment:
+      name: pr-${{ github.event.number }}
+      url: ${{ steps.deploy.outputs.url }}
+
+    steps:
+      # Setup Steps
+      # Points to a recent commit instead of `main` to avoid supply chain attacks. (The latest tag is very old.)
+      - name: 🎟 Get GitHub App token
+        uses: navikt/github-app-token-generator@b96ff604b2300989cd1105e3fad09199fca56681
+        id: get-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
+      - name: 🧑‍💻 Comment on Pull Request
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+          comment_tag: preview_env
+          message: |
+            # Preview Environment
+            Building preview environment. Check back in a few minutes for links!
+      - name: 🖥️ Checkout git branch
+        uses: actions/checkout@v4
+      - name: 🔦 Get git branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v8
+      - name: 🦾 Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          determinate: true
+          extra-conf: |
+            substituters = https://nix-community.cachix.org https://cache.garnix.io https://cache.nixos.org/
+            trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+      - name: 🚀 Install flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+      - name: 🍰 Build image
+        run: |
+          nix shell nixpkgs#just nixpkgs#nix-output-monitor --command just build-image
+      - name: 🍰 Push image to Fly.io
+        run: |
+          docker tag fullstack-rustapp-server:latest registry.fly.io/fullstack-rustapp-template:pr-${{ github.event.number }}
+          flyctl auth docker
+          docker push registry.fly.io/fullstack-rustapp-template:pr-${{ github.event.number }}
+
+      # Create Neon environment
+      - name: 💾 Create Neon branch
+        id: create-branch
+        uses: neondatabase/create-branch-action@v5
+        with:
+          project_id: ${{ env.NEON_PROJECT_ID }}
+          username: ${{ env.NEON_USERNAME }}
+          database: ${{ env.NEON_DATABASE }}
+          branch_name: preview/${{ steps.branch-name.outputs.current_branch }}
+          api_key: ${{ env.NEON_API_KEY }}
+      - name: ♻️ Reset Neon branch
+        uses: neondatabase/reset-branch-action@v1
+        with:
+          project_id: ${{ env.NEON_PROJECT_ID }}
+          parent: true
+          branch: preview/${{ steps.branch-name.outputs.current_branch }}
+          api_key: ${{ env.NEON_API_KEY }}
+      # TODO: Change migrate logic to use sqlx
+#      - name: ⏫ Migrate database
+#        run: pnpm run db:migrate
+
+      # Create Fly preview app
+      - name: 🚀 Deploy fly.io preview app
+        id: deploy
+        uses: superfly/fly-pr-review-apps@1.2.1
+        with:
+          secrets: DATABASE_URL=${{ steps.create-branch.outputs.db_url_with_pooler }} SENTRY_ENV=development SENTRY_DSN=${{ env.SENTRY_DSN }}
+          image: registry.fly.io/fullstack-rustapp-template:pr-${{ github.event.number }}
+
+
+      # Update comment with links to preview app
+      - name: 🧑‍💻 Comment on Pull Request
+        uses: thollander/actions-comment-pull-request@v2
+        with:
+          GITHUB_TOKEN: ${{ steps.get-token.outputs.token }}
+          comment_tag: preview_env
+          message: |
+            # Preview Environment
+            - 💻: [Preview URL](${{ steps.deploy.outputs.url }})
+            - 🚀: [Fly Dashboard](https://fly.io/apps/${{ steps.deploy.outputs.app_name }})
+            - 💾: [Neon Dashboard](https://console.neon.tech/app/projects/${{ env.NEON_PROJECT_ID }}/branches/${{ steps.create-branch.outputs.branch_id }})

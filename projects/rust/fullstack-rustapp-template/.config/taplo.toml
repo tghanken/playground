@@ -1,0 +1,9 @@
+exclude = [
+  ".direnv/**/*.toml",
+  "target/**/*.toml",
+  "**/my-workspace-hack/Cargo.toml",
+]
+include = ["**/*.toml"]
+
+[formatting]
+reorder_keys = true

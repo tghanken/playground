@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang={{ page_details.page_metadata.lang }}>
+<head>
+    {% for script in page_details.manifest_data.scripts %}
+        {% if script.starts_with("/assets/sentry") %}
+            <link rel="modulepreload" href="{{ script }}"/>
+            <script type="module" src="{{ script }}"></script>
+        {% endif %}
+    {% endfor %}
+
+    {% for stylesheet in page_details.manifest_data.stylesheets %}
+    <link rel="stylesheet" href="{{ stylesheet }}"/>
+    {% endfor %}
+
+    {% for script in page_details.manifest_data.scripts %}
+        {% if !script.starts_with("/assets/sentry") %}
+            <link rel="modulepreload" href="{{ script }}"/>
+            <script type="module" src="{{ script }}" defer></script>
+        {% endif %}
+    {% endfor %}
+
+    <meta charset="UTF-8">
+    <meta name="sentry-trace" content="{{ page_details.sentry_data.trace_id }}">
+    {% if page_details.sentry_data.baggage != "" %}
+    <meta name="baggage" content="{{ page_details.sentry_data.baggage }}">
+    {% endif %}
+    <title>{{ page_details.page_metadata.title }}</title>
+</head>
+<body>
+<div id="content" class="bg-base-100">
+    {% include "components/header.html" %}
+    {% block content %}
+    <p>Placeholder content</p>
+    {% endblock content %}
+</div>
+</body>
+</html>

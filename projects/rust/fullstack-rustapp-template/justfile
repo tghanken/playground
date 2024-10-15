@@ -1,0 +1,67 @@
+# [CORE] - Run all the configured tests that run in CI
+check:
+    nix flake check |& nom
+
+# [CORE] - Build the production image
+build-image:
+    nom build .#dockerImage
+    ./result | docker load
+
+# [CORE] - Build an image with live reloading enabled
+build-dev-image:
+    nom build .#dockerDevImage
+    ./result | docker load
+
+# [CORE] - Start production docker containers
+run:
+    just build-image
+    docker compose up -d
+
+# [CORE] - Start docker containers with live reloading enabled
+dev:
+    just build-dev-image
+    docker compose up -d
+
+# [CORE] - Tear down docker containers
+stop:
+    docker compose down
+
+# [CORE] - Deploy server to fly.io
+deploy:
+    just build-image
+    flyctl deploy -i fullstack-rustapp-server:latest --local-only
+
+# [UTILITY] - Update formatting and linting
+fixup:
+    just clippy
+    just hakari
+    just format
+
+# [UTILITY] - Just fix clippy errors
+clippy:
+    cargo clippy --fix
+
+# [UTILITY] - Just fix hakari errors
+hakari:
+    cargo hakari generate
+    cargo hakari manage-deps -y
+
+# [UTILITY] - Just fix formatting errors
+format:
+    # this rustfmt command is currently broken
+    #rustfmt --edition 2021 ./**/*.rs
+    taplo fmt --config ./.config/taplo.toml
+    nix fmt
+
+# [UTILITY] - Use the dive utility to inspect the production image
+inspect-image:
+    just build-image
+    dive fullstack-rustapp-server:latest
+
+# [Utility] - Continuously run all the configured tests
+watch-check:
+    watchexec -r just check
+
+# [UTILITY] - Continuously run the dev server with live reloading enabled
+watch-dev:
+    watchexec -r just dev
