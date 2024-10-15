@@ -3,7 +3,8 @@
 
   inputs = {
     # Core Inputs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -30,7 +31,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-manager = {
-      url = "github:nix-community/home-manager";
+      url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nix-serve-ng = {
@@ -75,6 +76,7 @@
   outputs = inputs @ {
     # Core Inputs
     nixpkgs,
+    nixpkgs-unstable,
     flake-parts,
     # NixOs Inputs
     agenix,
