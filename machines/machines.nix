@@ -6,7 +6,7 @@ with inputs; let
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.tghanken = import ./home-manager/home.nix;
+        users.tghanken = import ./modules/home-manager/home.nix;
       };
     }
   ];
@@ -14,7 +14,7 @@ with inputs; let
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
   server_mods = [] ++ builder;
   desktop_mods = [] ++ server_mods;
-  common_mods = [disko.nixosModules.disko ./common/common.nix] ++ home ++ secrets;
+  common_mods = [disko.nixosModules.disko ./modules/common/common.nix] ++ home ++ secrets;
 in {
   flake = {
     nixosConfigurations = {
