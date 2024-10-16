@@ -5,39 +5,54 @@
   ...
 }:
 with lib; let
-  cfg = config.services.tailscale;
+  cfg = config.services.tailscale_user;
 in {
-  # make the tailscale command usable to users
-  config.environment.systemPackages = [pkgs.tailscale];
+  options.services.tailscale_user = {
+    auth_key_path = mkOption {
+      type = types.path;
+      description = "Tailscale auth key file";
+    };
+    auth_key = mkOption {
+      type = types.str;
+      description = "Tailscale auth key";
+    };
+  };
 
-  # enable the tailscale service
-  config.services.tailscale.enable = true;
+  config = {
+    # make the tailscale command usable to users
+    environment.systemPackages = [pkgs.tailscale];
 
-  # create a oneshot job to authenticate to Tailscale
-  config.systemd.services.tailscale-autoconnect = {
-    description = "Automatic connection to Tailscale";
+    # enable the tailscale service
+    services.tailscale.enable = true;
 
-    # make sure tailscale is running before trying to connect to tailscale
-    after = ["network-pre.target" "tailscale.service"];
-    wants = ["network-pre.target" "tailscale.service"];
-    wantedBy = ["multi-user.target"];
+    # create a oneshot job to authenticate to Tailscale
+    systemd.services.tailscale-autoconnect = let
+      # auth_key = if builtins.hasAttr "auth_key_path" cfg then "$(cat ${cfg.auth_key_path})" else cfg.auth_key;
+    in {
+      description = "Automatic connection to Tailscale";
 
-    # set this service as a oneshot job
-    serviceConfig.Type = "oneshot";
+      # make sure tailscale is running before trying to connect to tailscale
+      after = ["network-pre.target" "tailscale.service"];
+      wants = ["network-pre.target" "tailscale.service"];
+      wantedBy = ["multi-user.target"];
 
-    # have the job run this shell script
-    script = with pkgs; ''
-      # wait for tailscaled to settle
-      sleep 2
+      # set this service as a oneshot job
+      serviceConfig.Type = "oneshot";
 
-      # check if we are already authenticated to tailscale
-      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ $status = "Running" ]; then # if so, then do nothing
-        exit 0
-      fi
+      # have the job run this shell script
+      script = with pkgs; ''
+        # wait for tailscaled to settle
+        sleep 2
 
-      # otherwise authenticate with tailscale
-      ${tailscale}/bin/tailscale up -authkey $(cat ${config.age.secrets."tailscale_key".path}) --ssh
-    '';
+        # check if we are already authenticated to tailscale
+        status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
+        if [ $status = "Running" ]; then # if so, then do nothing
+          exit 0
+        fi
+
+        # otherwise authenticate with tailscale
+        ${tailscale}/bin/tailscale up -authkey $(cat ${cfg.auth_key_path}) --ssh
+      '';
+    };
   };
 }

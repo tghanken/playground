@@ -14,6 +14,8 @@ with config; {
   ];
   networking.hostName = "nixos-bootstrap"; # Define your hostname.
 
+  services.tailscale_user.auth_key = "";
+
   # Overrides for graphical base
   boot.loader.grub.enable = lib.mkForce false;
   networking.wireless.enable = lib.mkForce false;
