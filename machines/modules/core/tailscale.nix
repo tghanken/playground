@@ -39,7 +39,10 @@ in {
 
     # create a oneshot job to authenticate to Tailscale
     systemd.services.tailscale-autoconnect = let
-      auth_key = if cfg.auth_key_path != null_path then "$(cat ${cfg.auth_key_path})" else cfg.auth_key;
+      auth_key =
+        if cfg.auth_key_path != null_path
+        then "$(cat ${cfg.auth_key_path})"
+        else cfg.auth_key;
     in {
       description = "Automatic connection to Tailscale";
 
