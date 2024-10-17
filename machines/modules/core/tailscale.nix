@@ -6,15 +6,19 @@
 }:
 with lib; let
   cfg = config.services.tailscale_user;
+  null_path = /dev/null;
+  null_str = "";
 in {
   options.services.tailscale_user = {
     auth_key_path = mkOption {
       type = types.path;
       description = "Tailscale auth key file";
+      default = null_path;
     };
     auth_key = mkOption {
       type = types.str;
       description = "Tailscale auth key";
+      default = null_str;
     };
   };
 
@@ -25,9 +29,17 @@ in {
     # enable the tailscale service
     services.tailscale.enable = true;
 
+    # assert that only one of auth_key_path or auth_key is set
+    assertions = [
+      {
+        assertion = (cfg.auth_key_path != null_path) != (cfg.auth_key != null_str);
+        message = "Exactly one of `auth_key_path` or `auth_key` must be set";
+      }
+    ];
+
     # create a oneshot job to authenticate to Tailscale
     systemd.services.tailscale-autoconnect = let
-      # auth_key = if builtins.hasAttr "auth_key_path" cfg then "$(cat ${cfg.auth_key_path})" else cfg.auth_key;
+      auth_key = if cfg.auth_key_path != null_path then "$(cat ${cfg.auth_key_path})" else cfg.auth_key;
     in {
       description = "Automatic connection to Tailscale";
 
@@ -51,7 +63,7 @@ in {
         fi
 
         # otherwise authenticate with tailscale
-        ${tailscale}/bin/tailscale up -authkey $(cat ${cfg.auth_key_path}) --ssh
+        ${tailscale}/bin/tailscale up -authkey ${auth_key} --ssh
       '';
     };
   };
