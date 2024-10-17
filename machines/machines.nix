@@ -21,7 +21,7 @@ in {
       inwin-tower = inputs.nixpkgs.lib.nixosSystem {
         modules =
           [
-            ./hosts/inwin-tower/configuration.nix
+            ./hosts/desktops/inwin-tower/configuration.nix
           ]
           ++ common_mods
           ++ desktop_mods;
@@ -29,16 +29,16 @@ in {
       nixos-thinkpad = inputs.nixpkgs.lib.nixosSystem {
         modules =
           [
-            ./hosts/nixos-thinkpad/configuration.nix
+            ./hosts/desktops/nixos-thinkpad/configuration.nix
           ]
           ++ common_mods
           ++ desktop_mods;
       };
-      nixos-usb = inputs.nixpkgs.lib.nixosSystem {
+      nixos-bootstrap = inputs.nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         modules =
           [
-            ./hosts/nixos-usb/configuration.nix
+            ./hosts/utils/nixos-bootstrap/configuration.nix
           ]
           ++ common_mods;
       };

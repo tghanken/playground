@@ -10,9 +10,9 @@
 }:
 with config; {
   imports = [
-    (modulesPath + "/installer/cd-dvd/installation-cd-graphical-base.nix")
+    (modulesPath + "/installer/cd-dvd/iso-image.nix")
   ];
-  networking.hostName = "nixos-usb"; # Define your hostname.
+  networking.hostName = "nixos-bootstrap"; # Define your hostname.
 
   # Overrides for graphical base
   boot.loader.grub.enable = lib.mkForce false;
