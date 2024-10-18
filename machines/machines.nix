@@ -11,10 +11,18 @@ with inputs; let
     }
   ];
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
-  core_mods = [./modules/core/core.nix nix-serve-ng.nixosModules.default];
-  server_mods = [] ++ core_mods;
-  desktop_mods = [] ++ server_mods;
-  common_mods = [disko.nixosModules.disko ./modules/common/common.nix] ++ home ++ secrets;
+  
+  # Apply to all hosts, including bootstrap images
+  core_mods = [./modules/core/core.nix];
+
+  # Apply to all hosts, except bootstrap images
+  common_mods = [disko.nixosModules.disko nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ core_mods ++ home ++ secrets;
+
+  # Apply to only servers
+  server_mods = [] ++ common_mods;
+
+  # Apply to only desktops
+  desktop_mods = [] ++ common_mods;
 in {
   flake = {
     nixosConfigurations = {
@@ -24,7 +32,6 @@ in {
           [
             ./hosts/desktops/inwin-tower/configuration.nix
           ]
-          ++ common_mods
           ++ desktop_mods;
       };
       nixos-thinkpad = inputs.nixpkgs.lib.nixosSystem {
@@ -32,7 +39,6 @@ in {
           [
             ./hosts/desktops/nixos-thinkpad/configuration.nix
           ]
-          ++ common_mods
           ++ desktop_mods;
       };
 
@@ -42,7 +48,6 @@ in {
           [
             ./hosts/servers/syno-vm/configuration.nix
           ]
-          ++ common_mods
           ++ server_mods;
       };
 
