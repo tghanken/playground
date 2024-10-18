@@ -5,7 +5,7 @@
 }: {
   imports = [
     ./bootloader/bootloader.nix
-    ./builders/builders.nix
+    ./builders/build_server.nix
     ./desktop/desktop.nix
     ./locale/locale.nix
     ./networking/networking.nix

@@ -10,9 +10,8 @@ with inputs; let
       };
     }
   ];
-  builder = [nix-serve-ng.nixosModules.default];
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
-  core_mods = [./modules/core/core.nix] ++ builder;
+  core_mods = [./modules/core/core.nix nix-serve-ng.nixosModules.default];
   server_mods = [] ++ core_mods;
   desktop_mods = [] ++ server_mods;
   common_mods = [disko.nixosModules.disko ./modules/common/common.nix] ++ home ++ secrets;
