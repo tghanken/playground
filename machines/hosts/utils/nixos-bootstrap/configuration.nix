@@ -9,9 +9,6 @@
   ...
 }:
 with config; {
-  imports = [
-    (modulesPath + "/installer/cd-dvd/iso-image.nix")
-  ];
   networking.hostName = "nixos-bootstrap"; # Define your hostname.
 
   services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";

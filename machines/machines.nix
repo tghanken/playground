@@ -35,6 +35,15 @@ in {
           ++ common_mods
           ++ desktop_mods;
       };
+      syno-vm = inputs.nixpkgs.lib.nixosSystem {
+        modules =
+          [
+            ./hosts/servers/syno-vm/configuration.nix
+          ]
+          ++ common_mods
+          ++ server_mods;
+      };
+
     };
   };
   perSystem = {
@@ -42,7 +51,6 @@ in {
       bootstrap_modules = [./hosts/utils/nixos-bootstrap/configuration.nix] ++ core_mods;
     in {
       nixos-vm-bootstrap-image = inputs.nixos-generators.nixosGenerate {
-        system = "x86_64-linux";
         modules = bootstrap_modules;
         format = "iso";
       };
