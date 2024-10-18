@@ -11,7 +11,7 @@ with inputs; let
     }
   ];
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
-  
+
   # Apply to all hosts, including bootstrap images
   core_mods = [./modules/core/core.nix];
 
