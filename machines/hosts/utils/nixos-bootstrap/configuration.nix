@@ -31,6 +31,8 @@ with config; {
   # Prebuild disko
   environment.systemPackages = with pkgs; [
     disko
+    nh
+    nix-output-monitor
   ];
 
   # This value determines the NixOS release from which the default
