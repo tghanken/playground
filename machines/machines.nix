@@ -19,6 +19,7 @@ with inputs; let
 in {
   flake = {
     nixosConfigurations = {
+      # Desktops
       inwin-tower = inputs.nixpkgs.lib.nixosSystem {
         modules =
           [
@@ -35,6 +36,8 @@ in {
           ++ common_mods
           ++ desktop_mods;
       };
+
+      # Servers
       syno-vm = inputs.nixpkgs.lib.nixosSystem {
         modules =
           [
