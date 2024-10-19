@@ -60,6 +60,7 @@ in {
       bootstrap_modules = [./hosts/utils/nixos-bootstrap/configuration.nix] ++ bootstrap_mods;
     in {
       nixos-vm-bootstrap-image = inputs.nixos-generators.nixosGenerate {
+        system = "x86_64-linux";
         modules = bootstrap_modules;
         format = "iso";
       };
