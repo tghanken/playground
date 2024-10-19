@@ -48,7 +48,7 @@ in {
           [
             ./hosts/servers/syno-vm/configuration.nix
           ]
-          ++ server_mods;
+          ++ core_mods;
       };
 
     };
