@@ -14,10 +14,22 @@ with config; {
   ];
   networking.hostName = "nixos-bootstrap"; # Define your hostname.
 
-  # Overrides for graphical base
-  boot.loader.grub.enable = lib.mkForce false;
-  networking.wireless.enable = lib.mkForce false;
-  hardware.pulseaudio.enable = lib.mkForce false;
+  services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";
+
+  networking.firewall = {
+    # enable the firewall
+    enable = true;
+
+    # always allow traffic from your Tailscale network
+    trustedInterfaces = ["tailscale0"];
+
+    # allow the Tailscale UDP port through the firewall
+    allowedUDPPorts = [config.services.tailscale.port];
+  };
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+  };
 
   # Prebuild disko
   environment.systemPackages = with pkgs; [

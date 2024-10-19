@@ -12,7 +12,8 @@ with inputs; let
   ];
   builder = [nix-serve-ng.nixosModules.default];
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
-  server_mods = [] ++ builder;
+  core_mods = [./modules/core/core.nix] ++ builder;
+  server_mods = [] ++ core_mods;
   desktop_mods = [] ++ server_mods;
   common_mods = [disko.nixosModules.disko ./modules/common/common.nix] ++ home ++ secrets;
 in {
@@ -40,7 +41,7 @@ in {
           [
             ./hosts/utils/nixos-bootstrap/configuration.nix
           ]
-          ++ common_mods;
+          ++ core_mods;
       };
     };
   };
