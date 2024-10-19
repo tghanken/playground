@@ -33,27 +33,15 @@ in {
     nixosConfigurations = {
       # Desktops
       inwin-tower = inputs.nixpkgs.lib.nixosSystem {
-        modules =
-          [
-            ./hosts/desktops/inwin-tower/configuration.nix
-          ]
-          ++ desktop_mods;
+        modules = [./hosts/desktops/inwin-tower/configuration.nix] ++ desktop_mods;
       };
       nixos-thinkpad = inputs.nixpkgs.lib.nixosSystem {
-        modules =
-          [
-            ./hosts/desktops/nixos-thinkpad/configuration.nix
-          ]
-          ++ desktop_mods;
+        modules = [./hosts/desktops/nixos-thinkpad/configuration.nix] ++ desktop_mods;
       };
 
       # Servers
       syno-vm = inputs.nixpkgs.lib.nixosSystem {
-        modules =
-          [
-            ./hosts/servers/syno-vm/configuration.nix
-          ]
-          ++ install_mods;
+        modules = [./hosts/servers/syno-vm/configuration.nix] ++ install_mods;
       };
     };
   };
