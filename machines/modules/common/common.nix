@@ -5,7 +5,6 @@
     ./locale/locale.nix
     ./networking/networking.nix
     ./sound/sound.nix
-    ./users/users.nix
     ./utils/utils.nix
   ];
 }

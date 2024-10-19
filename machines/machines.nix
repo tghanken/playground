@@ -6,17 +6,19 @@ with inputs; let
       home-manager = {
         useGlobalPkgs = true;
         useUserPackages = true;
-        users.tghanken = import ./modules/home-manager/home.nix;
+        users.tghanken = import ./modules/users/tghanken/home-manager.nix;
       };
     }
   ];
+  users = [./modules/users/users.nix];
+
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
 
   # Apply to all hosts, including bootstrap images
   bootstrap_mods = [./modules/bootstrap/bootstrap.nix];
 
   # Apply to all hosts, including hosts being adopted
-  install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods ++ secrets;
+  install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods ++ secrets ++ users;
 
   # Apply to all activated hosts
   common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ install_mods ++ home;
