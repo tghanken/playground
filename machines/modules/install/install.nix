@@ -1,5 +1,5 @@
 {
   imports = [
     ./bootloader/bootloader.nix
-  ]
+  ];
 }
