@@ -13,10 +13,13 @@ with inputs; let
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
 
   # Apply to all hosts, including bootstrap images
-  core_mods = [disko.nixosModules.disko ./modules/core/core.nix];
+  bootstrap_mods = [disko.nixosModules.disko ./modules/core/core.nix];
 
-  # Apply to all hosts, except bootstrap images
-  common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ core_mods ++ home ++ secrets;
+  # Apply to all hosts, including hosts being adopted
+  install_mods = [] ++ bootstrap_mods ++ secrets;
+
+  # Apply to all activated hosts
+  common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ install_mods ++ home;
 
   # Apply to only servers
   server_mods = [] ++ common_mods;
@@ -48,9 +51,8 @@ in {
           [
             ./hosts/servers/syno-vm/configuration.nix
           ]
-          ++ core_mods;
+          ++ install_mods;
       };
-
     };
   };
   perSystem = {
