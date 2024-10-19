@@ -21,13 +21,13 @@ with inputs; let
   install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods ++ secrets ++ users;
 
   # Apply to all activated hosts
-  common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ install_mods ++ home;
+  common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ install_mods;
 
   # Apply to only servers
   server_mods = [./modules/server/server.nix] ++ common_mods;
 
   # Apply to only desktops
-  desktop_mods = [./modules/desktop/desktop.nix] ++ common_mods;
+  desktop_mods = [./modules/desktop/desktop.nix] ++ common_mods ++ home;
 in {
   flake = {
     nixosConfigurations = {
