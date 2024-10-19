@@ -123,12 +123,8 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             inputs.agenix.packages.${system}.default
-            nixos-generators
           ];
         };
-      };
-
-      flake = {
       };
     });
 }
