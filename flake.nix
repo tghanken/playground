@@ -40,6 +40,10 @@
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
+    nixos-generators = {
+      url = "github:nix-community/nixos-generators";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
     };
@@ -83,6 +87,7 @@
     disko,
     home-manager,
     nix-serve-ng,
+    nixos-generators,
     # Rust Inputs
     rust-overlay,
     crane,
@@ -118,12 +123,8 @@
         devShells.default = pkgs.mkShell {
           packages = with pkgs; [
             inputs.agenix.packages.${system}.default
-            nixos-generators
           ];
         };
-      };
-
-      flake = {
       };
     });
 }
