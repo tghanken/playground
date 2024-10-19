@@ -1,5 +1,6 @@
 {
   imports = [
+    ./networking/networking.nix
     ./sound/sound.nix
   ];
 
