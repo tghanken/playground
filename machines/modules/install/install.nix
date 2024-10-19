@@ -1,1 +1,5 @@
-{}
+{
+  imports = [
+    ./bootloader/bootloader.nix
+  ]
+}
