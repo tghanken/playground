@@ -16,16 +16,16 @@ with inputs; let
   bootstrap_mods = [./modules/bootstrap/bootstrap.nix];
 
   # Apply to all hosts, including hosts being adopted
-  install_mods = [disko.nixosModules.disko] ++ bootstrap_mods ++ secrets;
+  install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods ++ secrets;
 
   # Apply to all activated hosts
   common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ install_mods ++ home;
 
   # Apply to only servers
-  server_mods = [] ++ common_mods;
+  server_mods = [./modules/server/server.nix] ++ common_mods;
 
   # Apply to only desktops
-  desktop_mods = [] ++ common_mods;
+  desktop_mods = [./modules/desktop/desktop.nix] ++ common_mods;
 in {
   flake = {
     nixosConfigurations = {
