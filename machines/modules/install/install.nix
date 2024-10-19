@@ -4,4 +4,6 @@
     ./locale/locale.nix
     ./networking/networking.nix
   ];
+
+  disko.extraRootModules = ["zfs"];
 }
