@@ -21,7 +21,7 @@ with config; {
   # Prebuild install packages
   environment.systemPackages = with pkgs; [
     disko
-    nh
+    zfs
     nix-output-monitor
   ];
 
