@@ -13,10 +13,10 @@ with inputs; let
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
 
   # Apply to all hosts, including bootstrap images
-  core_mods = [./modules/core/core.nix];
+  core_mods = [disko.nixosModules.disko ./modules/core/core.nix];
 
   # Apply to all hosts, except bootstrap images
-  common_mods = [disko.nixosModules.disko nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ core_mods ++ home ++ secrets;
+  common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ core_mods ++ home ++ secrets;
 
   # Apply to only servers
   server_mods = [] ++ common_mods;
