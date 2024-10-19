@@ -13,7 +13,7 @@ with inputs; let
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
 
   # Apply to all hosts, including bootstrap images
-  bootstrap_mods = [./modules/core/core.nix];
+  bootstrap_mods = [./modules/bootstrap/bootstrap.nix];
 
   # Apply to all hosts, including hosts being adopted
   install_mods = [disko.nixosModules.disko] ++ bootstrap_mods ++ secrets;
