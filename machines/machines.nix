@@ -57,7 +57,7 @@ in {
   };
   perSystem = {
     packages = let
-      bootstrap_modules = [./hosts/utils/nixos-bootstrap/configuration.nix] ++ core_mods;
+      bootstrap_modules = [./hosts/utils/nixos-bootstrap/configuration.nix] ++ bootstrap_mods;
     in {
       nixos-vm-bootstrap-image = inputs.nixos-generators.nixosGenerate {
         modules = bootstrap_modules;
