@@ -35,13 +35,21 @@ in {
           ++ common_mods
           ++ desktop_mods;
       };
-      nixos-bootstrap = inputs.nixpkgs.lib.nixosSystem {
+    };
+  };
+  perSystem = {
+    packages = let
+      bootstrap_modules = [./hosts/utils/nixos-bootstrap/configuration.nix] ++ core_mods;
+    in {
+      nixos-vm-bootstrap-image = inputs.nixos-generators.nixosGenerate {
         system = "x86_64-linux";
-        modules =
-          [
-            ./hosts/utils/nixos-bootstrap/configuration.nix
-          ]
-          ++ core_mods;
+        modules = bootstrap_modules;
+        format = "iso";
+      };
+      nixos-rpi-bootstrap-image = inputs.nixos-generators.nixosGenerate {
+        system = "aarch64-linux";
+        modules = bootstrap_modules;
+        format = "sd-aarch64";
       };
     };
   };
