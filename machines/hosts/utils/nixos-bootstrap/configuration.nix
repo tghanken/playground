@@ -13,22 +13,12 @@ with config; {
 
   services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";
 
-  networking.firewall = {
-    # enable the firewall
-    enable = true;
-
-    # always allow traffic from your Tailscale network
-    trustedInterfaces = ["tailscale0"];
-
-    # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [config.services.tailscale.port];
-  };
   services.openssh = {
     enable = true;
     openFirewall = false;
   };
 
-  # Prebuild disko
+  # Prebuild install packages
   environment.systemPackages = with pkgs; [
     disko
     nh
