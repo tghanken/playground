@@ -9,7 +9,7 @@ let
   # Add machine keys from /etc/ssh
   inwin-tower = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/iE8w8saXDau1F/BQ5IktJPQO3MhRT1+1e5UsQt/n0";
   nixos-thinkpad = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEiccufbIo8bYbn5n7PpR1IAFmup53P6nn8IyYfkJfd0";
-  syno-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGSQ+3StKLVvReNJP2XHidYLz4PTlSABuEoEBKbS7uRP";
+  syno-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOnjOGfqp5KqJ7CAIS8TQNtLkxPB5ObPbosSgXAyN8FS";
 
   machines = [inwin-tower nixos-thinkpad syno-vm];
 
