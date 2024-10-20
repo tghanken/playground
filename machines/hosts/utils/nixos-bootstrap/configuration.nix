@@ -10,13 +10,19 @@
 }:
 with config; {
   networking.hostName = "nixos-bootstrap"; # Define your hostname.
+  networking.hostId = "00000000"; # Set placeholder hostid to support zfs
 
+  # Authorize with tailscale as a bootstrap node
   services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";
 
+  # Enable sshd to generate root keys
   services.openssh = {
     enable = true;
     openFirewall = false;
   };
+
+  # Enable zfs so disko install works
+  boot.supportedFilesystems = ["zfs"];
 
   # Prebuild install packages
   environment.systemPackages = with pkgs; [
