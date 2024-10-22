@@ -1,4 +1,5 @@
 {
+  age.identityPaths = ["/etc/ssh/ssh_host_ed25519_key"];
   # Secrets
   age.secrets = {
     github_pat.file = ./keys/github_pat.age;
