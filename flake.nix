@@ -9,10 +9,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    flake-utils = {
-      url = "github:numtide/flake-utils";
-      inputs.systems.follows = "nix-systems";
-    };
     nix-systems = {
       url = "github:nix-systems/default";
     };
@@ -33,12 +29,6 @@
     home-manager = {
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
-    };
-    nix-serve-ng = {
-      url = github:aristanetworks/nix-serve-ng;
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-      inputs.flake-compat.follows = "flake-compat";
     };
     nixos-generators = {
       url = "github:nix-community/nixos-generators";
@@ -86,7 +76,6 @@
     agenix,
     disko,
     home-manager,
-    nix-serve-ng,
     nixos-generators,
     # Rust Inputs
     rust-overlay,
