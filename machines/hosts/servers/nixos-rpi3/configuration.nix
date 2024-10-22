@@ -18,7 +18,7 @@ with config; {
   disko.devices = import ./devices.nix;
   boot.zfs.devNodes = "/dev/disk/by-label";
 
-  boot.binfmt.emulatedSystems = ["x84_64-linux"];
+  boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
