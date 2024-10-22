@@ -137,26 +137,6 @@
         "type": "github"
       }
     },
-    "flake-utils": {
-      "inputs": {
-        "systems": [
-          "nix-systems"
-        ]
-      },
-      "locked": {
-        "lastModified": 1726560853,
-        "narHash": "sha256-X6rJYSESBVr3hBoH0WbKE5KvhPU5bloyZ2L4K60/fPQ=",
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "rev": "c1dfcf08411b08f6b8615f7d8971a2bfa81d5e8a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "numtide",
-        "repo": "flake-utils",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -175,32 +155,6 @@
         "owner": "nix-community",
         "ref": "release-24.05",
         "repo": "home-manager",
-        "type": "github"
-      }
-    },
-    "nix-serve-ng": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "utils": [
-          "flake-utils"
-        ]
-      },
-      "locked": {
-        "lastModified": 1727789884,
-        "narHash": "sha256-2LPx4iRJonX4gtd3r73DBM/ZhN/hKu1lb/MHOav8c5s=",
-        "owner": "aristanetworks",
-        "repo": "nix-serve-ng",
-        "rev": "578ad85b3096d99b25cae0a73c03df4e82f587c7",
-        "type": "github"
-      },
-      "original": {
-        "owner": "aristanetworks",
-        "repo": "nix-serve-ng",
         "type": "github"
       }
     },
@@ -339,9 +293,7 @@
         "dream2nix": "dream2nix",
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
-        "flake-utils": "flake-utils",
         "home-manager": "home-manager",
-        "nix-serve-ng": "nix-serve-ng",
         "nix-systems": "nix-systems",
         "nixos-generators": "nixos-generators",
         "nixpkgs": "nixpkgs",

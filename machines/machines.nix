@@ -21,7 +21,7 @@ with inputs; let
   install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods ++ users;
 
   # Apply to all activated hosts
-  common_mods = [nix-serve-ng.nixosModules.default ./modules/common/common.nix] ++ install_mods ++ secrets;
+  common_mods = [./modules/common/common.nix] ++ install_mods ++ secrets;
 
   # Apply to only servers
   server_mods = [./modules/server/server.nix] ++ common_mods;
