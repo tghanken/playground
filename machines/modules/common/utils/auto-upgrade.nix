@@ -1,7 +1,7 @@
 {
   system.autoUpgrade = {
     enable = true;
-    flake = inputs.self.outPath;
+    flake = "github:tghanken/playground";
     flags = [
       "-L" # print build logs
     ];
