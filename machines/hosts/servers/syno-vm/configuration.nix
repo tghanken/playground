@@ -15,6 +15,8 @@ with config; {
   networking.hostName = "syno-vm"; # Define your hostname.
   networking.hostId = "5433dcd9"; # Generate using `head -c 8 /etc/machine-id`
 
+  services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";
+
   disko.devices = import ./devices.nix;
   boot.zfs.devNodes = "/dev/disk/by-label";
 
