@@ -13,7 +13,7 @@ with config; {
   networking.hostId = "00000000"; # Set placeholder hostid to support zfs
 
   # Authorize with tailscale as a bootstrap node
-  services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";
+  services.tailscale_user.auth_key = "tskey-auth-kfs4bEQARw11CNTRL-8K7HMdUxNdDrQeLETyBxZD86AeooWRu2";
 
   # Enable sshd to generate root keys
   services.openssh = {
