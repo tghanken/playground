@@ -15,10 +15,10 @@ with inputs; let
   secrets = [agenix.nixosModules.default ../secrets/mod.nix];
 
   # Apply to all hosts, including bootstrap images
-  bootstrap_mods = [./modules/bootstrap/bootstrap.nix];
+  bootstrap_mods = [./modules/bootstrap/bootstrap.nix] ++ users;
 
   # Apply to all hosts, including hosts being adopted
-  install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods ++ users;
+  install_mods = [disko.nixosModules.disko ./modules/install/install.nix] ++ bootstrap_mods;
 
   # Apply to all activated hosts
   common_mods = [./modules/common/common.nix] ++ install_mods ++ secrets;
@@ -57,10 +57,11 @@ in {
         modules = bootstrap_modules;
         format = "iso";
       };
+      # To burn image: sudo zstd -cd ./result/sd-image/{img}.img.zst | sudo dd bs=1M of=/dev/sdX status=progress
       nixos-rpi-bootstrap-image = inputs.nixos-generators.nixosGenerate {
         system = "aarch64-linux";
         modules = bootstrap_modules;
-        format = "sd-aarch64";
+        format = "sd-aarch64-installer";
       };
     };
   };

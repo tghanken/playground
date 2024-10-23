@@ -22,20 +22,12 @@
             priority = 2;
           };
           zfs = {
-            end = "-32G";
+            end = "-8G";
             content = {
               type = "zfs";
-              pool = "zroot";
+              pool = "zrootp";
             };
             priority = 3;
-          };
-          encryptedSwap = {
-            size = "1G";
-            content = {
-              type = "swap";
-              randomEncryption = true;
-              priority = 100; # prefer to encrypt as long as we have space for it
-            };
           };
           plainSwap = {
             size = "100%";
@@ -50,7 +42,7 @@
     };
   };
   zpool = {
-    zroot = {
+    zrootp = {
       type = "zpool";
       mode = {
         topology = {
