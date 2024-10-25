@@ -2,7 +2,7 @@
   disk = {
     boot = {
       type = "disk";
-      device = "/dev/mmcblk0";
+      device = "/dev/mmcblk1";
       content = {
         type = "gpt";
         partitions = {
