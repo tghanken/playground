@@ -43,7 +43,7 @@ in {
       nixos-rpi3 = inputs.nixpkgs.lib.nixosSystem {
         modules = [./hosts/servers/nixos-rpi3/configuration.nix] ++ server_mods;
       };
-      nixos-rpi4-3 inputs.nixpkgs.lib.nixosSystem {
+      nixos-rpi4-3 = inputs.nixpkgs.lib.nixosSystem {
         modules = [./hosts/servers/nixos-rpi3/configuration.nix] ++ server_mods;
       };
       syno-vm = inputs.nixpkgs.lib.nixosSystem {
