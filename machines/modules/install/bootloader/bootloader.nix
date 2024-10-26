@@ -1,4 +1,5 @@
 {
+  boot.supportedFilesystems = ["zfs"];
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;

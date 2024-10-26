@@ -9,31 +9,26 @@
   ...
 }:
 with config; {
-  imports = [
-    (modulesPath + "/installer/cd-dvd/iso-image.nix")
-  ];
   networking.hostName = "nixos-bootstrap"; # Define your hostname.
+  networking.hostId = "00000000"; # Set placeholder hostid to support zfs
 
-  services.tailscale_user.auth_key = "tskey-auth-kiYBxaz5rN11CNTRL-PXqYkPTojtGP5iNEkR3DxGLviJYB9e7A6";
+  # Authorize with tailscale as a bootstrap node
+  services.tailscale_user.auth_key = "tskey-auth-kfs4bEQARw11CNTRL-8K7HMdUxNdDrQeLETyBxZD86AeooWRu2";
 
-  networking.firewall = {
-    # enable the firewall
-    enable = true;
-
-    # always allow traffic from your Tailscale network
-    trustedInterfaces = ["tailscale0"];
-
-    # allow the Tailscale UDP port through the firewall
-    allowedUDPPorts = [config.services.tailscale.port];
-  };
+  # Enable sshd to generate root keys
   services.openssh = {
     enable = true;
     openFirewall = false;
   };
 
-  # Prebuild disko
+  # Enable zfs so disko install works
+  boot.supportedFilesystems = ["zfs"];
+
+  # Prebuild install packages
   environment.systemPackages = with pkgs; [
     disko
+    zfs
+    nix-output-monitor
   ];
 
   # This value determines the NixOS release from which the default
