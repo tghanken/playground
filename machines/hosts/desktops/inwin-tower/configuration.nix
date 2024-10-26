@@ -22,6 +22,7 @@ with config; {
 
   disko.devices = import ./devices.nix;
   boot.zfs.devNodes = "/dev/disk/by-partlabel";
+  customBoot.enable = true;
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];

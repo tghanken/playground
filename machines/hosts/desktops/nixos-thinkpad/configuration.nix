@@ -21,6 +21,7 @@ with config; {
 
   disko.devices = import ./devices.nix;
   boot.zfs.devNodes = "/dev/disk/by-label";
+  customBoot.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
