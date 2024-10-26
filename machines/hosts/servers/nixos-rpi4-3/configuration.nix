@@ -16,7 +16,7 @@ with config; {
   networking.hostId = "cb41623f"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
-  boot.zfs.devNodes = "/dev/disk/by-label";
+  pi4Mods.enable = true;
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 

@@ -16,7 +16,7 @@ with config; {
   networking.hostId = "f06fe3da"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
-  boot.zfs.devNodes = "/dev/disk/by-label";
+  pi3Mods.enable = true;
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
