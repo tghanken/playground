@@ -16,6 +16,7 @@ with config; {
   networking.hostId = "5433dcd9"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
+  customBoot.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
