@@ -34,6 +34,9 @@
       url = "github:nix-community/nixos-generators";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+    };
     flake-compat = {
       url = "github:edolstra/flake-compat";
     };
@@ -77,6 +80,7 @@
     disko,
     home-manager,
     nixos-generators,
+    nixos-hardware,
     # Rust Inputs
     rust-overlay,
     crane,

@@ -41,16 +41,36 @@ in {
 
       # Servers
       nixos-rpi3 = inputs.nixpkgs.lib.nixosSystem {
-        modules = [./hosts/servers/nixos-rpi3/configuration.nix] ++ server_mods;
+        modules =
+          [
+            ./hosts/servers/nixos-rpi3/configuration.nix
+            inputs.nixos-hardware.nixosModules.raspberry-pi-3
+          ]
+          ++ server_mods;
       };
       nixos-rpi4-1 = inputs.nixpkgs.lib.nixosSystem {
-        modules = [./hosts/servers/nixos-rpi4-1/configuration.nix] ++ server_mods;
+        modules =
+          [
+            ./hosts/servers/nixos-rpi4-1/configuration.nix
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+          ]
+          ++ server_mods;
       };
       nixos-rpi4-2 = inputs.nixpkgs.lib.nixosSystem {
-        modules = [./hosts/servers/nixos-rpi4-2/configuration.nix] ++ server_mods;
+        modules =
+          [
+            ./hosts/servers/nixos-rpi4-2/configuration.nix
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+          ]
+          ++ server_mods;
       };
       nixos-rpi4-3 = inputs.nixpkgs.lib.nixosSystem {
-        modules = [./hosts/servers/nixos-rpi4-3/configuration.nix] ++ server_mods;
+        modules =
+          [
+            ./hosts/servers/nixos-rpi4-3/configuration.nix
+            inputs.nixos-hardware.nixosModules.raspberry-pi-4
+          ]
+          ++ server_mods;
       };
       syno-vm = inputs.nixpkgs.lib.nixosSystem {
         modules = [./hosts/servers/syno-vm/configuration.nix] ++ install_mods;
