@@ -16,8 +16,6 @@ with config; {
   networking.hostName = "nixos-rpi3"; # Define your hostname.
   networking.hostId = "f06fe3da"; # Generate using `head -c 8 /etc/machine-id`
 
-  disko.devices = import ./devices.nix;
-
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
   # This value determines the NixOS release from which the default

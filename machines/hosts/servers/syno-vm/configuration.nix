@@ -15,10 +15,7 @@ with config; {
   networking.hostName = "syno-vm"; # Define your hostname.
   networking.hostId = "5433dcd9"; # Generate using `head -c 8 /etc/machine-id`
 
-  services.tailscale_user.auth_key = "tskey-auth-kfs4bEQARw11CNTRL-8K7HMdUxNdDrQeLETyBxZD86AeooWRu2";
-
   disko.devices = import ./devices.nix;
-  boot.zfs.devNodes = "/dev/disk/by-label";
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
