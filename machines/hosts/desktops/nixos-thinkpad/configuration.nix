@@ -20,7 +20,6 @@ with config; {
   networking.hostId = "a0d787a6"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
-  boot.zfs.devNodes = "/dev/disk/by-label";
   customBoot.enable = true;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
