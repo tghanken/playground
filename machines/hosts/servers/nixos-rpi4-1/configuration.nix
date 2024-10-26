@@ -10,6 +10,7 @@ with config; {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../../modules/hardware/pi4.nix
   ];
 
   networking.hostName = "nixos-rpi4-1"; # Define your hostname.
