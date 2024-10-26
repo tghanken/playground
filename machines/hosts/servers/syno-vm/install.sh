@@ -1,5 +1,4 @@
-sudo disko-install \
-    --flake 'github:tghanken/playground/10-17-chore_bootstrap_new_syno_vm#syno-vm' \
-    --disk boot /dev/sda;
-
-sudo zpool export zroot;
+nix run github:nix-community/nixos-anywhere -- \
+    --copy-host-keys \
+    --flake .#syno-vm \
+    root@192.168.20.96

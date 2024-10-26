@@ -10,13 +10,11 @@ with config; {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ../../../modules/hardware/raspberry-pi/pi3.nix
   ];
 
   networking.hostName = "nixos-rpi3"; # Define your hostname.
   networking.hostId = "f06fe3da"; # Generate using `head -c 8 /etc/machine-id`
-
-  disko.devices = import ./devices.nix;
-  boot.zfs.devNodes = "/dev/disk/by-label";
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 

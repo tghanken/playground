@@ -21,7 +21,7 @@ with config; {
   networking.hostId = "89cc1717"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
-  boot.zfs.devNodes = "/dev/disk/by-partlabel";
+  customBoot.enable = true;
   boot.loader.efi.canTouchEfiVariables = lib.mkForce false;
 
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
