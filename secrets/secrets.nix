@@ -12,7 +12,7 @@ let
   nixos-rpi4-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPjmoWsrAlSj2dkeURNNjkgPRPrsG5rOqUHwcbttTwh";
   nixos-rpi4-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDVqOLrhRi10BltaYhW9xPZaSUcNLMVJhRmqVKsK5rKU";
   nixos-rpi4-3 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIaE/D86AJWKvIswvuNmqy7LK4pZSWo4VGwbhYjR7OLg";
-  syno-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIH0LzRxCkCT1o1Tj5Atz4nSd4+bXVY5UvLNYdGEPfmK9";
+  syno-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILny1+6sCjDBG/yyNFQgMeZT4tT+10H7uSXftEUk2407";
 
   machines = [
     inwin-tower
