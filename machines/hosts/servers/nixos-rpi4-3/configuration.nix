@@ -10,14 +10,13 @@ with config; {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
-    ../../../modules/hardware/pi3.nix
+    ../../../modules/hardware/raspberry-pi/pi4.nix
   ];
 
   networking.hostName = "nixos-rpi4-3"; # Define your hostname.
   networking.hostId = "cb41623f"; # Generate using `head -c 8 /etc/machine-id`
 
   disko.devices = import ./devices.nix;
-  pi4Mods.enable = true;
 
   boot.binfmt.emulatedSystems = ["x86_64-linux"];
 
