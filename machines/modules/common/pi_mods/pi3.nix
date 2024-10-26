@@ -1,6 +1,7 @@
 {
   lib,
   config,
+  pkgs,
   ...
 }: let
   cfg = config.pi3Mods;
