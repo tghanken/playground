@@ -8,18 +8,25 @@
   modulesPath,
   ...
 }:
-with config; {
+with config; let
+  authorizedKeys = [
+    # user keys from secrets.nix
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICh921bOnrGEySjw/eRrUAj1UbV2sf1YIcm5X74r6gTh"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOHrxGPx3dgap4sUwWyHbQsMJiv9tSNG05BEMNkNLDZF"
+  ];
+in {
   networking.hostName = "nixos-bootstrap"; # Define your hostname.
   networking.hostId = "00000000"; # Set placeholder hostid to support zfs
 
   # Authorize with tailscale as a bootstrap node
-  services.tailscale_user.auth_key = "tskey-auth-kfs4bEQARw11CNTRL-8K7HMdUxNdDrQeLETyBxZD86AeooWRu2";
+  services.tailscale_user.auth_key = "TODO: tskey-auth-placeholder";
 
   # Enable sshd to generate root keys
   services.openssh = {
     enable = true;
-    openFirewall = false;
+    openFirewall = true;
   };
+  users.users.root.openssh.authorizedKeys.keys = authorizedKeys;
 
   # Enable zfs so disko install works
   boot.supportedFilesystems = ["zfs"];
