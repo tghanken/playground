@@ -9,6 +9,7 @@ let
   # Add machine keys from /etc/ssh
   inwin-tower = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAII/iE8w8saXDau1F/BQ5IktJPQO3MhRT1+1e5UsQt/n0";
   nixos-thinkpad = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEiccufbIo8bYbn5n7PpR1IAFmup53P6nn8IyYfkJfd0";
+  nixos-rpi4-1 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIFPjmoWsrAlSj2dkeURNNjkgPRPrsG5rOqUHwcbttTwh";
   nixos-rpi4-2 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDVqOLrhRi10BltaYhW9xPZaSUcNLMVJhRmqVKsK5rKU";
   nixos-rpi4-3 = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIaE/D86AJWKvIswvuNmqy7LK4pZSWo4VGwbhYjR7OLg";
   syno-vm = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOnjOGfqp5KqJ7CAIS8TQNtLkxPB5ObPbosSgXAyN8FS";
@@ -16,6 +17,7 @@ let
   machines = [
     inwin-tower
     nixos-thinkpad
+    nixos-rpi4-1
     nixos-rpi4-2
     nixos-rpi4-3
     syno-vm
