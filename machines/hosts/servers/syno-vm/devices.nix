@@ -84,10 +84,6 @@
           type = "zfs_fs";
           mountpoint = "/home";
         };
-        steam = {
-          type = "zfs_fs";
-          mountpoint = "/mnt/steam";
-        };
         reserved = {
           type = "zfs_fs";
           options.refreservation = "10G";
