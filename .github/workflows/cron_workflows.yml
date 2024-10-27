@@ -18,6 +18,12 @@ jobs:
           extra-conf: |
             substituters = https://nix-community.cachix.org https://cache.garnix.io https://cache.nixos.org/
             trusted-public-keys = cache.nixos.org-1:6NCHdD59X431o0gWypbMrAURkbJ16ZPMQFGspcDShjY= nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs= cache.garnix.io:CTFPyKSLcx5RMJKfLo5EEPUObbA78b0YQ2DTCJXqr9g=
+      - name: 🎟 Get GitHub App token
+        uses: navikt/github-app-token-generator@b96ff604b2300989cd1105e3fad09199fca56681
+        id: get-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_APP_PRIVATE_KEY }}
       - name: 🔒 Update flake.lock
         uses: DeterminateSystems/update-flake-lock@main
         with:
@@ -25,3 +31,4 @@ jobs:
           pr-labels: |
             dependencies
             automated
+          token: ${{ steps.get-token.outputs.token }}
