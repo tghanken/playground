@@ -16,24 +16,24 @@
   hosts = [
     {
       hostName = "nixos-thinkpad";
-      speedFactor = -1;
+      speedFactor = 2;
     }
-    {hostName = "inwin-tower";}
+    {
+      hostName = "inwin-tower";
+      speedFactor = 3;
+    }
     {
       hostName = "nixos-rpi4-1";
-      speedFactor = -8;
     }
     {
       hostName = "nixos-rpi4-2";
-      speedFactor = -8;
     }
     {
       hostName = "nixos-rpi4-3";
-      speedFactor = -8;
     }
     {
       hostName = "syno-vm";
-      speedFactor = -4;
+      speedFactor = 1;
     }
   ];
   filtered_hosts = builtins.filter (host: config.networking.hostName != host.hostName) hosts;
