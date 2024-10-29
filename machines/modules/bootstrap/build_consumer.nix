@@ -3,54 +3,56 @@
   lib,
   pkgs,
   ...
-}: {
-  nix.buildMachines = [
+}: let
+  defaultBuildConfig = {
+    sshUser = "nixbuilder";
+    systems = ["x86_64-linux" "aarch64-linux"];
+    protocol = "ssh";
+    maxJobs = 8;
+    speedFactor = 0;
+    supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
+    mandatoryFeatures = [];
+  };
+  hosts = [
     {
       hostName = "nixos-thinkpad";
-      sshUser = "nixbuilder";
-      systems = ["x86_64-linux" "aarch64-linux"];
-      protocol = "ssh";
-      maxJobs = 8;
-      speedFactor = 0;
-      supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-      mandatoryFeatures = [];
+      speedFactor = 2;
     }
     {
       hostName = "inwin-tower";
-      sshUser = "nixbuilder";
-      systems = ["x86_64-linux" "aarch64-linux"];
-      protocol = "ssh";
-      maxJobs = 8;
-      speedFactor = 0;
-      supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
-      mandatoryFeatures = [];
+      speedFactor = 3;
+    }
+    {
+      hostName = "nixos-rpi4-1";
+    }
+    {
+      hostName = "nixos-rpi4-2";
+    }
+    {
+      hostName = "nixos-rpi4-3";
+    }
+    {
+      hostName = "syno-vm";
+      speedFactor = 1;
     }
   ];
-  nix.settings.substituters = [
-    (
-      if (config.networking.hostName != "nixos-thinkpad")
-      then "http://nixos-thinkpad.myth-chameleon.ts.net:16893"
-      else ""
-    )
-    (
-      if (config.networking.hostName != "inwin-tower")
-      then "http://inwin-tower.myth-chameleon.ts.net:16893"
-      else ""
-    )
-  ];
-  programs.ssh.extraConfig = ''
-    Host nixos-thinkpad
-      StrictHostKeyChecking no
-      UpdateHostkeys yes
-      ConnectTimeout=1
-      ConnectionAttempts=1
-
-    Host inwin-tower
+  filtered_hosts = builtins.filter (host: config.networking.hostName != host.hostName) hosts;
+  build_hosts = builtins.map (host: defaultBuildConfig // host) filtered_hosts;
+  substituters = builtins.map (host: "http://${host.hostName}.myth-chameleon.ts.net:16893") filtered_hosts;
+  sshHostsConfig =
+    builtins.map (host: ''
+      Host ${host.hostName}
         StrictHostKeyChecking no
         UpdateHostkeys yes
         ConnectTimeout=1
         ConnectionAttempts=1
-  '';
+    '')
+    filtered_hosts;
+  sshConfigString = lib.concatStringsSep "\n" sshHostsConfig;
+in {
+  nix.buildMachines = build_hosts;
+  nix.settings.substituters = substituters;
+  programs.ssh.extraConfig = sshConfigString;
 
   nix.distributedBuilds = true;
   nix.settings = {
