@@ -39,14 +39,16 @@
   filtered_hosts = builtins.filter (host: config.networking.hostName != host.hostName) hosts;
   build_hosts = builtins.map (host: defaultBuildConfig // host) filtered_hosts;
   substituters = builtins.map (host: "http://${host.hostName}.myth-chameleon.ts.net:16893") filtered_hosts;
-  baseSSHConfig = ''
-    StrictHostKeyChecking no
-    UpdateHostkeys yes
-    ConnectTimeout=1
-    ConnectionAttempts=1
-  '';
-  sshHosts = builtins.map (host: "Host ${host.hostName}") filtered_hosts;
-  sshConfigString = lib.concatStringsSep "\n\n" (builtins.map (host: "${host}\n${baseSSHConfig}") sshHosts);
+  sshHostsConfig =
+    builtins.map (host: ''
+      Host ${host.hostName}
+        StrictHostKeyChecking no
+        UpdateHostkeys yes
+        ConnectTimeout=1
+        ConnectionAttempts=1
+    '')
+    filtered_hosts;
+  sshConfigString = lib.concatStringsSep "\n" sshHostsConfig;
 in {
   nix.buildMachines = build_hosts;
   nix.settings.substituters = substituters;
