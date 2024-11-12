@@ -8,13 +8,13 @@ in {
   virtualisation.docker = {
     enable = true;
     rootless = {
-      enable = true;
+      enable = false;
       setSocketVariable = true;
     };
     storageDriver = lib.mkIf cfg.enable "zfs";
     autoPrune = {
       enable = true;
-      flags = ["--all"];
+      flags = [];
     };
   };
 }
