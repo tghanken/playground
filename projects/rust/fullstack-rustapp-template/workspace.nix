@@ -289,6 +289,7 @@
           just
           flyctl
           watchexec
+          bacon
           git-lfs
         ];
       };
