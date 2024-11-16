@@ -5,6 +5,7 @@ export default {
     mode: "all",
     content: [
         "./src/**/*.{rs,html,css,js,ts}",
+        "./src_ts/**/*.{html,css,js,ts}",
         "./dist/**/*.html",
         "./templates/**/*.html"
     ],
@@ -12,5 +13,8 @@ export default {
         extend: {},
     },
     plugins: [daisyui],
-    daisyui: {},
+    daisyui: {
+        themes: ['nord', 'business']
+    },
+    darkMode: ['selector', '[data-theme="business"]']
 } satisfies Config
