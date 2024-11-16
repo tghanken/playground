@@ -5,7 +5,6 @@ use crate::{
     ApplicationMetadata, MANIFEST_DATA, ManifestData, PageDetails, PageMetadata, SentryData,
 };
 use crate::utils::languages::SupportedLanguage;
-use crate::utils::make_asset_vector;
 
 #[derive(Template)]
 #[template(path = "pages/themes.html")]

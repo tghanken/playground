@@ -63,7 +63,7 @@ struct PageDetails<'a> {
 static MANIFEST_DATA: LazyLock<ManifestData> = LazyLock::new(|| {
     let manifest_path = std::env::var("VITE_MANIFEST_PATH")
         .expect("VITE_MANIFEST_PATH environment variable must be set");
-    let manifest_str = std::fs::read_to_string(manifest_path.to_string()).expect("Cannot read the vite manifest");
+    let manifest_str = std::fs::read_to_string(&manifest_path).expect("Cannot read the vite manifest");
     let parsed_manifest = get_vite_references_str(manifest_str.as_str()).expect("Cannot parse the vite manifest");
     let stylesheets = make_asset_vector(parsed_manifest.css_files.clone());
     let scripts = make_asset_vector(parsed_manifest.js_files.clone());
