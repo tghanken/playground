@@ -38,11 +38,8 @@ in
 
         mkdir -p $sourcemaps/sourcemaps
         mv $assets/assets/*.js.map $sourcemaps/sourcemaps
-
-        mkdir -p $node_modules/node_modules
-        cp -r ./node_modules $node_modules
       '';
-      outputs = ["out" "manifest" "assets" "sourcemaps" "node_modules"];
+      outputs = ["out" "manifest" "assets" "sourcemaps"];
     };
 
     deps = {nixpkgs, ...}: {
