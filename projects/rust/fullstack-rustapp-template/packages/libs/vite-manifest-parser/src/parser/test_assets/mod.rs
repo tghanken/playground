@@ -1,17 +1,16 @@
 use std::collections::{HashMap, HashSet};
 use std::path::PathBuf;
-
-use once_cell::sync::Lazy;
+use std::sync::LazyLock;
 
 use crate::parser::{InternalManifest, InternalManifestDetails};
 
-pub static SIMPLE_MANIFEST_PATH: Lazy<PathBuf> =
-    Lazy::new(|| PathBuf::from("src/parser/test_assets/assets/simple_manifest.json"));
+pub static SIMPLE_MANIFEST_PATH: LazyLock<PathBuf> =
+    LazyLock::new(|| PathBuf::from("src/parser/test_assets/assets/simple_manifest.json"));
 pub const SIMPLE_MANIFEST_JSON_PRETTY: &str = include_str!("./assets/simple_manifest.json");
-pub static SIMPLE_MANIFEST_CSS: Lazy<HashSet<String>> =
-    Lazy::new(|| HashSet::from_iter(vec!["shared-ChJ_j-JJ.css".to_string()]));
-pub static SIMPLE_MANIFEST_JS: Lazy<HashSet<String>> = Lazy::new(|| HashSet::from_iter(vec![]));
-pub static SIMPLE_MANIFEST: Lazy<InternalManifest> = Lazy::new(|| {
+pub static SIMPLE_MANIFEST_CSS: LazyLock<HashSet<String>> =
+    LazyLock::new(|| HashSet::from_iter(vec!["shared-ChJ_j-JJ.css".to_string()]));
+pub static SIMPLE_MANIFEST_JS: LazyLock<HashSet<String>> = LazyLock::new(|| HashSet::from_iter(vec![]));
+pub static SIMPLE_MANIFEST: LazyLock<InternalManifest> = LazyLock::new(|| {
     let mut bundles = HashMap::new();
 
     bundles.insert(
@@ -31,16 +30,16 @@ pub static SIMPLE_MANIFEST: Lazy<InternalManifest> = Lazy::new(|| {
     InternalManifest { bundles }
 });
 
-pub static COMPLEX_MANIFEST_PATH: Lazy<PathBuf> =
-    Lazy::new(|| PathBuf::from("src/parser/test_assets/assets/complex_manifest.json"));
+pub static COMPLEX_MANIFEST_PATH: LazyLock<PathBuf> =
+    LazyLock::new(|| PathBuf::from("src/parser/test_assets/assets/complex_manifest.json"));
 pub const COMPLEX_MANIFEST_JSON_PRETTY: &str = include_str!("./assets/complex_manifest.json");
-pub static COMPLEX_MANIFEST_CSS: Lazy<HashSet<String>> = Lazy::new(|| {
+pub static COMPLEX_MANIFEST_CSS: LazyLock<HashSet<String>> = LazyLock::new(|| {
     HashSet::from_iter(vec![
         "foo-5UjPuW-k.css".to_string(),
         "shared-ChJ_j-JJ.css".to_string(),
     ])
 });
-pub static COMPLEX_MANIFEST_JS: Lazy<HashSet<String>> = Lazy::new(|| {
+pub static COMPLEX_MANIFEST_JS: LazyLock<HashSet<String>> = LazyLock::new(|| {
     HashSet::from_iter(vec![
         "baz-B2H3sXNv.js".to_string(),
         "bar-gkvgaI9m.js".to_string(),
@@ -48,7 +47,7 @@ pub static COMPLEX_MANIFEST_JS: Lazy<HashSet<String>> = Lazy::new(|| {
         "foo-BRBmoGS9.js".to_string(),
     ])
 });
-pub static COMPLEX_MANIFEST: Lazy<InternalManifest> = Lazy::new(|| {
+pub static COMPLEX_MANIFEST: LazyLock<InternalManifest> = LazyLock::new(|| {
     let mut bundles = SIMPLE_MANIFEST.bundles.clone();
 
     bundles.insert(
