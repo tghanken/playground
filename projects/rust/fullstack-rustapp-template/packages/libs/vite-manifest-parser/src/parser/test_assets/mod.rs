@@ -9,7 +9,8 @@ pub static SIMPLE_MANIFEST_PATH: LazyLock<PathBuf> =
 pub const SIMPLE_MANIFEST_JSON_PRETTY: &str = include_str!("./assets/simple_manifest.json");
 pub static SIMPLE_MANIFEST_CSS: LazyLock<HashSet<String>> =
     LazyLock::new(|| HashSet::from_iter(vec!["shared-ChJ_j-JJ.css".to_string()]));
-pub static SIMPLE_MANIFEST_JS: LazyLock<HashSet<String>> = LazyLock::new(|| HashSet::from_iter(vec![]));
+pub static SIMPLE_MANIFEST_JS: LazyLock<HashSet<String>> =
+    LazyLock::new(|| HashSet::from_iter(vec![]));
 pub static SIMPLE_MANIFEST: LazyLock<InternalManifest> = LazyLock::new(|| {
     let mut bundles = HashMap::new();
 
