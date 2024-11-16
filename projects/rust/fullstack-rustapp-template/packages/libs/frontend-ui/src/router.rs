@@ -12,6 +12,7 @@ fn get_static_router() -> Router {
 pub fn get_router() -> Router {
     Router::new()
         .route("/", get(crate::pages::dashboard::render_dashboard))
+        .route("/themes", get(crate::pages::themes::render_themes))
         .route("/healthz", get(healthz))
         .nest("/assets", get_static_router())
 }

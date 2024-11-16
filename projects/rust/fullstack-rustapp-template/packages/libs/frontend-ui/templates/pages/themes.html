@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card p-4 bg-red-200 card-bordered flex grow">
+    <div class="card-body flex flex-row grow">
+        <div data-theme="clight" class="card card-bordered grow">
+            <div class="card-body">
+                <div class="card-title">This is the light theme</div>
+                <button class="btn btn-primary">Primary<div class="badge badge-accent">99</div></button>
+                <button class="btn btn-secondary">Secondary<div class="badge badge-accent">99</div></button>
+                <button class="btn btn-accent">Accent</button>
+                <button class="btn btn-neutral">Neutral<div class="badge badge-accent">99</div></button>
+                <button class="btn btn-info">Info</button>
+                <button class="btn btn-success">Success</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-error">Error</button>
+                <div class="bg-base-100">Base-100</div>
+                <div class="bg-base-200">Base-200</div>
+                <div class="bg-base-300">Base-300</div>
+            </div>
+        </div>
+        <div data-theme="cdark" class="card card-bordered grow">
+            <div class="card-body">
+                <div class="card-title">This is the dark theme</div>
+                <button class="btn btn-primary">Primary<div class="badge badge-accent">99</div></button>
+                <button class="btn btn-secondary">Secondary<div class="badge badge-accent">99</div></button>
+                <button class="btn btn-accent">Accent</button>
+                <button class="btn btn-neutral">Neutral<div class="badge badge-accent">99</div></button>
+                <button class="btn btn-info">Info</button>
+                <button class="btn btn-success">Success</button>
+                <button class="btn btn-warning">Warning</button>
+                <button class="btn btn-error">Error</button>
+                <div class="bg-base-100">Base-100</div>
+                <div class="bg-base-200">Base-200</div>
+                <div class="bg-base-300">Base-300</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}
