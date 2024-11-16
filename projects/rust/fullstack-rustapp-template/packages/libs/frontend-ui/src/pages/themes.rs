@@ -1,8 +1,10 @@
-use crate::utils::languages::SupportedLanguage;
-use crate::utils::make_asset_vector;
-use crate::{ApplicationMetadata, ManifestData, PageDetails, PageMetadata, SentryData, MANIFESTS};
 use askama::Template;
 use askama_axum::IntoResponse;
+
+use crate::utils::languages::SupportedLanguage;
+use crate::{
+    ApplicationMetadata, ManifestData, PageDetails, PageMetadata, SentryData, MANIFEST_DATA,
+};
 
 #[derive(Template)]
 #[template(path = "pages/themes.html")]
@@ -24,8 +26,8 @@ pub async fn render_themes() -> impl IntoResponse {
                 lang: SupportedLanguage::English,
             },
             manifest_data: ManifestData {
-                stylesheets: make_asset_vector(MANIFESTS.css_files.clone()),
-                scripts: make_asset_vector(MANIFESTS.js_files.clone()),
+                stylesheets: Vec::from(&*MANIFEST_DATA.stylesheets),
+                scripts: Vec::from(&*MANIFEST_DATA.scripts),
             },
         },
     }

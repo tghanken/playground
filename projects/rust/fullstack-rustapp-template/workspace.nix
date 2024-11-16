@@ -50,11 +50,7 @@
       };
 
       # Common arguments can be set here to avoid repeating them later
-      commonArgs =
-        baseArgs
-        // {
-          VITE_MANIFEST_PATH = "${vite-manifests}/manifest/manifest.json";
-        };
+      commonArgs = baseArgs;
 
       workspaceHackSource = lib.fileset.toSource {
         root = ./.;
@@ -156,24 +152,18 @@
       dockerImage = pkgs.dockerTools.streamLayeredImage {
         name = "fullstack-rustapp-server";
         tag = "latest";
-        contents = [
-          server
-          vite-runtime-files
-        ];
         config = {
           Cmd = ["${server}/bin/server"];
+          Env = ["VITE_MANIFEST_PATH=${vite-manifests}/manifest/manifest.json"];
         };
       };
 
       dockerDevImage = pkgs.dockerTools.streamLayeredImage {
         name = "fullstack-rustapp-server";
         tag = "latest";
-        contents = [
-          devServer
-          vite-runtime-files
-        ];
         config = {
           Cmd = ["${devServer}/bin/server"];
+          Env = ["VITE_MANIFEST_PATH=${vite-manifests}/manifest/manifest.json"];
         };
       };
     in {

@@ -43,9 +43,7 @@ const cdark = {
 export default {
     mode: "all",
     content: [
-        "./src/**/*.{rs,html,css,js,ts}",
-        "./src_ts/**/*.{html,css,js,ts}",
-        "./dist/**/*.html",
+        "./src_ts/**/*.ts",
         "./templates/**/*.html"
     ],
     theme: {

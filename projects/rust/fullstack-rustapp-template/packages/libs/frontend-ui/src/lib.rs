@@ -1,10 +1,14 @@
+use std::clone::Clone;
+use std::sync::LazyLock;
+
+use vite_manifest_parser::get_vite_references_str;
+
+use crate::utils::languages::SupportedLanguage;
+use crate::utils::make_asset_vector;
+
 pub mod pages;
 pub mod router;
 mod utils;
-
-use crate::utils::languages::SupportedLanguage;
-use once_cell::sync::Lazy;
-use vite_manifest_parser::{get_vite_references_str, ViteReferences};
 
 struct ApplicationMetadata {
     name: &'static str,
@@ -56,7 +60,17 @@ struct PageDetails<'a> {
     manifest_data: ManifestData,
 }
 
-static MANIFEST_STR: &str = include_str!(env!("VITE_MANIFEST_PATH"));
-
-static MANIFESTS: Lazy<ViteReferences> =
-    Lazy::new(|| get_vite_references_str(MANIFEST_STR).unwrap());
+static MANIFEST_DATA: LazyLock<ManifestData> = LazyLock::new(|| {
+    let manifest_path = std::env::var("VITE_MANIFEST_PATH")
+        .expect("VITE_MANIFEST_PATH environment variable must be set");
+    let manifest_str =
+        std::fs::read_to_string(&manifest_path).expect("Cannot read the vite manifest");
+    let parsed_manifest =
+        get_vite_references_str(manifest_str.as_str()).expect("Cannot parse the vite manifest");
+    let stylesheets = make_asset_vector(parsed_manifest.css_files.clone());
+    let scripts = make_asset_vector(parsed_manifest.js_files.clone());
+    ManifestData {
+        stylesheets,
+        scripts,
+    }
+});
