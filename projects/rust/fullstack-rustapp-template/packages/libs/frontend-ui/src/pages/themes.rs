@@ -7,7 +7,7 @@ use crate::{
 };
 
 #[derive(Template)]
-#[template(path = "pages/themes.html")]
+#[template(path = "application/pages/themes.html")]
 struct Themes<'a> {
     page_details: PageDetails<'a>,
 }
