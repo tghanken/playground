@@ -52,7 +52,6 @@ tracing-subscriber = { version = "0.3.18" }
 # Utilities
 config = { version = "0.14.0" }
 derive_more = { version = "1.0.0" }
-once_cell = { version = "1.19.0" }
 
 # Testing
 claims = { version = "0.7.1" }

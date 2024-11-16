@@ -631,7 +631,6 @@ dependencies = [
  "askama_axum",
  "axum",
  "my-workspace-hack",
- "once_cell",
  "sentry",
  "tower-http",
  "tracing",
@@ -1206,6 +1205,7 @@ dependencies = [
  "minimal-lexical",
  "nom",
  "num-traits",
+ "once_cell",
  "proc-macro2",
  "quote",
  "rand",
@@ -2862,7 +2862,6 @@ name = "vite-manifest-parser"
 version = "0.1.0"
 dependencies = [
  "my-workspace-hack",
- "once_cell",
  "proptest",
  "serde",
  "serde_json",
