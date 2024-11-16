@@ -36,6 +36,7 @@ mime_guess = { version = "2" }
 minimal-lexical = { version = "0.2", default-features = false, features = ["std"] }
 nom = { version = "7" }
 num-traits = { version = "0.2", features = ["libm"] }
+once_cell = { version = "1" }
 rand = { version = "0.8" }
 regex = { version = "1", default-features = false, features = ["std", "unicode-case", "unicode-perl"] }
 regex-automata = { version = "0.4", default-features = false, features = ["meta", "std", "unicode-case", "unicode-perl", "unicode-word-boundary"] }
@@ -79,6 +80,7 @@ mime_guess = { version = "2" }
 minimal-lexical = { version = "0.2", default-features = false, features = ["std"] }
 nom = { version = "7" }
 num-traits = { version = "0.2", features = ["libm"] }
+once_cell = { version = "1" }
 proc-macro2 = { version = "1" }
 quote = { version = "1" }
 rand = { version = "0.8" }
