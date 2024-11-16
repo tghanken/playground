@@ -1,10 +1,10 @@
 use askama::Template;
 use askama_axum::IntoResponse;
 
-use crate::{
-    ApplicationMetadata, MANIFEST_DATA, ManifestData, PageDetails, PageMetadata, SentryData,
-};
 use crate::utils::languages::SupportedLanguage;
+use crate::{
+    ApplicationMetadata, ManifestData, PageDetails, PageMetadata, SentryData, MANIFEST_DATA,
+};
 
 #[derive(Template)]
 #[template(path = "pages/themes.html")]
