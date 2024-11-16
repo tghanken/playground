@@ -10,7 +10,7 @@ export default defineConfig({
         manifest: true,
         sourcemap: "hidden",
         rollupOptions: {
-            input: ['./src/main.ts', './src/sentry.ts'],
+            input: ['./src_ts/main.ts', './src_ts/sentry.ts'],
         }
     },
     plugins: [
