@@ -28,7 +28,7 @@
 </head>
 <body>
 <div id="content" class="bg-base-100">
-    {% include "application/components/header.html" %}
+    {% include "application/components/header.askama" %}
     {% block content %}
     <p>Placeholder content</p>
     {% endblock content %}

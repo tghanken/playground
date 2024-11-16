@@ -1,4 +1,4 @@
-{% extends "application/base.html" %}
+{% extends "application/base.askama" %}
 
 {% block content %}
 <div> Hello, world! This is a dashboard page!</div>
