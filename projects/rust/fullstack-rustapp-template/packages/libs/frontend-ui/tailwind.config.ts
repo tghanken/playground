@@ -51,7 +51,8 @@ export default {
     },
     plugins: [daisyui],
     daisyui: {
-        themes: [clight, cdark]
+        themes: [clight, cdark],
+        darkTheme: "cdark",
     },
     darkMode: ['selector', '[data-theme="cdark"]']
 } satisfies Config
