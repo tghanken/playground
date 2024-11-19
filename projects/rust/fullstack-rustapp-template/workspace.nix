@@ -152,6 +152,9 @@
       dockerImage = pkgs.dockerTools.streamLayeredImage {
         name = "fullstack-rustapp-server";
         tag = "latest";
+        contents = [
+          vite-runtime-files
+        ];
         config = {
           Cmd = ["${server}/bin/server"];
           Env = ["VITE_MANIFEST_PATH=${vite-manifests}/manifest/manifest.json"];
@@ -161,6 +164,9 @@
       dockerDevImage = pkgs.dockerTools.streamLayeredImage {
         name = "fullstack-rustapp-server";
         tag = "latest";
+        contents = [
+          vite-runtime-files
+        ];
         config = {
           Cmd = ["${devServer}/bin/server"];
           Env = ["VITE_MANIFEST_PATH=${vite-manifests}/manifest/manifest.json"];
