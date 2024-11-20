@@ -11,6 +11,7 @@ normal = ["my-workspace-hack"]
 [dependencies]
 askama = { workspace = true }
 askama_axum = { workspace = true }
+axum-extra = { workspace = true, features = ["typed-routing"] }
 axum = { workspace = true }
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
 sentry = { workspace = true }

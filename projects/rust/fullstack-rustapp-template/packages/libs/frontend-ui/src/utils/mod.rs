@@ -1,10 +1,12 @@
 use std::collections::HashSet;
 
+use crate::pages::StaticDirectories;
+
 pub mod languages;
 
 #[tracing::instrument]
 pub fn make_asset_vector(paths: HashSet<String>) -> Vec<String> {
-    let base_path = "/assets";
+    let base_path = StaticDirectories::VITE_ASSETS;
 
     let mut assets = Vec::new();
     for path in paths {

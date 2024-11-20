@@ -1,10 +1,38 @@
 use askama::Template;
 use askama_axum::IntoResponse;
+use axum_extra::routing::TypedPath;
 
-use crate::utils::languages::SupportedLanguage;
 use crate::{
-    ApplicationMetadata, ManifestData, PageDetails, PageMetadata, SentryData, MANIFEST_DATA,
+    ApplicationMetadata, MANIFEST_DATA, ManifestData, PageDetails, PageMetadata, SentryData,
 };
+use crate::pages::ApplicationPages;
+use crate::utils::languages::SupportedLanguage;
+
+pub struct DashboardPageInfo {
+    route: DashboardRoute,
+    icon: &'static str,
+}
+
+impl DashboardPageInfo {
+    pub fn get_route(&self) -> &DashboardRoute {
+        &self.route
+    }
+
+    pub fn get_icon(&self) -> &'static str {
+        &self.icon
+    }
+}
+
+impl ApplicationPages {
+    pub const DASHBOARD: DashboardPageInfo = DashboardPageInfo {
+        route: DashboardRoute,
+        icon: "graph",
+    };
+}
+
+#[derive(TypedPath)]
+#[typed_path("/")]
+pub struct DashboardRoute;
 
 #[derive(Template)]
 #[template(path = "application/pages/dashboard.html")]
@@ -13,7 +41,7 @@ struct Dashboard<'a> {
 }
 
 #[tracing::instrument]
-pub async fn render_dashboard() -> impl IntoResponse {
+pub async fn render_dashboard(_: DashboardRoute) -> impl IntoResponse {
     tracing::info!("Rendering dashboard");
     Dashboard {
         page_details: PageDetails {
