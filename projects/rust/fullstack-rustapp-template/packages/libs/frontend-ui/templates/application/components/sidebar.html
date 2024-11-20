@@ -1,22 +1,24 @@
-<li>
-  <a href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
-    {{ crate::pages::ApplicationPages::DASHBOARD.title }}
-  </a>
-</li>
-<li>
-  <details open>
-    <summary>Utilities</summary>
-    <ul>
-      <li>
-        <a href="{{ crate::pages::ApplicationPages::THEMES.route.to_string() }}">
-          {{ crate::pages::ApplicationPages::THEMES.title }}
-        </a>
-      </li>
-      <li>
-        <a href="{{ crate::pages::StaticRoutes::HEALTHZ.to_string() }}">
-          Health Check
-        </a>
-      </li>
-    </ul>
-  </details>
-</li>
+<ul class="menu bg-base-200 text-base-content min-h-full w-60 p-4">
+  <li>
+    <a href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
+      {{ crate::pages::ApplicationPages::DASHBOARD.title }}
+    </a>
+  </li>
+  <li>
+    <details open>
+      <summary>Utilities</summary>
+      <ul>
+        <li>
+          <a href="{{ crate::pages::ApplicationPages::THEMES.route.to_string() }}">
+            {{ crate::pages::ApplicationPages::THEMES.title }}
+          </a>
+        </li>
+        <li>
+          <a href="{{ crate::pages::StaticRoutes::HEALTHZ.to_string() }}">
+            Health Check
+          </a>
+        </li>
+      </ul>
+    </details>
+  </li>
+</ul>
