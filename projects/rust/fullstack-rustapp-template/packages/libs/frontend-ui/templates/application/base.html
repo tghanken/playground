@@ -7,6 +7,8 @@
     <div class="drawer-content flex flex-col p-2">
       <div class="rounded-xl bg-base-100 p-2 h-full">
         {% include "application/components/breadcrumbs.html" %}
+        {% block content %}
+        {% endblock content %}
       </div>
     </div>
     <div class="drawer-side">
