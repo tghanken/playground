@@ -1,6 +1,7 @@
 use axum::Router;
 use axum_extra::routing::{RouterExt, TypedPath};
 use tower_http::services::ServeDir;
+use crate::pages;
 
 use crate::pages::StaticDirectories;
 
@@ -14,8 +15,7 @@ fn get_static_router() -> Router {
 #[tracing::instrument]
 pub fn get_router() -> Router {
     Router::new()
-        .typed_get(crate::pages::dashboard::render_dashboard)
-        .typed_get(crate::pages::themes::render_themes)
+        .nest("/", pages::application::get_router())
         .typed_get(healthz)
         .nest(StaticDirectories::VITE_ASSETS, get_static_router())
 }
@@ -31,7 +31,7 @@ async fn healthz(_: HealthzRoute) {
 
 #[cfg(test)]
 mod test {
-    use crate::router::get_router;
+    use super::*;
 
     #[test]
     fn router_doesnt_panic() {

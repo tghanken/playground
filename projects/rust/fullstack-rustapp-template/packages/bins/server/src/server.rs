@@ -1,7 +1,8 @@
-use crate::middleware;
 use axum::Router;
 use snafu::prelude::*;
 use tokio::net::TcpListener;
+
+use crate::middleware;
 
 #[derive(Debug, Clone)]
 pub struct HttpServer {
@@ -28,7 +29,7 @@ impl HttpServer {
     #[tracing::instrument]
     pub fn new() -> Self {
         // let config = todo!();
-        let router = frontend_ui::router::get_router();
+        let router = frontend_ui::get_router();
         let router = middleware::add_middlewares(router);
 
         Self { router }

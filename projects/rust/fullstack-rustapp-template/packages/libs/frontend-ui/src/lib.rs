@@ -5,9 +5,9 @@ use vite_manifest_parser::get_vite_references_str;
 
 use crate::utils::languages::SupportedLanguage;
 use crate::utils::make_asset_vector;
+pub use pages::get_router;
 
 pub mod pages;
-pub mod router;
 mod utils;
 
 struct ApplicationMetadata {

@@ -1,5 +1,6 @@
-pub mod dashboard;
-pub mod themes;
+mod application;
+mod router;
+pub use router::get_router;
 
 #[non_exhaustive]
 pub struct ApplicationPages;
