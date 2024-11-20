@@ -9,22 +9,14 @@ use crate::pages::ApplicationPages;
 use crate::utils::languages::SupportedLanguage;
 
 pub struct ThemePageInfo {
-    route: ThemeRoute,
-    icon: &'static str,
-}
-
-impl ThemePageInfo {
-    pub fn get_route(&self) -> &ThemeRoute {
-        &self.route
-    }
-
-    pub fn get_icon(&self) -> &'static str {
-        &self.icon
-    }
+    pub route: ThemeRoute,
+    pub title: &'static str,
+    pub icon: &'static str,
 }
 
 impl ApplicationPages {
     pub const THEMES: ThemePageInfo = ThemePageInfo {
+        title: "Themes",
         route: ThemeRoute,
         icon: "art",
     };

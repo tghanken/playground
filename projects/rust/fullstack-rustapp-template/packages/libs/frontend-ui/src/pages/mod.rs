@@ -6,8 +6,8 @@ pub use router::get_router;
 pub struct ApplicationPages;
 
 #[non_exhaustive]
-pub struct StaticDirectories;
+pub struct StaticRoutes;
 
-impl StaticDirectories {
+impl StaticRoutes {
     pub const VITE_ASSETS: &'static str = "/assets";
 }

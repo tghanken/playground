@@ -3,7 +3,7 @@ use axum_extra::routing::{RouterExt, TypedPath};
 use tower_http::services::ServeDir;
 use crate::pages;
 
-use crate::pages::StaticDirectories;
+use crate::pages::StaticRoutes;
 
 #[tracing::instrument]
 fn get_static_router() -> Router {
@@ -17,12 +17,16 @@ pub fn get_router() -> Router {
     Router::new()
         .nest("/", pages::application::get_router())
         .typed_get(healthz)
-        .nest(StaticDirectories::VITE_ASSETS, get_static_router())
+        .nest(StaticRoutes::VITE_ASSETS, get_static_router())
 }
 
 #[derive(TypedPath)]
 #[typed_path("/healthz")]
-struct HealthzRoute;
+pub struct HealthzRoute;
+
+impl StaticRoutes {
+    pub const HEALTHZ: HealthzRoute = HealthzRoute;
+}
 
 #[tracing::instrument(level = "debug")]
 async fn healthz(_: HealthzRoute) {

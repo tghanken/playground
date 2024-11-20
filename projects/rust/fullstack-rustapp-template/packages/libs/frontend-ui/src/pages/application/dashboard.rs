@@ -9,22 +9,14 @@ use crate::pages::ApplicationPages;
 use crate::utils::languages::SupportedLanguage;
 
 pub struct DashboardPageInfo {
-    route: DashboardRoute,
-    icon: &'static str,
-}
-
-impl DashboardPageInfo {
-    pub fn get_route(&self) -> &DashboardRoute {
-        &self.route
-    }
-
-    pub fn get_icon(&self) -> &'static str {
-        &self.icon
-    }
+    pub route: DashboardRoute,
+    pub title: &'static str,
+    pub icon: &'static str,
 }
 
 impl ApplicationPages {
     pub const DASHBOARD: DashboardPageInfo = DashboardPageInfo {
+        title: "Dashboard",
         route: DashboardRoute,
         icon: "graph",
     };

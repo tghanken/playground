@@ -1,20 +1,22 @@
-<li><a>Item 1</a></li>
+<li>
+  <a href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
+    {{ crate::pages::ApplicationPages::DASHBOARD.title }}
+  </a>
+</li>
 <li>
   <details open>
-    <summary>Parent</summary>
+    <summary>Utilities</summary>
     <ul>
-      <li><a>Submenu 1</a></li>
-      <li><a>Submenu 2</a></li>
       <li>
-        <details open>
-          <summary>Parent</summary>
-          <ul>
-            <li><a>Submenu 1</a></li>
-            <li><a>Submenu 2</a></li>
-          </ul>
-        </details>
+        <a href="{{ crate::pages::ApplicationPages::THEMES.route.to_string() }}">
+          {{ crate::pages::ApplicationPages::THEMES.title }}
+        </a>
+      </li>
+      <li>
+        <a href="{{ crate::pages::StaticRoutes::HEALTHZ.to_string() }}">
+          Health Check
+        </a>
       </li>
     </ul>
   </details>
 </li>
-<li><a>Item 3</a></li>
