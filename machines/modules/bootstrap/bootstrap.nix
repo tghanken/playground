@@ -1,6 +1,6 @@
 {pkgs, ...}: {
   imports = [
-    ./build_consumer.nix
+    ./builders/builders.nix
     ./tailscale.nix
   ];
 
