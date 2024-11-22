@@ -7,18 +7,12 @@
   defaultBuildConfig = {
     sshUser = "nixbuilder";
     systems = ["x86_64-linux" "aarch64-linux"];
-    protocol = "ssh";
+    protocol = "ssh-ng";
     maxJobs = 8;
     speedFactor = 0;
     supportedFeatures = ["nixos-test" "benchmark" "big-parallel" "kvm"];
     mandatoryFeatures = [];
   };
-  localBuildConfig =
-    defaultBuildConfig
-    // {
-      hostName = "127.0.0.1";
-      protocol = "ssh";
-    };
   hosts = [
     {
       hostName = "nixos-thinkpad";
@@ -43,9 +37,8 @@
     }
   ];
   filtered_hosts = builtins.filter (host: config.networking.hostName != host.hostName) hosts;
-  local_host = builtins.filter (host: config.networking.hostName == host.hostName) hosts;
-  build_hosts = builtins.map (host: defaultBuildConfig // host) filtered_hosts ++ builtins.map (host: defaultBuildConfig // host // localBuildConfig) local_host;
-  substituters = builtins.map (host: "http://${host.hostName}.myth-chameleon.ts.net:16893") filtered_hosts;
+  build_hosts = builtins.map (host: defaultBuildConfig // host) filtered_hosts;
+  substituters = builtins.map (host: "http://${host.hostName}.myth-chameleon.ts.net:16893") build_hosts;
   sshHostsConfig =
     builtins.map (host: ''
       Host ${host.hostName}
@@ -60,11 +53,6 @@ in {
   nix.buildMachines = build_hosts;
   nix.settings.substituters = substituters;
   programs.ssh.extraConfig = sshConfigString;
-  services.openssh = {
-    enable = true;
-    settings.PasswordAuthentication = false;
-    settings.KbdInteractiveAuthentication = false;
-  };
 
   nix.distributedBuilds = true;
   nix.settings = {
