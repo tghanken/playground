@@ -22,19 +22,19 @@
       hostName = "inwin-tower";
       speedFactor = 3;
     }
-    {
-      hostName = "nixos-rpi4-1";
-    }
-    {
-      hostName = "nixos-rpi4-2";
-    }
-    {
-      hostName = "nixos-rpi4-3";
-    }
-    {
-      hostName = "syno-vm";
-      speedFactor = 1;
-    }
+    # {
+    #   hostName = "nixos-rpi4-1";
+    # }
+    # {
+    #   hostName = "nixos-rpi4-2";
+    # }
+    # {
+    #   hostName = "nixos-rpi4-3";
+    # }
+    # {
+    #   hostName = "syno-vm";
+    #   speedFactor = 1;
+    # }
   ];
   filtered_hosts = builtins.filter (host: config.networking.hostName != host.hostName) hosts;
   build_hosts = builtins.map (host: defaultBuildConfig // host) filtered_hosts;
