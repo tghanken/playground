@@ -4,14 +4,6 @@
   pkgs,
   ...
 }: {
-  users.users.nixbuilder = {
-    isNormalUser = true;
-    description = "nixbuilder";
-    group = "nixbuilder";
-  };
-  users.groups.nixbuilder = {};
-  nix.settings.trusted-users = ["nixbuilder"];
-
   services.nix-serve = {
     enable = true;
     package = pkgs.nix-serve-ng;
