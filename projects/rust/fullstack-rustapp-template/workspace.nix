@@ -184,9 +184,6 @@
       };
 
       checks = {
-        # Build the crates as part of `nix flake check` for convenience
-        inherit server devServer;
-
         # Run clippy (and deny all warnings) on the workspace source,
         # again, reusing the dependency artifacts from above.
         #
