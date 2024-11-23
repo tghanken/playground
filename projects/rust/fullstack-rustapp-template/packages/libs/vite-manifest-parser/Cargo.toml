@@ -5,6 +5,9 @@ name = "vite-manifest-parser"
 publish.workspace = true
 version.workspace = true
 
+[package.metadata.cargo-udeps.ignore]
+normal = ["my-workspace-hack"]
+
 [dependencies]
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
 serde = { workspace = true, features = ["derive"] }

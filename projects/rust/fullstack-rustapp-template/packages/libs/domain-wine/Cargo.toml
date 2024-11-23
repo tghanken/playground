@@ -5,6 +5,9 @@ name = "domain-wine"
 publish.workspace = true
 version.workspace = true
 
+[package.metadata.cargo-udeps.ignore]
+normal = ["my-workspace-hack"]
+
 [dependencies]
 chrono = { workspace = true }
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }

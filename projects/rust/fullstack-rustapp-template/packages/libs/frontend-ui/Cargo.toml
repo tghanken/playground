@@ -5,6 +5,9 @@ name = "frontend-ui"
 publish.workspace = true
 version.workspace = true
 
+[package.metadata.cargo-udeps.ignore]
+normal = ["my-workspace-hack"]
+
 [dependencies]
 # Other monorepo packages
 vite-manifest-parser = { path = "../vite-manifest-parser" }
