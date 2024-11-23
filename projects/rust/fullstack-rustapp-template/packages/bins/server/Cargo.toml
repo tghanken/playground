@@ -5,6 +5,9 @@ name = "server"
 publish.workspace = true
 version.workspace = true
 
+[package.metadata.cargo-udeps.ignore]
+normal = ["my-workspace-hack"]
+
 [dependencies]
 # Other monorepo packages
 frontend-ui = { path = "../../libs/frontend-ui" }

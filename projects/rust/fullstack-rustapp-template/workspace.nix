@@ -16,6 +16,7 @@
 
       rustToolchain = pkgs.pkgsBuildHost.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
       craneLib = (crane.mkLib pkgs).overrideToolchain rustToolchain;
+      craneLibNightly = (crane.mkLib pkgs).overrideToolchain (p: p.rust-bin.nightly.latest.minimal.override {});
 
       sqlFilter = path: _type: null != builtins.match ".*sql$" path;
       htmlFilter = path: _type: null != builtins.match ".*html$" path;
@@ -37,18 +38,16 @@
         inherit src pname;
         strictDeps = true;
 
-        nativeBuildInputs = with pkgs; [rustToolchain clang mold];
+        # NB: we disable tests since we'll run them all via cargo-nextest
+        doCheck = false;
+
+        nativeBuildInputs = with pkgs; [clang mold];
         buildInputs =
           [
-            # Add additional build inputs here
           ]
           ++ lib.optionals pkgs.stdenv.isDarwin [
-            # Additional darwin specific inputs can be set here
             pkgs.libiconv
           ];
-
-        # Additional environment variables can be set directly
-        # MY_CUSTOM_VAR = "some value";
       };
 
       # Common arguments can be set here to avoid repeating them later
@@ -86,8 +85,6 @@
         // {
           inherit cargoArtifacts;
           inherit (craneLib.crateNameFromCargoToml {inherit src;}) version;
-          # NB: we disable tests since we'll run them all via cargo-nextest
-          doCheck = false;
         };
 
       fileSetForCrate = crate:
@@ -236,22 +233,40 @@
           });
 
         # Ensure that cargo-hakari is up to date
-        fullstackRustappTemplate-hakari = craneLib.mkCargoDerivation {
-          inherit src;
-          pname = pname + "-hakari";
-          cargoArtifacts = null;
-          doInstallCargoArtifacts = false;
+        fullstackRustappTemplate-hakari =
+          baseArgs
+          // craneLib.mkCargoDerivation {
+            inherit src;
+            pname = pname + "-hakari";
+            cargoArtifacts = null;
+            doInstallCargoArtifacts = false;
 
-          buildPhaseCargoCommand = ''
-            cargo hakari generate --diff  # workspace-hack Cargo.toml is up-to-date
-            cargo hakari manage-deps --dry-run  # all workspace crates depend on workspace-hack
-            cargo hakari verify
-          '';
+            buildPhaseCargoCommand = ''
+              cargo hakari generate --diff  # workspace-hack Cargo.toml is up-to-date
+              cargo hakari manage-deps --dry-run  # all workspace crates depend on workspace-hack
+              cargo hakari verify
+            '';
 
-          nativeBuildInputs = [
-            pkgs-unstable.cargo-hakari
-          ];
-        };
+            nativeBuildInputs = [
+              pkgs-unstable.cargo-hakari
+            ];
+          };
+
+        # Check for unused dependencies with cargo-udeps
+        # fullstackRustappTemplate-udeps = craneLibNightly.mkCargoDerivation {
+        #   inherit src;
+        #   pname = pname + "-udeps";
+        #   cargoArtifacts = null;
+
+        #   buildPhaseCargoCommand = ''
+        #     cargo udeps --workspace --exclude my-workspace-hack
+        #   '';
+        #   nativeBuildInputs = with pkgs; [
+        #     cargo-udeps
+        #     clang
+        #     mold
+        #   ];
+        # };
       };
 
       packages = {
