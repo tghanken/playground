@@ -2,11 +2,11 @@ use askama::Template;
 use askama_axum::IntoResponse;
 use axum_extra::routing::TypedPath;
 
-use crate::{
-    ApplicationMetadata, MANIFEST_DATA, ManifestData, PageDetails, PageMetadata, SentryData,
-};
 use crate::pages::ApplicationPages;
 use crate::utils::languages::SupportedLanguage;
+use crate::{
+    ApplicationMetadata, ManifestData, PageDetails, PageMetadata, SentryData, MANIFEST_DATA,
+};
 
 pub struct DashboardPageInfo {
     pub route: DashboardRoute,

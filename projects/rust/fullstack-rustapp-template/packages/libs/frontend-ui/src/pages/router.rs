@@ -1,7 +1,7 @@
+use crate::pages;
 use axum::Router;
 use axum_extra::routing::{RouterExt, TypedPath};
 use tower_http::services::ServeDir;
-use crate::pages;
 
 use crate::pages::StaticRoutes;
 
