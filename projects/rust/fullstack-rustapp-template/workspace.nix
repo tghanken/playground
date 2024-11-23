@@ -253,20 +253,20 @@
           };
 
         # Check for unused dependencies with cargo-udeps
-        # fullstackRustappTemplate-udeps = craneLibNightly.mkCargoDerivation {
-        #   inherit src;
-        #   pname = pname + "-udeps";
-        #   cargoArtifacts = null;
+        fullstackRustappTemplate-udeps = craneLibNightly.mkCargoDerivation {
+          inherit src;
+          pname = pname + "-udeps";
+          cargoArtifacts = null;
 
-        #   buildPhaseCargoCommand = ''
-        #     cargo udeps --workspace --exclude my-workspace-hack
-        #   '';
-        #   nativeBuildInputs = with pkgs; [
-        #     cargo-udeps
-        #     clang
-        #     mold
-        #   ];
-        # };
+          buildPhaseCargoCommand = ''
+            cargo udeps --workspace --exclude my-workspace-hack
+          '';
+          nativeBuildInputs = with pkgs; [
+            cargo-udeps
+            clang
+            mold
+          ];
+        };
       };
 
       packages = {
