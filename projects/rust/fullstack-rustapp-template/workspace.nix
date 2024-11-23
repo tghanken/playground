@@ -12,6 +12,8 @@
         inherit system;
       };
 
+      pname = "fullstackRustappTemplate";
+
       rustToolchain = pkgs.pkgsBuildHost.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
       craneLib = (crane.mkLib pkgs).overrideToolchain rustToolchain;
 
@@ -32,7 +34,7 @@
       };
 
       baseArgs = {
-        inherit src;
+        inherit src pname;
         strictDeps = true;
 
         nativeBuildInputs = with pkgs; [rustToolchain clang mold];
@@ -133,7 +135,7 @@
       # so this is left up to you on how to organize things
       server = craneLib.buildPackage (individualCrateArgs
         // {
-          pname = "server";
+          pname = "fullstackRustappTemplate-server-prod";
           cargoExtraArgs = "-p server";
           src = fileSetForCrate ./packages/bins/server;
           meta.mainProgram = "server";
@@ -141,7 +143,7 @@
 
       devServer = craneLib.buildPackage (individualCrateArgs
         // {
-          pname = "dev-server";
+          pname = "fullstackRustappTemplate-server-dev";
           cargoBuildCommand = "cargo build";
           cargoArtifacts = cargoDevArtifacts;
           cargoExtraArgs = "-p server -F dev";
@@ -190,42 +192,43 @@
         # Note that this is done as a separate derivation so that
         # we can block the CI if there are issues here, but not
         # prevent downstream consumers from building our crate by itself.
-        my-workspace-clippy = craneLib.cargoClippy (commonArgs
+        fullstackRustappTemplate-clippy = craneLib.cargoClippy (commonArgs
           // {
             inherit cargoArtifacts;
             cargoClippyExtraArgs = "--all-targets -- --deny warnings";
           });
 
-        my-workspace-doc = craneLib.cargoDoc (commonArgs
+        fullstackRustappTemplate-doc = craneLib.cargoDoc (commonArgs
           // {
             inherit cargoArtifacts;
           });
 
         # Check formatting
-        my-workspace-fmt = craneLib.cargoFmt {
-          inherit src;
+        fullstackRustappTemplate-fmt = craneLib.cargoFmt {
+          inherit src pname;
         };
 
-        my-workspace-toml-fmt = craneLib.taploFmt {
+        fullstackRustappTemplate-toml-fmt = craneLib.taploFmt {
+          inherit pname;
           src = pkgs.lib.sources.sourceFilesBySuffices src [".toml"];
           # taplo arguments can be further customized below as needed
           taploExtraArgs = "--config ./.config/taplo.toml";
         };
 
         # Audit dependencies
-        my-workspace-audit = craneLib.cargoAudit {
-          inherit src advisory-db;
+        fullstackRustappTemplate-audit = craneLib.cargoAudit {
+          inherit src pname advisory-db;
         };
 
         # Audit licenses
-        my-workspace-deny = craneLib.cargoDeny {
-          inherit src;
+        fullstackRustappTemplate-deny = craneLib.cargoDeny {
+          inherit src pname;
         };
 
         # Run tests with cargo-nextest
         # Consider setting `doCheck = false` on other crate derivations
         # if you do not want the tests to run twice
-        my-workspace-nextest = craneLib.cargoNextest (commonArgs
+        fullstackRustappTemplate-nextest = craneLib.cargoNextest (commonArgs
           // {
             inherit cargoArtifacts;
             partitions = 1;
@@ -233,9 +236,9 @@
           });
 
         # Ensure that cargo-hakari is up to date
-        my-workspace-hakari = craneLib.mkCargoDerivation {
+        fullstackRustappTemplate-hakari = craneLib.mkCargoDerivation {
           inherit src;
-          pname = "my-workspace-hakari";
+          pname = pname + "-hakari";
           cargoArtifacts = null;
           doInstallCargoArtifacts = false;
 
