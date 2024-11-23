@@ -35,7 +35,7 @@ tokio = { version = "1", features = ["full"] }
 tokio-util = { version = "0.7", features = ["codec", "io"] }
 tower = { version = "0.4", features = ["util"] }
 tower-http = { version = "0.5", default-features = false, features = ["compression-full", "fs", "trace"] }
-tracing = { version = "0.1", default-features = false, features = ["log", "std"] }
+tracing = { version = "0.1", default-features = false, features = ["attributes", "log", "std"] }
 tracing-core = { version = "0.1" }
 tracing-subscriber = { version = "0.3", default-features = false, features = ["env-filter"] }
 
@@ -44,7 +44,7 @@ memchr = { version = "2" }
 mime_guess = { version = "2" }
 proc-macro2 = { version = "1" }
 quote = { version = "1" }
-syn = { version = "2", features = ["full", "visit-mut"] }
+syn = { version = "2", features = ["extra-traits", "full", "visit-mut"] }
 
 [target.x86_64-unknown-linux-gnu.dependencies]
 libc = { version = "0.2" }
