@@ -4,11 +4,6 @@ on_change_strategy = "kill_then_restartt"
 
 [jobs]
 
-[jobs.check]
-command = ["just", "check"]
-need_stdout = false
-watch = ["templates", "src_ts"]
-
 [jobs.test]
 analyzer = "nextest"
 command = [
@@ -37,7 +32,6 @@ need_stdout = false
 watch = ["templates", "src_ts"]
 
 [keybindings]
-a = "job:check"
 c = "job:clippy"
 d = "job:doc-open"
 t = "job:test"
