@@ -191,13 +191,13 @@
         # prevent downstream consumers from building our crate by itself.
         fullstackRustappTemplate-clippy = craneLib.cargoClippy (commonArgs
           // {
-            inherit cargoArtifacts;
+            cargoArtifacts = cargoDevArtifacts;
             cargoClippyExtraArgs = "--all-targets -- --deny warnings";
           });
 
         fullstackRustappTemplate-doc = craneLib.cargoDoc (commonArgs
           // {
-            inherit cargoArtifacts;
+            cargoArtifacts = cargoDevArtifacts;
           });
 
         # Check formatting
@@ -227,7 +227,7 @@
         # if you do not want the tests to run twice
         fullstackRustappTemplate-nextest = craneLib.cargoNextest (commonArgs
           // {
-            inherit cargoArtifacts;
+            cargoArtifacts = cargoDevArtifacts;
             partitions = 1;
             partitionType = "count";
           });
