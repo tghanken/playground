@@ -9,20 +9,11 @@ version.workspace = true
 normal = ["my-workspace-hack"]
 
 [dependencies]
-# Other monorepo packages
 vite-manifest-parser = { path = "../vite-manifest-parser" }
-
-# Core infrastructure
 axum = { workspace = true }
 tower-http = { workspace = true, features = ["fs"] }
-
-# Templating
 askama = { workspace = true }
 askama_axum = { workspace = true }
-
-# Debug
 sentry = { workspace = true }
 tracing = { workspace = true }
-
-# Utilities
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }

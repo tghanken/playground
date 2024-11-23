@@ -15,7 +15,6 @@ publish = false
 version = "0.1.0"
 
 [workspace.dependencies]
-# Core infrastructure
 axum = { version = "0.7.5" }
 axum-htmx = { version = "0.6.0" }
 axum-login = { version = "0.15.3" }
@@ -28,39 +27,25 @@ tower-http = { version = "0.5.2" }
 tower-layer = { version = "0.3.3" }
 tower-livereload = { version = "0.9.3" }
 tower-sessions = { version = "0.12.2" }
-
-# Templating
 askama = { version = "0.12.1" }
 askama_axum = { version = "0.4.0" }
 minify-html = { version = "0.15.0" }
-
-# Database
 sqlx = { version = "0.8.0" }
-
-# Serialization
 serde = { version = "1.0.208" }
 serde_json = { version = "1.0.127" }
-
-# Debug
 anyhow = { version = "1.0.86" }
 sentry = { version = "0.34.0", default-features = false }
 sentry-tower = { version = "0.34.0" }
 snafu = { version = "0.8.4" }
 tracing = { version = "0.1.40" }
 tracing-subscriber = { version = "0.3.18" }
-
-# Utilities
 config = { version = "0.14.0" }
 derive_more = { version = "1.0.0" }
-
-# Testing
 claims = { version = "0.7.1" }
 fake = { version = "2.9.2" }
 proptest = { version = "1.5.0" }
 static_assertions = { version = "1.1.0" }
 wiremock = { version = "0.6.1" }
-
-# Types
 chrono = { version = "0.4.38" }
 uuid = { version = "1.10.0" }
 
