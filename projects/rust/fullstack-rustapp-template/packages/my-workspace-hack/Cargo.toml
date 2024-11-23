@@ -15,62 +15,56 @@ publish.workspace = true
 
 ### BEGIN HAKARI SECTION
 [dependencies]
-axum = { version = "0.7", features = ["http2"] }
+axum = { version = "0.7", default-features = false, features = ["http2"] }
 futures-task = { version = "0.3", default-features = false, features = ["std"] }
 futures-util = { version = "0.3", default-features = false, features = ["io", "sink"] }
-hyper = { version = "1", features = ["http1", "http2", "server"] }
-hyper-util = { version = "0.1", features = ["http1", "http2", "server", "tokio"] }
-log = { version = "0.4", default-features = false, features = ["std"] }
 memchr = { version = "2" }
 mime_guess = { version = "2" }
-num-traits = { version = "0.2", features = ["libm"] }
-once_cell = { version = "1" }
+ppv-lite86 = { version = "0.2", default-features = false, features = ["simd", "std"] }
 rand = { version = "0.8" }
+rand_chacha = { version = "0.3", default-features = false, features = ["std"] }
+rand_core = { version = "0.6", default-features = false, features = ["std"] }
 regex = { version = "1", default-features = false, features = ["std", "unicode-case", "unicode-perl"] }
 regex-automata = { version = "0.4", default-features = false, features = ["meta", "std", "unicode-case", "unicode-perl", "unicode-word-boundary"] }
-regex-syntax = { version = "0.8" }
+regex-syntax = { version = "0.8", default-features = false, features = ["std", "unicode-case", "unicode-perl"] }
 sentry = { version = "0.34", default-features = false, features = ["backtrace", "contexts", "debug-images", "log", "panic", "reqwest", "rustls", "tracing"] }
-serde_json = { version = "1", features = ["raw_value"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1" }
 sync_wrapper = { version = "1", default-features = false, features = ["futures"] }
 tokio = { version = "1", features = ["full"] }
 tokio-util = { version = "0.7", features = ["codec", "io"] }
-tower = { version = "0.4", features = ["make", "util"] }
-tower-http = { version = "0.5", features = ["compression-full", "fs", "trace"] }
-tracing = { version = "0.1", features = ["log"] }
+tower = { version = "0.4", features = ["util"] }
+tower-http = { version = "0.5", default-features = false, features = ["compression-full", "fs", "trace"] }
+tracing = { version = "0.1", default-features = false, features = ["log", "std"] }
 tracing-core = { version = "0.1" }
-tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["env-filter"] }
 
 [build-dependencies]
 memchr = { version = "2" }
 mime_guess = { version = "2" }
 proc-macro2 = { version = "1" }
 quote = { version = "1" }
-syn = { version = "2", features = ["extra-traits", "full", "visit-mut"] }
+syn = { version = "2", features = ["full", "visit-mut"] }
 
 [target.x86_64-unknown-linux-gnu.dependencies]
-bitflags = { version = "2", default-features = false, features = ["std"] }
-futures-channel = { version = "0.3", features = ["sink"] }
-hyper = { version = "1", default-features = false, features = ["client"] }
-hyper-util = { version = "0.1", default-features = false, features = ["client-legacy"] }
+libc = { version = "0.2" }
+tower = { version = "0.4", default-features = false, features = ["make"] }
+
+[target.x86_64-unknown-linux-gnu.build-dependencies]
+libc = { version = "0.2" }
 
 [target.x86_64-apple-darwin.dependencies]
-bitflags = { version = "2", default-features = false, features = ["std"] }
-futures-channel = { version = "0.3", features = ["sink"] }
-hyper = { version = "1", default-features = false, features = ["client"] }
-hyper-util = { version = "0.1", default-features = false, features = ["client-legacy"] }
-libc = { version = "0.2", features = ["extra_traits"] }
+libc = { version = "0.2" }
+tower = { version = "0.4", default-features = false, features = ["make"] }
 
 [target.x86_64-apple-darwin.build-dependencies]
-libc = { version = "0.2", features = ["extra_traits"] }
+libc = { version = "0.2" }
 
 [target.aarch64-apple-darwin.dependencies]
-bitflags = { version = "2", default-features = false, features = ["std"] }
-futures-channel = { version = "0.3", features = ["sink"] }
-hyper = { version = "1", default-features = false, features = ["client"] }
-hyper-util = { version = "0.1", default-features = false, features = ["client-legacy"] }
-libc = { version = "0.2", features = ["extra_traits"] }
+libc = { version = "0.2" }
+tower = { version = "0.4", default-features = false, features = ["make"] }
 
 [target.aarch64-apple-darwin.build-dependencies]
-libc = { version = "0.2", features = ["extra_traits"] }
+libc = { version = "0.2" }
 
 ### END HAKARI SECTION
