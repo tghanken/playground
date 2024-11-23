@@ -9,22 +9,9 @@ version.workspace = true
 normal = ["my-workspace-hack"]
 
 [dependencies]
-# Other monorepo packages
+axum = { workspace = true, features = ["http2", "matched-path", "tokio"] }
 frontend-ui = { path = "../../libs/frontend-ui" }
-
-# Core infrastructure
-axum = { workspace = true, features = ["http2"] }
 mimalloc = { workspace = true }
-tokio = { workspace = true, features = ["full"] }
-tower = { workspace = true }
-tower-http = { workspace = true, features = [
-  "fs",
-  "trace",
-  "compression-full",
-] }
-tower-livereload = { workspace = true, optional = true }
-
-# Debug
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
 sentry = { workspace = true, features = [
   "rustls",
@@ -38,8 +25,16 @@ sentry = { workspace = true, features = [
 ] }
 sentry-tower = { workspace = true, features = ["http"] }
 snafu = { workspace = true }
+tokio = { workspace = true, features = ["full"] }
+tower = { workspace = true }
+tower-http = { workspace = true, features = [
+  "fs",
+  "trace",
+  "compression-full",
+] }
+tower-livereload = { workspace = true, optional = true }
 tracing = { workspace = true }
-tracing-subscriber = { workspace = true, features = ["env-filter"] }
+tracing-subscriber = { workspace = true, features = ["env-filter", "fmt"] }
 
 [lints]
 workspace = true

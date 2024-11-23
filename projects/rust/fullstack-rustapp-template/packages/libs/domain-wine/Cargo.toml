@@ -9,22 +9,23 @@ version.workspace = true
 normal = ["my-workspace-hack"]
 
 [dependencies]
-chrono = { workspace = true }
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
-snafu = { workspace = true }
-sqlx = { workspace = true, features = [
-  "postgres",
-  "uuid",
-  "chrono",
-  "derive",
-  "macros",
-  "runtime-tokio",
-  "tls-rustls",
-] }
-uuid = { workspace = true, features = ["v4", "fast-rng"] }
+snafu = { workspace = true, features = ["std"] }
+
+# chrono = { workspace = true }
+# sqlx = { workspace = true, features = [
+#   "postgres",
+#   "uuid",
+#   "chrono",
+#   "derive",
+#   "macros",
+#   "runtime-tokio",
+#   "tls-rustls",
+# ] }
+# uuid = { workspace = true, features = ["v4", "fast-rng"] }
 
 [dev-dependencies]
-proptest = { workspace = true }
+proptest = { workspace = true, features = ["std"] }
 
 [lints]
 workspace = true
