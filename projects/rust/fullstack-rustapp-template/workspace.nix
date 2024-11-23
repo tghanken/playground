@@ -252,8 +252,10 @@
       };
 
       packages = {
-        inherit server devServer dockerImage dockerDevImage;
-        default = devServer;
+        fullstackRustappTemplate-server-prod = server;
+        fullstackRustappTemplate-server-prod-dockerImage = dockerImage;
+        fullstackRustappTemplate-server-dev = devServer;
+        fullstackRustappTemplate-server-dev-dockerImage = dockerDevImage;
       };
 
       apps = {
@@ -261,7 +263,7 @@
         devServer.program = devServer;
       };
 
-      devShells.fullstack-rustapp-template = craneLib.devShell {
+      devShells.fullstackRustappTemplate-shell = craneLib.devShell {
         # Inherit inputs from checks.
         checks = self.checks.${system};
 
