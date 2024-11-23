@@ -15,7 +15,7 @@ publish.workspace = true
 
 ### BEGIN HAKARI SECTION
 [dependencies]
-axum = { version = "0.7", default-features = false, features = ["http2"] }
+axum = { version = "0.7", default-features = false, features = ["http2", "matched-path"] }
 futures-task = { version = "0.3", default-features = false, features = ["std"] }
 futures-util = { version = "0.3", default-features = false, features = ["io", "sink"] }
 memchr = { version = "2" }

@@ -9,7 +9,7 @@ version.workspace = true
 normal = ["my-workspace-hack"]
 
 [dependencies]
-axum = { workspace = true, features = ["http2"] }
+axum = { workspace = true, features = ["http2", "matched-path"] }
 frontend-ui = { path = "../../libs/frontend-ui" }
 mimalloc = { workspace = true }
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
