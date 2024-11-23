@@ -164,7 +164,7 @@
       };
 
       dockerDevImage = pkgs.dockerTools.streamLayeredImage {
-        name = "fullstack-rustapp-server";
+        name = "fullstack-rustapp-server-dev";
         tag = "latest";
         contents = [
           vite-runtime-files

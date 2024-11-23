@@ -4,12 +4,12 @@ check:
 
 # [CORE] - Build the production image
 build-image:
-    nom build .#dockerImage
+    nom build .#fullstackRustappTemplate-server-prod-dockerImage
     ./result | docker load
 
 # [CORE] - Build an image with live reloading enabled
 build-dev-image:
-    nom build .#dockerDevImage
+    nom build .#fullstackRustappTemplate-server-dev-dockerImage
     ./result | docker load
 
 # [CORE] - Start production docker containers
