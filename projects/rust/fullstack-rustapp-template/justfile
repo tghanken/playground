@@ -1,6 +1,6 @@
 # [CORE] - Run all the configured tests that run in CI
 check:
-    nix flake check
+    nix flake check --keep-going
 
 # [CORE] - Build the production image
 build-image:
