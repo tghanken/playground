@@ -1,7 +1,7 @@
 services:
   fullstack-server:
     container_name: fullstack-server
-    image: "fullstack-rustapp-server:latest"
+    image: "fullstack-rustapp-server-dev:latest"
     env_file: ".env"
     ports:
       - "3031:3031"
