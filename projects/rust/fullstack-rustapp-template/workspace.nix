@@ -259,8 +259,8 @@
       };
 
       apps = {
-        server.program = server;
-        devServer.program = devServer;
+        fullstackRustappTemplate-server-prod.program = server;
+        fullstackRustappTemplate-server-dev.program = devServer;
       };
 
       devShells.fullstackRustappTemplate-shell = craneLib.devShell {
