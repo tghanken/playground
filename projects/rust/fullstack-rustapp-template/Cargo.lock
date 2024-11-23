@@ -779,8 +779,10 @@ dependencies = [
  "libc",
  "memchr",
  "mime_guess",
+ "num-traits",
  "ppv-lite86",
  "proc-macro2",
+ "proptest",
  "quote",
  "rand",
  "rand_chacha",
@@ -953,10 +955,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b4c2511913b88df1637da85cc8d96ec8e43a3f8bb8ccb71ee1ac240d6f3df58d"
 dependencies = [
  "bitflags",
+ "lazy_static",
  "num-traits",
  "rand",
  "rand_chacha",
  "rand_xorshift",
+ "regex-syntax 0.8.4",
  "unarray",
 ]
 

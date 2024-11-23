@@ -25,7 +25,7 @@ snafu = { workspace = true, features = ["std"] }
 # uuid = { workspace = true, features = ["v4", "fast-rng"] }
 
 [dev-dependencies]
-proptest = { workspace = true }
+proptest = { workspace = true, features = ["std"] }
 
 [lints]
 workspace = true

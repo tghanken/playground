@@ -20,13 +20,15 @@ futures-task = { version = "0.3", default-features = false, features = ["std"] }
 futures-util = { version = "0.3", default-features = false, features = ["io", "sink"] }
 memchr = { version = "2" }
 mime_guess = { version = "2" }
+num-traits = { version = "0.2", default-features = false, features = ["libm", "std"] }
 ppv-lite86 = { version = "0.2", default-features = false, features = ["simd", "std"] }
+proptest = { version = "1", default-features = false, features = ["std"] }
 rand = { version = "0.8" }
 rand_chacha = { version = "0.3", default-features = false, features = ["std"] }
 rand_core = { version = "0.6", default-features = false, features = ["std"] }
 regex = { version = "1", default-features = false, features = ["std", "unicode-case", "unicode-perl"] }
 regex-automata = { version = "0.4", default-features = false, features = ["meta", "std", "unicode-case", "unicode-perl", "unicode-word-boundary"] }
-regex-syntax = { version = "0.8", default-features = false, features = ["std", "unicode-case", "unicode-perl"] }
+regex-syntax = { version = "0.8" }
 sentry = { version = "0.34", default-features = false, features = ["backtrace", "contexts", "debug-images", "log", "panic", "reqwest", "rustls", "tracing"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1" }
