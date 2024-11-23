@@ -30,6 +30,7 @@ regex-syntax = { version = "0.8", default-features = false, features = ["std", "
 sentry = { version = "0.34", default-features = false, features = ["backtrace", "contexts", "debug-images", "log", "panic", "reqwest", "rustls", "tracing"] }
 serde = { version = "1", features = ["derive"] }
 serde_json = { version = "1" }
+snafu = { version = "0.8", default-features = false, features = ["std"] }
 sync_wrapper = { version = "1", default-features = false, features = ["futures"] }
 tokio = { version = "1", features = ["full"] }
 tokio-util = { version = "0.7", features = ["codec", "io"] }

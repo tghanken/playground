@@ -790,6 +790,7 @@ dependencies = [
  "sentry",
  "serde",
  "serde_json",
+ "snafu",
  "syn",
  "sync_wrapper 1.0.1",
  "tokio",
