@@ -15,11 +15,28 @@ publish = false
 version = "0.1.0"
 
 [workspace.dependencies]
+anyhow = { version = "1.0.86" }
+askama = { version = "0.12.1" }
+askama_axum = { version = "0.4.0" }
 axum = { version = "0.7.5" }
 axum-htmx = { version = "0.6.0" }
 axum-login = { version = "0.15.3" }
+chrono = { version = "0.4.38" }
+claims = { version = "0.7.1" }
+config = { version = "0.14.0" }
+derive_more = { version = "1.0.0" }
+fake = { version = "2.9.2" }
 mimalloc = { version = "0.1.43" }
+minify-html = { version = "0.15.0" }
+proptest = { version = "1.5.0" }
 reqwest = { version = "0.12.5" }
+sentry = { version = "0.34.0", default-features = false }
+sentry-tower = { version = "0.34.0" }
+serde = { version = "1.0.208" }
+serde_json = { version = "1.0.127" }
+snafu = { version = "0.8.4" }
+sqlx = { version = "0.8.0" }
+static_assertions = { version = "1.1.0" }
 tokio = { version = "1.39.1" }
 tower = { version = "0.4.13" }
 tower-helmet = { version = "0.3.0" }
@@ -27,27 +44,10 @@ tower-http = { version = "0.5.2" }
 tower-layer = { version = "0.3.3" }
 tower-livereload = { version = "0.9.3" }
 tower-sessions = { version = "0.12.2" }
-askama = { version = "0.12.1" }
-askama_axum = { version = "0.4.0" }
-minify-html = { version = "0.15.0" }
-sqlx = { version = "0.8.0" }
-serde = { version = "1.0.208" }
-serde_json = { version = "1.0.127" }
-anyhow = { version = "1.0.86" }
-sentry = { version = "0.34.0", default-features = false }
-sentry-tower = { version = "0.34.0" }
-snafu = { version = "0.8.4" }
 tracing = { version = "0.1.40" }
 tracing-subscriber = { version = "0.3.18" }
-config = { version = "0.14.0" }
-derive_more = { version = "1.0.0" }
-claims = { version = "0.7.1" }
-fake = { version = "2.9.2" }
-proptest = { version = "1.5.0" }
-static_assertions = { version = "1.1.0" }
-wiremock = { version = "0.6.1" }
-chrono = { version = "0.4.38" }
 uuid = { version = "1.10.0" }
+wiremock = { version = "0.6.1" }
 
 # Redis client
 #fred = "9.0.3"
