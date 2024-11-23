@@ -1,9 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Test &amp; Dev" type="CompoundRunConfigurationType">
     <toRun name="Check" type="ShConfigurationType" />
-    <toRun name="Clippy" type="ShConfigurationType" />
     <toRun name="Dev" type="ShConfigurationType" />
-    <toRun name="Doc" type="ShConfigurationType" />
     <toRun name="Test" type="ShConfigurationType" />
     <method v="2" />
   </configuration>
