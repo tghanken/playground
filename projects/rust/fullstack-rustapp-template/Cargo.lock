@@ -161,6 +161,7 @@ dependencies = [
  "rustversion",
  "serde",
  "sync_wrapper 1.0.1",
+ "tokio",
  "tower",
  "tower-layer",
  "tower-service",
