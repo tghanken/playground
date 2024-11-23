@@ -38,7 +38,7 @@ tower = { version = "0.4", features = ["make", "util"] }
 tower-http = { version = "0.5", default-features = false, features = ["compression-full", "fs", "trace"] }
 tracing = { version = "0.1", default-features = false, features = ["attributes", "log", "std"] }
 tracing-core = { version = "0.1" }
-tracing-subscriber = { version = "0.3", default-features = false, features = ["env-filter"] }
+tracing-subscriber = { version = "0.3", default-features = false, features = ["env-filter", "fmt"] }
 
 [build-dependencies]
 memchr = { version = "2" }

@@ -34,7 +34,7 @@ tower-http = { workspace = true, features = [
 ] }
 tower-livereload = { workspace = true, optional = true }
 tracing = { workspace = true }
-tracing-subscriber = { workspace = true, features = ["env-filter"] }
+tracing-subscriber = { workspace = true, features = ["env-filter", "fmt"] }
 
 [lints]
 workspace = true
