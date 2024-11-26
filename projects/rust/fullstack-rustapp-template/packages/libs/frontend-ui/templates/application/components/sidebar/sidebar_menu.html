@@ -1,0 +1,52 @@
+<ul class="menu bg-base-200 text-base-content min-h-full w-60 p-4">
+  {% let svg_class = "h-3 w-3 stroke-primary-content" %}
+  <li>
+    <div class="inline-flex items-center space-x-2">
+      <span class="bg-primary p-1 rounded-md">{% include "icons/grapes.html" %}</span>
+      <a class="pl-0" href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
+        {{ crate::pages::ApplicationPages::DASHBOARD.title }}
+      </a>
+    </div>
+  </li>
+  <li>
+    <details open>
+      <summary>
+        <div class="inline-flex items-center space-x-2">
+          <span class="-ml-2 bg-primary p-1 rounded-md">{% include "icons/grapes.html" %}</span>
+          <span>Utilities</span>
+        </div>
+      </summary>
+      <ul>
+        <li>
+          <a href="{{ crate::pages::ApplicationPages::THEMES.route.to_string() }}">
+            {{ crate::pages::ApplicationPages::THEMES.title }}
+          </a>
+        </li>
+        <li>
+          <a href="{{ crate::pages::StaticRoutes::HEALTHZ.to_string() }}">
+            Health Check
+          </a>
+        </li>
+      </ul>
+    </details>
+  </li>
+  <li>
+    <details open>
+      <summary>
+          <span>Utilities 2</span>
+      </summary>
+      <ul>
+        <li>
+          <a href="{{ crate::pages::ApplicationPages::THEMES.route.to_string() }}">
+            {{ crate::pages::ApplicationPages::THEMES.title }}
+          </a>
+        </li>
+        <li>
+          <a href="{{ crate::pages::StaticRoutes::HEALTHZ.to_string() }}">
+            Health Check
+          </a>
+        </li>
+      </ul>
+    </details>
+  </li>
+</ul>
