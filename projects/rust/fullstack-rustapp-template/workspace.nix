@@ -103,7 +103,7 @@
         packageSets.nixpkgs = nixpkgs.legacyPackages.${system};
         modules = [
           # Import our actual package definiton as a dream2nix module from ./default.nix
-          ./packages/libs/frontend-ui/vite.nix
+          ./packages/libs/frontend-ui/nix/vite.nix
           {
             # Aid dream2nix to find the project root. This setup should also works for mono
             # repos. If you only have a single project, the defaults should be good enough.
