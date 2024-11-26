@@ -54,6 +54,8 @@ in
       packageLockFile = "${config.mkDerivation.src}/package-lock.json";
     };
 
+    nodejs-granular-v3.installMethod = "symlink";
+
     name = "frontend-ui-vite-manifests";
     version = "0.1.0";
   }
