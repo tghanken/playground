@@ -7,14 +7,14 @@
 }: let
   fs = lib.fileset;
   sourceFiles = fs.unions [
-    ./input.css
-    ./package.json
-    ./package-lock.json
-    ./postcss.config.cjs
-    ./tailwind.config.ts
-    ./vite.config.ts
-    (fs.fileFilter (file: file.hasExt "ts") ./src_ts)
-    (fs.fileFilter (file: file.hasExt "html") ./templates)
+    ../input.css
+    ../package.json
+    ../package-lock.json
+    ../postcss.config.cjs
+    ../tailwind.config.ts
+    ../vite.config.ts
+    (fs.fileFilter (file: file.hasExt "ts") ../src_ts)
+    (fs.fileFilter (file: file.hasExt "html") ../templates)
   ];
 in
   #  fs.trace sourceFiles
@@ -26,7 +26,7 @@ in
 
     mkDerivation = {
       src = fs.toSource {
-        root = ./.;
+        root = ../.;
         fileset = sourceFiles;
       };
       installPhase = ''
@@ -53,6 +53,8 @@ in
     nodejs-package-lock-v3 = {
       packageLockFile = "${config.mkDerivation.src}/package-lock.json";
     };
+
+    nodejs-granular-v3.installMethod = "symlink";
 
     name = "frontend-ui-vite-manifests";
     version = "0.1.0";
