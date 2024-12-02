@@ -3,8 +3,7 @@
 
   inputs = {
     # Core Inputs
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.05";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-24.11";
     flake-parts = {
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
@@ -48,7 +47,6 @@
   outputs = inputs @ {
     # Core Inputs
     nixpkgs,
-    nixpkgs-unstable,
     flake-parts,
     # Rust Inputs
     rust-overlay,

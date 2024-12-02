@@ -8,10 +8,6 @@
     with inputs; let
       inherit pkgs lib;
 
-      pkgs-unstable = import inputs.nixpkgs-unstable {
-        inherit system;
-      };
-
       pname = "fullstackRustappTemplate";
 
       rustToolchain = pkgs.pkgsBuildHost.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml;
@@ -248,7 +244,7 @@
             '';
 
             nativeBuildInputs = [
-              pkgs-unstable.cargo-hakari
+              pkgs.cargo-hakari
             ];
           };
 
