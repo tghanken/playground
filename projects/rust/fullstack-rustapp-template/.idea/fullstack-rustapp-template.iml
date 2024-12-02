@@ -15,6 +15,7 @@
       <sourceFolder url="file://$MODULE_DIR$/packages/libs/domain-wine/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/bins/server/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/packages/my-workspace-hack/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/packages/libs/svg_icons/src" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/packages/libs/api-sdk/target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
       <excludeFolder url="file://$MODULE_DIR$/packages/bins/frontend/dist" />

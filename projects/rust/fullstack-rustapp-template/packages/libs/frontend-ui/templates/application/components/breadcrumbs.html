@@ -2,26 +2,26 @@
   <!-- TODO: get the toggle working on lg screens-->
   <label for="sidebar-toggle" class="btn btn-ghost btn-xs btn-square lg:hidden">
     {% let svg_class = "h-4 w-4 stroke-current" %}
-    {% include "icons/panel_left.html" %}
+    {{ svg_icons::Icons::PANEL_LEFT }}
   </label>
   <div class="py-2 divider divider-horizontal lg:hidden"></div>
   <div class="breadcrumbs text-sm">
     <ul>
       <li>
         <a class="inline-flex items-center gap-1">
-          {% include "icons/folder.html" %}
+          {{ svg_icons::Icons::FOLDER }}
           Home
         </a>
       </li>
       <li>
         <a class="inline-flex items-center gap-1">
-          {% include "icons/folder.html" %}
+          {{ svg_icons::Icons::FOLDER }}
           Documents
         </a>
       </li>
       <li>
         <span class="inline-flex items-center gap-1">
-          {% include "icons/add_document.html" %}
+          {{ svg_icons::Icons::ADD_DOCUMENT }}
           Add Document
         </span>
       </li>

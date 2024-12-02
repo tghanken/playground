@@ -1,6 +1,7 @@
-mod application;
-mod router;
 pub use router::get_router;
+
+pub mod application;
+mod router;
 
 #[non_exhaustive]
 pub struct ApplicationPages;

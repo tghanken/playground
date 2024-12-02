@@ -7,6 +7,7 @@ use vite_manifest_parser::get_vite_references_str;
 use crate::utils::languages::SupportedLanguage;
 use crate::utils::make_asset_vector;
 
+pub mod components;
 pub mod pages;
 mod utils;
 

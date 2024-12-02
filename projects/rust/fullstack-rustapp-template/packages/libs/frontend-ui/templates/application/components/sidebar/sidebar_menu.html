@@ -1,8 +1,28 @@
 <ul class="menu grow">
+  {% let sidebar_menu = crate::components::application::sidebar::SidebarMenu::default() %}
   {% let svg_class = "h-3 w-3 stroke-primary-content" %}
+  {% for item in sidebar_menu.get_items() %}
+    {% match item %}
+      {% when crate::components::application::sidebar::MenuItemType::SingleMenu with (menu_data) %}
+        <li>
+          <div class="inline-flex items-center space-x-2">
+            {% if let Some(icon) = menu_data.get_icon() %}
+            <span class="bg-primary p-1 rounded-md">
+              {{ icon }}
+            </span>
+            {% endif %}
+            <a class="pl-0" href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
+              {{ crate::pages::ApplicationPages::DASHBOARD.title }}
+            </a>
+          </div>
+        </li>
+      {% when crate::components::application::sidebar::MenuItemType::GroupMenu with (data) %}
+    {% endmatch %}
+  {% endfor %}
+  <li>Old config below</li>
   <li>
     <div class="inline-flex items-center space-x-2">
-      <span class="bg-primary p-1 rounded-md">{% include "icons/grapes.html" %}</span>
+      <span class="bg-primary p-1 rounded-md">Icon</span>
       <a class="pl-0" href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
         {{ crate::pages::ApplicationPages::DASHBOARD.title }}
       </a>
@@ -12,7 +32,7 @@
     <details open>
       <summary>
         <div class="inline-flex items-center space-x-2">
-          <span class="-ml-2 bg-primary p-1 rounded-md">{% include "icons/grapes.html" %}</span>
+          <span class="-ml-2 bg-primary p-1 rounded-md">Icon</span>
           <span>Utilities</span>
         </div>
       </summary>

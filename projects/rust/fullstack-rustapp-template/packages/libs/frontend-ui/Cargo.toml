@@ -15,6 +15,7 @@ axum = { workspace = true }
 axum-extra = { workspace = true, features = ["typed-routing"] }
 my-workspace-hack = { version = "0.1", path = "../../my-workspace-hack" }
 sentry = { workspace = true }
+svg_icons = { path = "../svg_icons" }
 tower-http = { workspace = true, features = ["fs"] }
 tracing = { workspace = true, features = ["attributes"] }
 vite-manifest-parser = { path = "../vite-manifest-parser" }

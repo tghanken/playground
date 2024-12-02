@@ -1,7 +1,9 @@
 <div>
   <div class="flex items-center space-x-2">
     {% let svg_class = "h-8 w-8 stroke-primary-content" %}
-    <a href="/" class="btn btn-primary p-2 rounded-md">{% include "icons/grapes.html" %}</a>
+    <a href="/" class="btn btn-primary p-2 rounded-md">
+      {{ svg_icons::Icons::GRAPES }}
+    </a>
     <div>{{ page_details.application_metadata.name }}</div>
   </div>
 </div>
