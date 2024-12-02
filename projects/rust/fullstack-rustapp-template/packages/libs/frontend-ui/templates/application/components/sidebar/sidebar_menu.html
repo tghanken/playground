@@ -7,8 +7,8 @@
         <li>
           <div class="inline-flex items-center space-x-2">
             {% if let Some(icon) = menu_data.get_icon() %}
-            <span class="bg-primary p-1 rounded-md">
-              {{ icon }}
+            <span class="bg-primary p-1 rounded-md stroke-primary-content">
+              {{ icon|safe }}
             </span>
             {% endif %}
             <a class="pl-0" href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">

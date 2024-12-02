@@ -1,22 +1,18 @@
 use std::fmt::{Display, Formatter};
 
-mod icon_defs;
+pub(crate) mod svg_data;
+mod svgs;
 
 #[non_exhaustive]
 pub struct Icons;
 
 pub struct IconRef {
-    svg: &'static str,
-}
-
-impl IconRef {
-    pub fn get_svg(&self) -> &'static str {
-        self.svg
-    }
+    name: &'static str,
+    svg_data: svg_data::SvgData,
 }
 
 impl Display for IconRef {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}", self.svg)
+        write!(f, "{}", self.svg_data)
     }
 }
