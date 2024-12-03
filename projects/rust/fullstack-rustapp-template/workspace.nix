@@ -17,11 +17,13 @@
       sqlFilter = path: _type: null != builtins.match ".*sql$" path;
       htmlFilter = path: _type: null != builtins.match ".*html$" path;
       jsonFilter = path: _type: null != builtins.match ".*json$" path;
+      svgFilter = path: _type: null != builtins.match ".*svg$" path;
 
       usedFileFilter = path: type:
         (sqlFilter path type)
         || (htmlFilter path type)
         || (jsonFilter path type)
+        || (svgFilter path type)
         || (craneLib.filterCargoSources path type);
 
       src = lib.cleanSourceWith {
