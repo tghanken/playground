@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<html lang={{ page_details.page_metadata.lang }}>
 <head>
     {% for script in page_details.manifest_data.scripts %}
         {% if script.starts_with("/assets/sentry") %}
@@ -26,12 +24,3 @@
     {% endif %}
     <title>{{ page_details.page_metadata.title }}</title>
 </head>
-<body>
-<div id="content" class="bg-base-100">
-    {% include "components/header.html" %}
-    {% block content %}
-    <p>Placeholder content</p>
-    {% endblock content %}
-</div>
-</body>
-</html>

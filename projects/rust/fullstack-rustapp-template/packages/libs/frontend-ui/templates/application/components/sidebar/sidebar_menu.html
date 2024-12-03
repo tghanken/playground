@@ -1,0 +1,45 @@
+<ul class="menu grow">
+  {% let sidebar_menu = crate::components::application::sidebar::SidebarMenu::default() %}
+  {% let svg_class = "h-3 w-3 stroke-primary-content" %}
+  {% for item in sidebar_menu.get_items() %}
+    {% match item %}
+      {% when crate::components::application::sidebar::MenuItemType::SingleMenu with (menu_data) %}
+        <li>
+          <div class="inline-flex items-center space-x-2">
+            {% if let Some(icon) = menu_data.get_icon() %}
+            <span class="-ml-2 bg-primary p-1 rounded-md">
+              {{ icon.get_classed_svg(svg_class)|safe }}
+            </span>
+            {% endif %}
+            <a class="pl-0" href="{{ menu_data.get_route_href() }}">
+              {{ menu_data.get_title() }}
+            </a>
+          </div>
+        </li>
+      {% when crate::components::application::sidebar::MenuItemType::GroupMenu with (menu_data) %}
+        <li>
+          <details open>
+            <summary>
+              <div class="inline-flex items-center space-x-2">
+                {% if let Some(icon) = menu_data.get_icon() %}
+                  <span class="-ml-2 bg-primary p-1 mr-2 rounded-md">
+                    {{ icon.get_classed_svg(svg_class)|safe }}
+                  </span>
+                {% endif %}
+                <span>{{ menu_data.get_title() }}</span>
+              </div>
+            </summary>
+            <ul>
+              {% for child in menu_data.get_children() %}
+              <li>
+                <a href="{{ child.get_route_href() }}">
+                  {{ child.get_title() }}
+                </a>
+              </li>
+              {% endfor %}
+            </ul>
+          </details>
+        </li>
+    {% endmatch %}
+  {% endfor %}
+</ul>

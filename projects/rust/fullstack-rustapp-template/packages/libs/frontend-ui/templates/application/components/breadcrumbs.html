@@ -1,0 +1,30 @@
+<div class="inline-flex items-center">
+  <!-- TODO: get the toggle working on lg screens-->
+  <label for="sidebar-toggle" class="btn btn-ghost btn-xs btn-square lg:hidden">
+    {% let svg_class = "h-4 w-4 stroke-current" %}
+    {{ svg_icons::Icons::PANEL_LEFT.get_classed_svg(svg_class)|safe }}
+  </label>
+  <div class="py-2 divider divider-horizontal lg:hidden"></div>
+  <div class="breadcrumbs text-sm">
+    <ul>
+      <li>
+        <a class="inline-flex items-center gap-1">
+          {{ svg_icons::Icons::FOLDER.get_classed_svg(svg_class)|safe }}
+          Home
+        </a>
+      </li>
+      <li>
+        <a class="inline-flex items-center gap-1">
+          {{ svg_icons::Icons::FOLDER.get_classed_svg(svg_class)|safe }}
+          Documents
+        </a>
+      </li>
+      <li>
+        <span class="inline-flex items-center gap-1">
+          {{ svg_icons::Icons::ADD_DOCUMENT.get_classed_svg(svg_class)|safe }}
+          Add Document
+        </span>
+      </li>
+    </ul>
+  </div>
+</div>
