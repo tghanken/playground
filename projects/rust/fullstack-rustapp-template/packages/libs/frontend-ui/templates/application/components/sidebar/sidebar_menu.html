@@ -8,7 +8,7 @@
           <div class="inline-flex items-center space-x-2">
             {% if let Some(icon) = menu_data.get_icon() %}
             <span class="bg-primary p-1 rounded-md stroke-primary-content">
-              {{ icon|safe }}
+              {{ icon.get_classed_svg(svg_class)|safe }}
             </span>
             {% endif %}
             <a class="pl-0" href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
@@ -22,7 +22,7 @@
   <li>Old config below</li>
   <li>
     <div class="inline-flex items-center space-x-2">
-      <span class="bg-primary p-1 rounded-md">Icon</span>
+      <span class="bg-primary p-1 rounded-md">{{ svg_icons::Icons::FOLDER.get_classed_svg(svg_class)|safe }}</span>
       <a class="pl-0" href="{{ crate::pages::ApplicationPages::DASHBOARD.route.to_string() }}">
         {{ crate::pages::ApplicationPages::DASHBOARD.title }}
       </a>
@@ -32,7 +32,7 @@
     <details open>
       <summary>
         <div class="inline-flex items-center space-x-2">
-          <span class="-ml-2 bg-primary p-1 rounded-md">Icon</span>
+          <span class="-ml-2 bg-primary p-1 rounded-md">{{ svg_icons::Icons::PANEL_LEFT.get_classed_svg(svg_class)|safe }}</span>
           <span>Utilities</span>
         </div>
       </summary>

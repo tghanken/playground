@@ -19,10 +19,10 @@ impl Display for IconRef {
 }
 
 impl IconRef {
-    fn get_classed_svg(&self, class: &str) -> String {
+    pub fn get_classed_svg(&self, class: &str) -> String {
         const SVG_PREFIX: &str = "<svg";
         let (_, suffix) = self.svg_data.split_at(SVG_PREFIX.len());
 
-        format!("{SVG_PREFIX} {class} {suffix}")
+        format!("{SVG_PREFIX} class=\"{class}\" {suffix}")
     }
 }
