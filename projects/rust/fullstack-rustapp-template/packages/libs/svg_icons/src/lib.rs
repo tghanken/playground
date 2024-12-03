@@ -25,7 +25,7 @@ impl IconRef {
 
         format!("{SVG_PREFIX} class=\"{class}\" {suffix}")
     }
-    
+
     pub fn get_icon_name(&self) -> &str {
         self.name
     }

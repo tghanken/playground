@@ -1,7 +1,7 @@
 pub use router::get_router;
 
 pub mod application;
-mod router;
+pub(crate) mod router;
 
 #[non_exhaustive]
 pub struct ApplicationPages;
