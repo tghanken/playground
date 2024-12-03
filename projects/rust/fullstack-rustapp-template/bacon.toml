@@ -1,6 +1,6 @@
 default_job = "test"
 env.CARGO_TERM_COLOR = "always"
-on_change_strategy = "kill_then_restartt"
+on_change_strategy = "kill_then_restart"
 
 [jobs]
 
