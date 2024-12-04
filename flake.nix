@@ -8,12 +8,6 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
-    # nix-systems = {
-    #   url = "github:nix-systems/default";
-    # };
-    # flake-compat = {
-    #   url = "github:edolstra/flake-compat";
-    # };
 
     # Rust Inputs
     rust-overlay = {
@@ -30,18 +24,7 @@
     dream2nix = {
       url = "github:nix-community/dream2nix";
       inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.purescript-overlay.follows = "purescript-overlay";
     };
-    # purescript-overlay = {
-    #   url = "github:thomashoneyman/purescript-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-compat.follows = "flake-compat";
-    #   inputs.slimlock.follows = "slimlock";
-    # };
-    # slimlock = {
-    #   url = "github:thomashoneyman/slimlock";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = inputs @ {
