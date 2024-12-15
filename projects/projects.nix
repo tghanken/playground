@@ -8,21 +8,41 @@
     system,
     lib,
     ...
-  }: {
-    devShells.default = pkgs.mkShell {
-      packages = with pkgs; [
-        alejandra
+  }:
+    with inputs; let
+      inherit pkgs lib;
+      craneLib = crane.mkLib pkgs;
+    in {
+      devShells.default = craneLib.devShell {
+        # Inherit inputs from checks.
+        checks = self.checks.${system};
 
-        pnpm
-        nodejs
-        just
-        dive
-        cargo-generate
-        cargo-leptos
-        worker-build
-        wasm-pack
-        binaryen
-      ];
+        shellHooks = ''
+          git lfs install
+        '';
+
+        packages = with pkgs; [
+          # Core
+          alejandra
+          just
+          dive
+          nix-output-monitor
+          bacon
+          watchexec
+          git-lfs
+
+          # JS
+          pnpm
+          nodejs
+
+          # Rust
+
+          # CF Workers
+          cargo-generate
+          worker-build
+          wasm-pack
+          binaryen
+        ];
+      };
     };
-  };
 }
