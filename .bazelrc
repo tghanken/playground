@@ -1,0 +1,19 @@
+# Import Aspect bazelrc presets
+import %workspace%/.bazel/bazelrc/bazel6.bazelrc
+import %workspace%/.bazel/bazelrc/bazel7.bazelrc
+import %workspace%/.bazel/bazelrc/buildbuddy.bazelrc
+import %workspace%/.bazel/bazelrc/convenience.bazelrc
+import %workspace%/.bazel/bazelrc/correctness.bazelrc
+import %workspace%/.bazel/bazelrc/debug.bazelrc
+import %workspace%/.bazel/bazelrc/java.bazelrc
+import %workspace%/.bazel/bazelrc/javascript.bazelrc
+import %workspace%/.bazel/bazelrc/nix.bazelrc
+import %workspace%/.bazel/bazelrc/performance.bazelrc
+
+### YOUR PROJECT SPECIFIC OPTIONS GO HERE ###
+
+# Load any settings & overrides specific to the current user from `.bazel/bazelrc/user.bazelrc`.
+# This file should appear in `.gitignore` so that settings are not shared with team members. This
+# should be last statement in this config so the user configuration is able to overwrite flags from
+# this file. See https://bazel.build/configure/best-practices#bazelrc-file.
+try-import %workspace%/.bazel/bazelrc/user.bazelrc
