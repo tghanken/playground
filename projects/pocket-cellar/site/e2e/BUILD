@@ -7,6 +7,9 @@ TEST_PATTERNS = [
 
 js_library(
     name = "e2e_test_files",
-    srcs = glob(TEST_PATTERNS),
+    srcs = glob(
+        include=TEST_PATTERNS,
+        allow_empty = True,
+    ),
     visibility = ["//projects/pocket-cellar/site:__subpackages__"],
 )

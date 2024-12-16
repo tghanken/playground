@@ -21,6 +21,7 @@ js_library(
     name = "src",
     srcs = glob(
         include = SRC_PATTERNS,
+        allow_empty = True,
         exclude = GENERATED_SRCS + TEST_PATTERNS,
         ),
     visibility = ["//projects/pocket-cellar/site:__subpackages__"],
