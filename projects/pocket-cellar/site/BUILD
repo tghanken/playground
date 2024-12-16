@@ -52,10 +52,10 @@ vite_bin.vite(
 #     tags = ["ibazel_notify_changes"],
 # )
 
-# build_test(
-#     name = "build_test",
-#     targets = [
-#         ":build",
-#         ":type-check",
-#     ],
-# )
+build_test(
+    name = "build_test",
+    targets = [
+        ":build",
+        # ":type-check",
+    ],
+)
