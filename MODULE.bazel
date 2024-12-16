@@ -15,6 +15,8 @@ npm.npm_translate_lock(
     pnpm_lock = "//projects:pnpm-lock.yaml",
     npmrc = "//projects:.npmrc",
     verify_node_modules_ignored = "//:.bazelignore",
+    generate_bzl_library_targets = True,
+    lifecycle_hooks = { "*": [] }
 )
 
 use_repo(npm, "npm")
@@ -22,5 +24,5 @@ use_repo(npm, "npm")
 pnpm = use_extension("@aspect_rules_js//npm:extensions.bzl", "pnpm")
 
 # Allows developers to use the matching pnpm version, for example:
-# bazel run -- @pnpm --dir /home/runner/work/rules_js/rules_js install
+# bazel run -- @pnpm --dir $(pwd) install
 use_repo(pnpm, "pnpm")
