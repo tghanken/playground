@@ -20,6 +20,7 @@ SRCS = [
 
 BUILD_DEPS = [":node_modules/" + d for d in [
     "@inlang/paraglide-sveltekit",
+    "vitest",
     # "@bazel-example/vue-library",
     # "@vitejs/plugin-vue",
     # "@vitejs/plugin-vue-jsx",
