@@ -36,9 +36,6 @@ importers:
       '@playwright/test':
         specifier: ^1.45.3
         version: 1.45.3
-      '@sinclair/typebox':
-        specifier: ^0.34.11
-        version: 0.34.11
       '@storybook/addon-essentials':
         specifier: 8.3.6
         version: 8.3.6(storybook@8.3.6)
@@ -2251,10 +2248,6 @@ packages:
   /@sinclair/typebox@0.31.28:
     resolution: {integrity: sha512-/s55Jujywdw/Jpan+vsy6JZs1z2ZTGxTmbZTPiuSL2wz9mfzA2gN1zzaqmvfi4pq+uOt7Du85fkiwv5ymW84aQ==}
     dev: false
-
-  /@sinclair/typebox@0.34.11:
-    resolution: {integrity: sha512-zE9pWGVSG82z+sFO+oUmqmqRVm8Wg5sVhmljYi1fDhLOSphBBy939QmC/qXcKFWqTiRJ6keyG4y75bIoTPRBAw==}
-    dev: true
 
   /@storybook/addon-actions@8.3.6(storybook@8.3.6):
     resolution: {integrity: sha512-nOqgl0WoZK2KwjaABaXMoIgrIHOQl9inOzJvqQau0HOtsvnXGXYfJXYnpjZenoZDoZXKbUDl0U2haDFx2a2fJw==}

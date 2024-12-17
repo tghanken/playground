@@ -18,9 +18,12 @@ SRCS = [
     "//projects/pocket-cellar/site/src",
 ]
 
+# HOISTED_DEPS = ["//projects:node_modules/" + d for d in [
+#     "@sinclair/typebox",
+# ]]
+
 BUILD_DEPS = [":node_modules/" + d for d in [
     "@inlang/paraglide-sveltekit",
-    "@sinclair/typebox",
     "@sveltejs/kit",
     "tailwindcss",
     "vite",

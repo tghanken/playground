@@ -20,7 +20,9 @@ npm.npm_translate_lock(
     npmrc = "//projects:.npmrc",
     verify_node_modules_ignored = "//:.bazelignore",
     generate_bzl_library_targets = True,
-    # lifecycle_hooks = { "*": [] }
+    # public_hoist_packages = {
+    #     "@sinclair/typebox": ["projects"],
+    # },
 )
 
 use_repo(npm, "npm")
