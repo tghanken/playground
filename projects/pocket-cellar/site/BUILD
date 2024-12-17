@@ -4,6 +4,7 @@ load("@aspect_rules_js//js:defs.bzl", "js_library", "js_run_binary", "js_run_dev
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//projects/pocket-cellar/site:vite/package_json.bzl", vite_bin = "bin")
 load("@npm//projects/pocket-cellar/site:@sveltejs/kit/package_json.bzl", svelte_kit_bin = "bin")
+load("@npm//projects/pocket-cellar/site:svelte-check/package_json.bzl", svelte_check_bin = "bin")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
@@ -17,10 +18,6 @@ SRCS = [
     "wrangler.toml",
     "//projects/pocket-cellar/site/src",
 ]
-
-# HOISTED_DEPS = ["//projects:node_modules/" + d for d in [
-#     "@sinclair/typebox",
-# ]]
 
 BUILD_DEPS = [":node_modules/" + d for d in [
     "@inlang/paraglide-sveltekit",
@@ -49,6 +46,13 @@ svelte_kit_bin.svelte_kit(
     out_dirs = [".svelte-kit"],
 )
 
+svelte_check_bin.svelte_check_test(
+    name = "svelte-check",
+    data = SRCS + BUILD_DEPS + [":build"],
+    args = ["--tsconfig", "./tsconfig.json"],
+    chdir = package_name(),
+)
+
 vite_bin.vite(
     name = "build",
     srcs = SRCS + BUILD_DEPS + [":sk-sync"],
@@ -73,10 +77,10 @@ vite_bin.vite(
 #     tags = ["ibazel_notify_changes"],
 # )
 
-build_test(
-    name = "build_test",
-    targets = [
-        ":build",
-        # ":type-check",
-    ],
-)
+# build_test(
+#     name = "build_test",
+#     targets = [
+#         ":build",
+#         # ":type-check",
+#     ],
+# )
