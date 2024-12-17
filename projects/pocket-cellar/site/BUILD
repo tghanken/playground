@@ -22,6 +22,8 @@ BUILD_DEPS = [":node_modules/" + d for d in [
     "@inlang/paraglide-sveltekit",
     "@sinclair/typebox",
     "@sveltejs/kit",
+    "tailwindcss",
+    "vite",
     "vitest",
     # "@bazel-example/vue-library",
     # "@vitejs/plugin-vue",
