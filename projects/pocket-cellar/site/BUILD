@@ -3,7 +3,7 @@ load("@bazel_skylib//rules:build_test.bzl", "build_test")
 load("@aspect_rules_js//js:defs.bzl", "js_library", "js_run_binary", "js_run_devserver", "js_test")
 load("@npm//:defs.bzl", "npm_link_all_packages")
 load("@npm//projects/pocket-cellar/site:vite/package_json.bzl", vite_bin = "bin")
-# load("@npm//projects/pocket-cellar/site:svelte-kit/package_json.bzl", svelte_kit_bin = "bin")
+load("@npm//projects/pocket-cellar/site:@sveltejs/kit/package_json.bzl", svelte_kit_bin = "bin")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
@@ -24,8 +24,12 @@ SRCS = [
 
 BUILD_DEPS = [":node_modules/" + d for d in [
     "@inlang/paraglide-sveltekit",
+    "@sveltejs/adapter-cloudflare",
     "@sveltejs/kit",
+    "@sveltejs/vite-plugin-svelte",
+    "mdsvex",
     "tailwindcss",
+    "typescript",
     "vite",
     "vitest",
     # "@bazel-example/vue-library",
@@ -37,9 +41,17 @@ BUILD_DEPS = [":node_modules/" + d for d in [
     # "vue-router",
 ]]
 
+svelte_kit_bin.svelte_kit(
+    name = "sk-sync",
+    srcs = SRCS + BUILD_DEPS,
+    args = ["sync"],
+    chdir = package_name(),
+    out_dirs = [".svelte-kit"],
+)
+
 vite_bin.vite(
     name = "build",
-    srcs = SRCS + BUILD_DEPS,
+    srcs = SRCS + BUILD_DEPS + [":sk-sync"],
     args = ["build"],
     chdir = package_name(),
     out_dirs = ["dist"],
