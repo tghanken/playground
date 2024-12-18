@@ -30,6 +30,9 @@
           bacon
           watchexec
           git-lfs
+        
+          # Build Tools
+          earthly
 
           # JS
           pnpm

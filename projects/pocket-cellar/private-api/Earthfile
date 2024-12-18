@@ -1,0 +1,13 @@
+VERSION 0.8
+PROJECT tghanken/playground
+FROM ubuntu:latest
+IMPORT github.com/earthly/lib/rust AS rust
+
+build:
+    RUN echo "Building..."
+
+check:
+    RUN echo "Checking..."
+
+deploy:
+    RUN echo "Deploying..."

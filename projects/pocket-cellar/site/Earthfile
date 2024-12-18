@@ -1,0 +1,12 @@
+VERSION 0.8
+PROJECT tghanken/playground
+FROM ubuntu:latest
+
+build:
+    RUN echo "Building..."
+
+check:
+    RUN echo "Checking..."
+
+deploy:
+    RUN echo "Deploying..."

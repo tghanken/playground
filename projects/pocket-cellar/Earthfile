@@ -1,0 +1,17 @@
+VERSION 0.8
+PROJECT tghanken/playground
+
+build:
+    BUILD ./private-api+build
+    BUILD ./public-api+build
+    BUILD ./site+build
+
+check:
+    BUILD ./private-api+check
+    BUILD ./public-api+check
+    BUILD ./site+check
+
+deploy:
+    BUILD ./private-api+deploy
+    BUILD ./public-api+deploy
+    BUILD ./site+deploy
