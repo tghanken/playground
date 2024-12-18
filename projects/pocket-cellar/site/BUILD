@@ -1,10 +1,13 @@
+load("@aspect_bazel_lib//lib:copy_to_bin.bzl", "copy_to_bin")
+load("@aspect_rules_js//js:defs.bzl", "js_library", "js_run_binary", "js_run_devserver", "js_test")
+load("@aspect_rules_ts//ts:defs.bzl", "ts_config")
+
 # TODO: add unit tests instead of only testing building
 load("@bazel_skylib//rules:build_test.bzl", "build_test")
-load("@aspect_rules_js//js:defs.bzl", "js_library", "js_run_binary", "js_run_devserver", "js_test")
 load("@npm//:defs.bzl", "npm_link_all_packages")
-load("@npm//projects/pocket-cellar/site:vite/package_json.bzl", vite_bin = "bin")
 load("@npm//projects/pocket-cellar/site:@sveltejs/kit/package_json.bzl", svelte_kit_bin = "bin")
 load("@npm//projects/pocket-cellar/site:svelte-check/package_json.bzl", svelte_check_bin = "bin")
+load("@npm//projects/pocket-cellar/site:vite/package_json.bzl", vite_bin = "bin")
 
 # This macro expands to a link_npm_package for each third-party package in package.json
 npm_link_all_packages(name = "node_modules")
@@ -26,7 +29,6 @@ RUNTIME_DEPS = [":node_modules/" + d for d in [
     "@tailwindcss/typography",
 ]]
 
-
 DEV_DEPS = [":node_modules/" + d for d in [
     "@cloudflare/workers-types",
     "@sveltejs/adapter-cloudflare",
@@ -41,6 +43,11 @@ DEV_DEPS = [":node_modules/" + d for d in [
     "vitest",
     "wrangler",
 ]] + RUNTIME_DEPS
+
+ts_config(
+    name = "tsconfig",
+    src = "tsconfig.json",
+)
 
 svelte_kit_bin.svelte_kit(
     name = "sk-sync",
@@ -87,4 +94,10 @@ build_test(
         ":build",
         # ":type-check",
     ],
+)
+
+copy_to_bin(
+    name = "wrangler",
+    srcs = ["wrangler.toml"],
+    visibility = ["//projects/pocket-cellar/site/src:__subpackages__"],
 )
