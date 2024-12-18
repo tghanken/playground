@@ -1,5 +1,5 @@
 [package]
-name = "pocket-cellar-public-api"
+name = "pocket-cellar-private-api"
 version = "0.1.0"
 edition = "2021"
 authors = [ "Taylor Hanken <tghanken@gmail.com>" ]
