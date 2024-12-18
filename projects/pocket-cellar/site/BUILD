@@ -17,30 +17,34 @@ SRCS = [
     "vite.config.ts",
     "wrangler.toml",
     "//projects/pocket-cellar/site/src",
+    "//projects/pocket-cellar/site/static",
 ]
 
-BUILD_DEPS = [":node_modules/" + d for d in [
-    # "@inlang/paraglide-sveltekit",
+RUNTIME_DEPS = [":node_modules/" + d for d in [
+    "@tailwindcss/container-queries",
+    "@tailwindcss/forms",
+    "@tailwindcss/typography",
+]]
+
+
+DEV_DEPS = [":node_modules/" + d for d in [
+    "@cloudflare/workers-types",
     "@sveltejs/adapter-cloudflare",
     "@sveltejs/kit",
     "@sveltejs/vite-plugin-svelte",
-    # "mdsvex",
+    "autoprefixer",
+    "svelte",
+    "svelte-check",
     "tailwindcss",
     "typescript",
     "vite",
     "vitest",
-    # "@bazel-example/vue-library",
-    # "@vitejs/plugin-vue",
-    # "@vitejs/plugin-vue-jsx",
-    # "@vue/tsconfig",
-    # "vite",
-    # "vue",
-    # "vue-router",
-]]
+    "wrangler",
+]] + RUNTIME_DEPS
 
 svelte_kit_bin.svelte_kit(
     name = "sk-sync",
-    srcs = SRCS + BUILD_DEPS,
+    srcs = SRCS + DEV_DEPS,
     args = ["sync"],
     chdir = package_name(),
     out_dirs = [".svelte-kit"],
@@ -48,14 +52,14 @@ svelte_kit_bin.svelte_kit(
 
 # svelte_check_bin.svelte_check_test(
 #     name = "svelte-check",
-#     data = SRCS + BUILD_DEPS + [":build"],
+#     data = SRCS + DEV_DEPS + [":build", ":sk-sync"],
 #     args = ["--tsconfig", "./tsconfig.json"],
 #     chdir = package_name(),
 # )
 
 vite_bin.vite(
     name = "build",
-    srcs = SRCS + BUILD_DEPS + [":sk-sync"],
+    srcs = SRCS + DEV_DEPS,
     args = ["build"],
     chdir = package_name(),
     out_dirs = ["dist"],
@@ -77,10 +81,10 @@ vite_bin.vite(
 #     tags = ["ibazel_notify_changes"],
 # )
 
-# build_test(
-#     name = "build_test",
-#     targets = [
-#         ":build",
-#         # ":type-check",
-#     ],
-# )
+build_test(
+    name = "build_test",
+    targets = [
+        ":build",
+        # ":type-check",
+    ],
+)
