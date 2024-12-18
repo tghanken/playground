@@ -1,3 +1,4 @@
 .direnv/
 projects/node_modules
 projects/pocket-cellar/site/node_modules
+projects/rust/fullstack-rustapp-template/packages/libs/frontend-ui/node_modules

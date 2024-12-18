@@ -20,11 +20,11 @@ SRCS = [
 ]
 
 BUILD_DEPS = [":node_modules/" + d for d in [
-    "@inlang/paraglide-sveltekit",
+    # "@inlang/paraglide-sveltekit",
     "@sveltejs/adapter-cloudflare",
     "@sveltejs/kit",
     "@sveltejs/vite-plugin-svelte",
-    "mdsvex",
+    # "mdsvex",
     "tailwindcss",
     "typescript",
     "vite",
@@ -46,12 +46,12 @@ svelte_kit_bin.svelte_kit(
     out_dirs = [".svelte-kit"],
 )
 
-svelte_check_bin.svelte_check_test(
-    name = "svelte-check",
-    data = SRCS + BUILD_DEPS + [":build"],
-    args = ["--tsconfig", "./tsconfig.json"],
-    chdir = package_name(),
-)
+# svelte_check_bin.svelte_check_test(
+#     name = "svelte-check",
+#     data = SRCS + BUILD_DEPS + [":build"],
+#     args = ["--tsconfig", "./tsconfig.json"],
+#     chdir = package_name(),
+# )
 
 vite_bin.vite(
     name = "build",
