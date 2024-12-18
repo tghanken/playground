@@ -4,3 +4,6 @@ result/
 .DS_Store
 .pre-commit-config.yaml
 logs/
+bazel-*
+node_modules
+target

@@ -31,6 +31,10 @@
           watchexec
           git-lfs
 
+          # Build tools
+          bazel_7
+          bazel-buildtools
+
           # JS
           pnpm
           nodejs
