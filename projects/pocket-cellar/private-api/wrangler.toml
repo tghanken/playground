@@ -1,6 +1,17 @@
 name = "pocket-cellar-private-api"
 main = "build/worker/shim.mjs"
 compatibility_date = "2024-12-18"
+minify = true
+workers_dev = false
 
 [build]
 command = "cargo install -q worker-build && worker-build --release"
+
+[placement]
+mode = "smart"
+
+[observability]
+enabled = true
+
+[limits]
+cpu_ms = 100
