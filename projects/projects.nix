@@ -36,6 +36,9 @@
           nodejs
 
           # Rust
+          mold
+          clang
+          llvmPackages.bintools
 
           # CF Workers
           cargo-generate
