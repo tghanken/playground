@@ -2,5 +2,6 @@ result
 result/
 .direnv/
 .DS_Store
+.secret
 .pre-commit-config.yaml
 logs/

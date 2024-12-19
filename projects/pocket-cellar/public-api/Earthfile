@@ -1,15 +1,35 @@
 VERSION 0.8
 PROJECT tghanken/playground
-FROM ../../../.earthly/base-images/debian+image
+IMPORT github.com/earthly/lib/rust AS rust
 
+FROM ../../../.earthly/utilities/rust-builder+base
+DO ../../../.earthly/utilities/rust-builder+ADD_WASM_TARGET
+WORKDIR /app
+
+# Core Targets - Intended to be called by a user
 build:
-    RUN echo "Building..."
+    DO ../../../.earthly/utilities/nix+MOUNT_CACHE
+    RUN nix profile install nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+    DO +COPY_DEPS
+    DO rust+SET_CACHE_MOUNTS_ENV
+    RUN --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE worker-build --release
+    SAVE ARTIFACT ./build
 
 check:
     RUN echo "Checking..."
 
 deploy:
+    DO ../../../.earthly/utilities/nix+MOUNT_CACHE
+    RUN nix profile install nixpkgs#wrangler nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+    DO +COPY_DEPS
+    DO rust+SET_CACHE_MOUNTS_ENV
     WAIT
         BUILD ../private-api+deploy
     END
-    RUN echo "Deploying..."
+    RUN --push --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE --secret CLOUDFLARE_API_TOKEN wrangler deploy
+
+# Utility Targets - Intended to be called only by core targets
+COPY_DEPS:
+    FUNCTION
+    COPY --dir src .
+    COPY Cargo.lock Cargo.toml wrangler.toml .

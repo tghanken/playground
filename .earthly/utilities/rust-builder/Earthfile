@@ -3,6 +3,7 @@ PROJECT tghanken/playground
 IMPORT github.com/earthly/lib/rust AS rust
 FROM ../../base-images/rust+image
 DO rust+INIT
+DO ../nix+NIX_INSTALL
 
 # Desired checks:
 clippy:
