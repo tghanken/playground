@@ -3,32 +3,28 @@ PROJECT tghanken/playground
 IMPORT github.com/earthly/lib/rust AS rust
 
 FROM ../../../.earthly/utilities/rust-builder+base
-DO ../../../.earthly/utilities/rust-builder+ADD_WASM_TARGET
 WORKDIR /app
 
 # Core Targets - Intended to be called by a user
 build:
-    DO ../../../.earthly/utilities/nix+MOUNT_CACHE
-    RUN nix profile install nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+    DO ../../../.earthly/utilities/rust-builder+ADD_CF_WORKER_TARGET
     COPY --dir src .
     COPY Cargo.lock Cargo.toml wrangler.toml .
     DO rust+SET_CACHE_MOUNTS_ENV
-    RUN --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE worker-build --release
+    RUN --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE worker-build
     SAVE ARTIFACT ./build
 
 check:
     RUN echo "Checking..."
 
 deploy:
-    DO ../../../.earthly/utilities/nix+MOUNT_CACHE
-    RUN nix profile install nixpkgs#wrangler nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+    DO ../../../.earthly/utilities/rust-builder+ADD_WRANGLER_TARGET
     COPY --dir src .
     COPY Cargo.lock Cargo.toml wrangler.toml .
     DO rust+SET_CACHE_MOUNTS_ENV
+    WAIT
+        BUILD --auto-skip ../private-api+deploy
+    END
     RUN --push --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE --secret CLOUDFLARE_API_TOKEN wrangler deploy
 
 # Utility Targets - Intended to be called only by core targets
-COPY_DEPS:
-    FUNCTION
-    COPY --dir src .
-    COPY Cargo.lock Cargo.toml wrangler.toml .

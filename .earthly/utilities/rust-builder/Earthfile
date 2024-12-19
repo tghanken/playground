@@ -36,3 +36,14 @@ udeps:
 ADD_WASM_TARGET:
     FUNCTION
     RUN rustup target add wasm32-unknown-unknown
+
+ADD_CF_WORKER_TARGET:
+    FUNCTION
+    DO +ADD_WASM_TARGET
+    DO ../nix+MOUNT_CACHE
+    RUN nix profile install nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+
+ADD_WRANGLER_TARGET:
+    FUNCTION
+    DO +ADD_CF_WORKER_TARGET
+    RUN nix profile install nixpkgs#wrangler
