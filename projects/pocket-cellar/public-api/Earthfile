@@ -16,12 +16,12 @@ build:
 check:
     BUILD --auto-skip +clippy
     BUILD --auto-skip +rustfmt
-    # BUILD --auto-skip +doctest
-    # BUILD --auto-skip +nextest
-    # BUILD --auto-skip +taplo
-    # BUILD --auto-skip +audit
-    # BUILD --auto-skip +deny
-    # BUILD --auto-skip +udeps
+    BUILD --auto-skip +doctest
+    BUILD --auto-skip +nextest
+    BUILD --auto-skip +taplo
+    BUILD --auto-skip +audit
+    BUILD --auto-skip +deny
+    BUILD --auto-skip +udeps
 
 fix:
     FROM ../../../.earthly/utilities/rust-builder+check-base

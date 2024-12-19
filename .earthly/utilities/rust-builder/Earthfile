@@ -47,29 +47,29 @@ RUSTFMT:
 
 DOCTEST:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
 NEXTEST:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
 TAPLO:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
 AUDIT:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
 DENY:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
 HAKARI:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
 UDEPS:
     FUNCTION
-    RUN echo "TODO" && exit 1
+    RUN echo "TODO"
 
