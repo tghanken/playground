@@ -4,4 +4,5 @@ result/
 .DS_Store
 .secret
 .pre-commit-config.yaml
+.tmp-earthly-out
 logs/

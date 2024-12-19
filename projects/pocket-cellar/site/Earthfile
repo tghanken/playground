@@ -1,12 +1,20 @@
 VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 
-FROM ../../../.earthly/base-images/debian+image
+FROM ../../../.earthly/builders/debian-builder+pnpm-builder
 WORKDIR /app
 
 # Core Targets - Intended to be called by a user
 build:
-    RUN echo "Building..."
+    BUILD +install
+    BUILD +typegen
+    COPY --dir +install/node_modules .
+    COPY +install/package.json .
+    COPY +src-files/* .
+    COPY --dir +sync/ .
+    COPY +typegen/worker-configuration.d.ts ./src/
+    RUN pnpm run build
+    SAVE ARTIFACT .svelte-kit AS LOCAL .svelte-kit
 
 check:
     RUN echo "Checking..."
@@ -21,3 +29,35 @@ deploy:
     RUN echo "Deploying..."
 
 # Utility Targets - Intended to be called only by core targets
+src-files:
+    COPY --dir src static .
+    COPY \
+        postcss.config.js \
+        svelte.config.js \
+        tailwind.config.ts \
+        tsconfig.json \
+        vite.config.ts \
+        wrangler.toml \
+        .
+    SAVE ARTIFACT .
+
+install:
+    COPY package.json pnpm-lock.yaml .
+    RUN --mount type=cache,target=/root/.pnpm-store pnpm install
+    SAVE ARTIFACT package.json AS LOCAL package.json
+    SAVE ARTIFACT pnpm-lock.yaml AS LOCAL pnpm-lock.yaml
+    SAVE ARTIFACT node_modules AS LOCAL node_modules
+
+sync:
+    COPY --dir +install/node_modules .
+    COPY +install/package.json .
+    COPY +src-files/* .
+    RUN pnpm run sync
+    SAVE ARTIFACT .svelte-kit
+
+typegen:
+    COPY --dir +install/node_modules .
+    COPY +install/package.json .
+    COPY +src-files/* .
+    RUN pnpm run typegen
+    SAVE ARTIFACT ./src/worker-configuration.d.ts AS LOCAL ./src/worker-configuration.d.ts
