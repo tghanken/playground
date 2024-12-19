@@ -4,7 +4,7 @@ IMPORT github.com/earthly/lib/rust AS rust
 FROM ../../base-images/rust+image
 WORKDIR /app
 DO rust+INIT
-DO ../nix+NIX_INSTALL
+DO ../../utilities/nix+NIX_INSTALL
 
 # Base Images
 check-base:
@@ -18,7 +18,7 @@ ADD_WASM_TARGET:
 ADD_CF_WORKER_TARGET:
     FUNCTION
     DO +ADD_WASM_TARGET
-    DO ../nix+MOUNT_CACHE
+    DO ../../utilities/nix+MOUNT_CACHE
     RUN nix profile install nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
 
 ADD_WRANGLER_TARGET:

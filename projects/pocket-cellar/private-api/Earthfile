@@ -2,12 +2,12 @@ VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 IMPORT github.com/earthly/lib/rust AS rust
 
-FROM ../../../.earthly/utilities/rust-builder+base
+FROM ../../../.earthly/builders/rust-builder+base
 WORKDIR /app
 
 # Core Targets - Intended to be called by a user
 build:
-    DO ../../../.earthly/utilities/rust-builder+ADD_CF_WORKER_TARGET
+    DO ../../../.earthly/builders/rust-builder+ADD_CF_WORKER_TARGET
     COPY +deps/* .
     DO rust+SET_CACHE_MOUNTS_ENV
     RUN --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE worker-build
@@ -24,17 +24,17 @@ check:
     BUILD --auto-skip +udeps
 
 fix:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+CLIPPY --FIX=fix
-    DO ../../../.earthly/utilities/rust-builder+RUSTFMT --FIX=fix
+    DO ../../../.earthly/builders/rust-builder+CLIPPY --FIX=fix
+    DO ../../../.earthly/builders/rust-builder+RUSTFMT --FIX=fix
     SAVE ARTIFACT ./src AS LOCAL ./src
     SAVE ARTIFACT ./Cargo.lock AS LOCAL ./Cargo.lock
     SAVE ARTIFACT ./Cargo.toml AS LOCAL ./Cargo.toml
     SAVE ARTIFACT ./wrangler.toml AS LOCAL ./wrangler.toml
 
 deploy:
-    DO ../../../.earthly/utilities/rust-builder+ADD_WRANGLER_TARGET
+    DO ../../../.earthly/builders/rust-builder+ADD_WRANGLER_TARGET
     COPY +deps/* .
     DO rust+SET_CACHE_MOUNTS_ENV
     RUN --push --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE --secret CLOUDFLARE_API_TOKEN wrangler deploy
@@ -47,41 +47,41 @@ deps:
 
 # Checks
 clippy:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+CLIPPY
+    DO ../../../.earthly/builders/rust-builder+CLIPPY
 
 rustfmt:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+RUSTFMT
+    DO ../../../.earthly/builders/rust-builder+RUSTFMT
 
 doctest:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+DOCTEST
+    DO ../../../.earthly/builders/rust-builder+DOCTEST
 
 nextest:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+NEXTEST
+    DO ../../../.earthly/builders/rust-builder+NEXTEST
 
 taplo:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+TAPLO
+    DO ../../../.earthly/builders/rust-builder+TAPLO
 
 audit:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+AUDIT
+    DO ../../../.earthly/builders/rust-builder+AUDIT
 
 deny:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+DENY
+    DO ../../../.earthly/builders/rust-builder+DENY
 
 udeps:
-    FROM ../../../.earthly/utilities/rust-builder+check-base
+    FROM ../../../.earthly/builders/rust-builder+check-base
     COPY +deps/* .
-    DO ../../../.earthly/utilities/rust-builder+UDEPS
+    DO ../../../.earthly/builders/rust-builder+UDEPS
