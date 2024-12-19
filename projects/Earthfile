@@ -2,10 +2,10 @@ VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 
 build:
-    BUILD ./pocket-cellar+build
+    BUILD --auto-skip ./pocket-cellar+build
 
 check:
-    BUILD ./pocket-cellar+check
+    BUILD --auto-skip ./pocket-cellar+check
 
 deploy:
-    BUILD ./pocket-cellar+deploy
+    BUILD --auto-skip ./pocket-cellar+deploy

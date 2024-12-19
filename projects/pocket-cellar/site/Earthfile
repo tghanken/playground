@@ -1,7 +1,10 @@
 VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
-FROM ../../../.earthly/base-images/debian+image
 
+FROM ../../../.earthly/base-images/debian+image
+WORKDIR /app
+
+# Core Targets - Intended to be called by a user
 build:
     RUN echo "Building..."
 
@@ -13,3 +16,5 @@ deploy:
         BUILD --auto-skip ../private-api+deploy
     END
     RUN echo "Deploying..."
+
+# Utility Targets - Intended to be called only by core targets
