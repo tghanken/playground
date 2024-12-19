@@ -1,0 +1,6 @@
+{
+    "rust-analyzer.linkedProjects": [
+        "./projects/pocket-cellar/private-api/Cargo.toml",
+        "./projects/pocket-cellar/public-api/Cargo.toml",
+    ],
+}
