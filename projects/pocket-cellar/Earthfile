@@ -1,17 +1,17 @@
-VERSION 0.8
+VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 
 build:
-    BUILD ./private-api+build
-    BUILD ./public-api+build
-    BUILD ./site+build
+    BUILD --auto-skip ./private-api+build
+    BUILD --auto-skip ./public-api+build
+    BUILD --auto-skip ./site+build
 
 check:
-    BUILD ./private-api+check
-    BUILD ./public-api+check
-    BUILD ./site+check
+    BUILD --auto-skip ./private-api+check
+    BUILD --auto-skip ./public-api+check
+    BUILD --auto-skip ./site+check
 
 deploy:
-    BUILD ./private-api+deploy
-    BUILD ./public-api+deploy
-    BUILD ./site+deploy
+    BUILD --auto-skip ./private-api+deploy
+    BUILD --auto-skip ./public-api+deploy
+    BUILD --auto-skip ./site+deploy

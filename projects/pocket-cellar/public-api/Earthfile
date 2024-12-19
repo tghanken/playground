@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 IMPORT github.com/earthly/lib/rust AS rust
 
@@ -24,7 +24,7 @@ deploy:
     DO +COPY_DEPS
     DO rust+SET_CACHE_MOUNTS_ENV
     WAIT
-        BUILD ../private-api+deploy
+        BUILD --auto-skip ../private-api+deploy
     END
     RUN --push --mount=$EARTHLY_RUST_CARGO_HOME_CACHE --mount=$EARTHLY_RUST_TARGET_CACHE --secret CLOUDFLARE_API_TOKEN wrangler deploy
 

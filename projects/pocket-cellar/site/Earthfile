@@ -1,4 +1,4 @@
-VERSION 0.8
+VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 FROM ../../../.earthly/base-images/debian+image
 
@@ -10,6 +10,6 @@ check:
 
 deploy:
     WAIT
-        BUILD ../private-api+deploy
+        BUILD --auto-skip ../private-api+deploy
     END
     RUN echo "Deploying..."
