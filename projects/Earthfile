@@ -1,11 +1,17 @@
 VERSION --build-auto-skip 0.8
 PROJECT tghanken/playground
 
+# Core Targets - Intended to be called by a user
 build:
     BUILD --auto-skip ./pocket-cellar+build
 
 check:
     BUILD --auto-skip ./pocket-cellar+check
 
+fix:
+    BUILD --auto-skip ./pocket-cellar+fix
+
 deploy:
     BUILD --auto-skip ./pocket-cellar+deploy
+
+# Utility Targets - Intended to be called only by core targets

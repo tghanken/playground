@@ -23,6 +23,10 @@ check:
     # BUILD --auto-skip +deny
     # BUILD --auto-skip +udeps
 
+fix:
+    BUILD --auto-skip +clippy --FIX=fix
+    BUILD --auto-skip +rustfmt --FIX=fix
+
 deploy:
     DO ../../../.earthly/utilities/rust-builder+ADD_WRANGLER_TARGET
     COPY +deps/* .
@@ -42,12 +46,24 @@ deps:
 clippy:
     FROM ../../../.earthly/utilities/rust-builder+clippy
     COPY +deps/* .
-    DO rust+CARGO --args "clippy"
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "clippy --fix --allow-no-vcs"
+        SAVE ARTIFACT ./src AS LOCAL ./src
+    ELSE
+        DO rust+CARGO --args "clippy -- --deny warnings"
+    END
 
 rustfmt:
     FROM ../../../.earthly/utilities/rust-builder+rustfmt
     COPY +deps/* .
-    DO rust+CARGO --args "fmt --check"
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "fmt"
+        SAVE ARTIFACT ./src AS LOCAL ./src
+    ELSE
+        DO rust+CARGO --args "fmt --check"
+    END
 
 doctest:
     FROM ../../../.earthly/utilities/rust-builder+doctest

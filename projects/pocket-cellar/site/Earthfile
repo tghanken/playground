@@ -11,6 +11,9 @@ build:
 check:
     RUN echo "Checking..."
 
+fix:
+    RUN echo "Fixing..."
+
 deploy:
     WAIT
         BUILD --auto-skip ../private-api+deploy
