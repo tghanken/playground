@@ -14,7 +14,14 @@ build:
     SAVE ARTIFACT ./build
 
 check:
-    RUN echo "Checking..."
+    BUILD --auto-skip +clippy
+    BUILD --auto-skip +rustfmt
+    # BUILD --auto-skip +doctest
+    # BUILD --auto-skip +nextest
+    # BUILD --auto-skip +taplo
+    # BUILD --auto-skip +audit
+    # BUILD --auto-skip +deny
+    # BUILD --auto-skip +udeps
 
 deploy:
     DO ../../../.earthly/utilities/rust-builder+ADD_WRANGLER_TARGET
@@ -30,3 +37,43 @@ deps:
     COPY --dir src .
     COPY Cargo.lock Cargo.toml wrangler.toml .
     SAVE ARTIFACT .
+
+clippy:
+    FROM ../../../.earthly/utilities/rust-builder+clippy
+    COPY +deps/* .
+    DO rust+CARGO --args "clippy"
+
+rustfmt:
+    FROM ../../../.earthly/utilities/rust-builder+rustfmt
+    COPY +deps/* .
+    DO rust+CARGO --args "fmt --check"
+
+doctest:
+    FROM ../../../.earthly/utilities/rust-builder+doctest
+    COPY +deps/* .
+    DO rust+CARGO --args "test"
+
+nextest:
+    FROM ../../../.earthly/utilities/rust-builder+nextest
+    COPY +deps/* .
+    DO rust+CARGO --args "nextest"
+
+taplo:
+    FROM ../../../.earthly/utilities/rust-builder+taplo
+    COPY +deps/* .
+    DO rust+CARGO --args "taplo fmt"
+
+audit:
+    FROM ../../../.earthly/utilities/rust-builder+audit
+    COPY +deps/* .
+    DO rust+CARGO --args "audit"
+
+deny:
+    FROM ../../../.earthly/utilities/rust-builder+deny
+    COPY +deps/* .
+    DO rust+CARGO --args "deny"
+
+udeps:
+    FROM ../../../.earthly/utilities/rust-builder+udeps
+    COPY +deps/* .
+    DO rust+CARGO --args "udeps"
