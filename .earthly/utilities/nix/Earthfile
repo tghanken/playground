@@ -3,7 +3,6 @@ PROJECT tghanken/playground
 
 MOUNT_CACHE:
     FUNCTION
-    CACHE --id core-nix-cache --persist --sharing shared --chmod 0777 /nix
     CACHE --id user-nix-cache --sharing shared --chmod 0777 /root/.cache/nix
 
 NIX_INSTALL:
