@@ -24,8 +24,14 @@ check:
     # BUILD --auto-skip +udeps
 
 fix:
-    BUILD --auto-skip +clippy --FIX=fix
-    BUILD --auto-skip +rustfmt --FIX=fix
+    FROM ../../../.earthly/utilities/rust-builder+check-base
+    COPY +deps/* .
+    DO ../../../.earthly/utilities/rust-builder+CLIPPY --FIX=fix
+    DO ../../../.earthly/utilities/rust-builder+RUSTFMT --FIX=fix
+    SAVE ARTIFACT ./src AS LOCAL ./src
+    SAVE ARTIFACT ./Cargo.lock AS LOCAL ./Cargo.lock
+    SAVE ARTIFACT ./Cargo.toml AS LOCAL ./Cargo.toml
+    SAVE ARTIFACT ./wrangler.toml AS LOCAL ./wrangler.toml
 
 deploy:
     DO ../../../.earthly/utilities/rust-builder+ADD_WRANGLER_TARGET
@@ -44,53 +50,41 @@ deps:
 
 # Checks
 clippy:
-    FROM ../../../.earthly/utilities/rust-builder+clippy
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    ARG FIX
-    IF [ -n "$FIX" ]
-        DO rust+CARGO --args "clippy --fix --allow-no-vcs"
-        SAVE ARTIFACT ./src AS LOCAL ./src
-    ELSE
-        DO rust+CARGO --args "clippy -- --deny warnings"
-    END
+    DO ../../../.earthly/utilities/rust-builder+CLIPPY
 
 rustfmt:
-    FROM ../../../.earthly/utilities/rust-builder+rustfmt
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    ARG FIX
-    IF [ -n "$FIX" ]
-        DO rust+CARGO --args "fmt"
-        SAVE ARTIFACT ./src AS LOCAL ./src
-    ELSE
-        DO rust+CARGO --args "fmt --check"
-    END
+    DO ../../../.earthly/utilities/rust-builder+RUSTFMT
 
 doctest:
-    FROM ../../../.earthly/utilities/rust-builder+doctest
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    DO rust+CARGO --args "test"
+    DO ../../../.earthly/utilities/rust-builder+DOCTEST
 
 nextest:
-    FROM ../../../.earthly/utilities/rust-builder+nextest
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    DO rust+CARGO --args "nextest"
+    DO ../../../.earthly/utilities/rust-builder+NEXTEST
 
 taplo:
-    FROM ../../../.earthly/utilities/rust-builder+taplo
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    DO rust+CARGO --args "taplo fmt"
+    DO ../../../.earthly/utilities/rust-builder+TAPLO
 
 audit:
-    FROM ../../../.earthly/utilities/rust-builder+audit
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    DO rust+CARGO --args "audit"
+    DO ../../../.earthly/utilities/rust-builder+AUDIT
 
 deny:
-    FROM ../../../.earthly/utilities/rust-builder+deny
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    DO rust+CARGO --args "deny"
+    DO ../../../.earthly/utilities/rust-builder+DENY
 
 udeps:
-    FROM ../../../.earthly/utilities/rust-builder+udeps
+    FROM ../../../.earthly/utilities/rust-builder+check-base
     COPY +deps/* .
-    DO rust+CARGO --args "udeps"
+    DO ../../../.earthly/utilities/rust-builder+UDEPS

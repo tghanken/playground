@@ -6,34 +6,11 @@ WORKDIR /app
 DO rust+INIT
 DO ../nix+NIX_INSTALL
 
-# Desired checks:
-clippy:
-    RUN rustup component add clippy
+# Base Images
+check-base:
+    RUN rustup component add rustfmt clippy
 
-rustfmt:
-    RUN rustup component add rustfmt
-
-doctest:
-    RUN echo "TODO" && exit 1
-
-nextest:
-    RUN echo "TODO" && exit 1
-
-taplo:
-    RUN echo "TODO" && exit 1
-
-audit:
-    RUN echo "TODO" && exit 1
-
-deny:
-    RUN echo "TODO" && exit 1
-
-hakari:
-    RUN echo "TODO" && exit 1
-
-udeps:
-    RUN echo "TODO" && exit 1
-
+# Target Builders
 ADD_WASM_TARGET:
     FUNCTION
     RUN rustup target add wasm32-unknown-unknown
@@ -48,3 +25,51 @@ ADD_WRANGLER_TARGET:
     FUNCTION
     DO +ADD_CF_WORKER_TARGET
     RUN nix profile install nixpkgs#wrangler
+
+# Desired checks:
+CLIPPY:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "clippy --fix --allow-no-vcs"
+    ELSE
+        DO rust+CARGO --args "clippy -- --deny warnings"
+    END
+
+RUSTFMT:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "fmt"
+    ELSE
+        DO rust+CARGO --args "fmt --check"
+    END
+
+DOCTEST:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
+NEXTEST:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
+TAPLO:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
+AUDIT:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
+DENY:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
+HAKARI:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
+UDEPS:
+    FUNCTION
+    RUN echo "TODO" && exit 1
+
