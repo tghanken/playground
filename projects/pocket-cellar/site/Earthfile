@@ -23,10 +23,11 @@ fix:
     RUN echo "Fixing..."
 
 deploy:
-    WAIT
-        BUILD --auto-skip ../private-api+deploy
-    END
-    RUN echo "Deploying..."
+    COPY --dir +install/node_modules .
+    COPY +install/package.json .
+    COPY +src-files/* .
+    COPY --dir +build/.svelte-kit ./.svelte-kit
+    RUN --push --secret CLOUDFLARE_API_TOKEN pnpm run deploy
 
 # Utility Targets - Intended to be called only by core targets
 src-files:
