@@ -1,0 +1,37 @@
+VERSION 0.8
+PROJECT tghanken/playground
+IMPORT github.com/earthly/lib/rust AS rust
+FROM ../../base-images/rust+image
+DO rust+INIT
+
+# Desired checks:
+clippy:
+    RUN rustup component add clippy
+
+rustfmt:
+    RUN rustup component add rustfmt
+
+doctest:
+    RUN echo "TODO" && exit 1
+
+nextest:
+    RUN echo "TODO" && exit 1
+
+taplo:
+    RUN echo "TODO" && exit 1
+
+audit:
+    RUN echo "TODO" && exit 1
+
+deny:
+    RUN echo "TODO" && exit 1
+
+hakari:
+    RUN echo "TODO" && exit 1
+
+udeps:
+    RUN echo "TODO" && exit 1
+
+ADD_WASM_TARGET:
+    FUNCTION
+    RUN rustup target add wasm32-unknown-unknown

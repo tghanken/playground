@@ -1,6 +1,6 @@
 VERSION 0.8
 PROJECT tghanken/playground
-FROM ubuntu:latest
+FROM ../../../.earthly/base-images/debian+image
 
 build:
     RUN echo "Building..."
@@ -9,4 +9,7 @@ check:
     RUN echo "Checking..."
 
 deploy:
+    WAIT
+        BUILD ../private-api+deploy
+    END
     RUN echo "Deploying..."

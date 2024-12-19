@@ -1,6 +1,6 @@
 VERSION 0.8
 PROJECT tghanken/playground
-FROM ubuntu:latest
+FROM ../../../.earthly/base-images/debian+image
 IMPORT github.com/earthly/lib/rust AS rust
 
 build:
