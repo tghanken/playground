@@ -5,14 +5,15 @@
   "type": "module",
   "scripts": {
     "dev": "vite dev",
+    "sync": "svelte-kit sync",
+    "typegen": "wrangler types && mv worker-configuration.d.ts src/",
     "build": "vite build",
-    "preview": "pnpm run build && wrangler pages dev",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "preview": "wrangler pages dev",
+    "check": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "test:unit": "vitest",
-    "test": "npm run test:unit -- --run",
-    "deploy": "pnpm run build && wrangler pages deploy",
-    "cf-typegen": "wrangler types && mv worker-configuration.d.ts src/"
+    "test": "pnpm run test:unit -- --run",
+    "deploy": "wrangler pages deploy"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20241216.0",
