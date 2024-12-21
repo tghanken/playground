@@ -20,10 +20,13 @@ build:
     SAVE ARTIFACT .svelte-kit AS LOCAL .svelte-kit
 
 check:
-    RUN echo "Checking..."
+    BUILD --auto-skip +vitest
+    BUILD --auto-skip +playwright
+    BUILD --auto-skip +biome
 
 fix:
-    RUN echo "Fixing..."
+    FROM +build
+    RUN echo "TODO: Implement lint fixes"
 
 deploy:
     COPY --dir +install/node_modules .
@@ -65,3 +68,14 @@ typegen:
     COPY +src-files/* .
     RUN pnpm run typegen
     SAVE ARTIFACT ./src/worker-configuration.d.ts AS LOCAL ./src/worker-configuration.d.ts
+
+# Tests
+vitest:
+    FROM +build
+    RUN pnpm run test:unit -- --run
+
+playwright:
+    RUN echo "TODO: Implement playwright tests"
+
+biome:
+    RUN echo "TODO: Implement biome tests"

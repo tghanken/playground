@@ -11,8 +11,8 @@
     "preview": "wrangler pages dev",
     "check": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "pnpm run sync && svelte-check --tsconfig ./tsconfig.json --watch",
-    "test:unit": "vitest",
-    "test": "pnpm run test:unit -- --run",
+    "test:unit": "vitest --run",
+    "test": "pnpm run test:unit",
     "deploy": "wrangler pages deploy"
   },
   "devDependencies": {
