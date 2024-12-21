@@ -1,0 +1,75 @@
+VERSION --build-auto-skip 0.8
+PROJECT tghanken/playground
+IMPORT github.com/earthly/lib/rust AS rust
+FROM ../../base-images/rust+image
+WORKDIR /app
+DO rust+INIT
+DO ../../utilities/nix+NIX_INSTALL
+
+# Base Images
+check-base:
+    RUN rustup component add rustfmt clippy
+
+# Target Builders
+ADD_WASM_TARGET:
+    FUNCTION
+    RUN rustup target add wasm32-unknown-unknown
+
+ADD_CF_WORKER_TARGET:
+    FUNCTION
+    DO +ADD_WASM_TARGET
+    DO ../../utilities/nix+MOUNT_CACHE
+    RUN nix profile install nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+
+ADD_WRANGLER_TARGET:
+    FUNCTION
+    DO +ADD_CF_WORKER_TARGET
+    RUN nix profile install nixpkgs#wrangler
+
+# Desired checks:
+CLIPPY:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "clippy --fix --allow-no-vcs"
+    ELSE
+        DO rust+CARGO --args "clippy -- --deny warnings"
+    END
+
+RUSTFMT:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "fmt"
+    ELSE
+        DO rust+CARGO --args "fmt --check"
+    END
+
+DOCTEST:
+    FUNCTION
+    RUN echo "TODO"
+
+NEXTEST:
+    FUNCTION
+    RUN echo "TODO"
+
+TAPLO:
+    FUNCTION
+    RUN echo "TODO"
+
+AUDIT:
+    FUNCTION
+    RUN echo "TODO"
+
+DENY:
+    FUNCTION
+    RUN echo "TODO"
+
+HAKARI:
+    FUNCTION
+    RUN echo "TODO"
+
+UDEPS:
+    FUNCTION
+    RUN echo "TODO"
+

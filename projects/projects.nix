@@ -31,6 +31,9 @@
           watchexec
           git-lfs
 
+          # Build Tools
+          earthly
+
           # JS
           pnpm
           nodejs
@@ -41,6 +44,7 @@
           llvmPackages.bintools
 
           # CF Workers
+          wrangler
           cargo-generate
           worker-build
           wasm-pack

@@ -1,5 +1,8 @@
 {
     "recommendations": [
-        "jnoortheen.nix-ide"
+        "jnoortheen.nix-ide",
+        "earthly.earthfile-syntax-highlighting",
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml"
     ]
 }

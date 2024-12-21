@@ -5,7 +5,7 @@ minify = true
 workers_dev = false
 
 [build]
-command = "cargo install -q worker-build && worker-build --release"
+command = "worker-build --release"
 
 [placement]
 mode = "smart"
