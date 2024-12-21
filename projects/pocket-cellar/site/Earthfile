@@ -5,11 +5,14 @@ FROM ../../../.earthly/builders/debian-builder+pnpm-builder
 WORKDIR /app
 
 # Core Targets - Intended to be called by a user
+install:
+    BUILD +build
+
 build:
-    BUILD +install
+    BUILD +install-deps
     BUILD +typegen
-    COPY --dir +install/node_modules .
-    COPY +install/package.json .
+    COPY --dir +install-deps/node_modules .
+    COPY +install-deps/package.json .
     COPY +src-files/* .
     COPY --dir +sync/ .
     COPY +typegen/worker-configuration.d.ts ./src/
@@ -42,7 +45,7 @@ src-files:
         .
     SAVE ARTIFACT .
 
-install:
+install-deps:
     COPY package.json pnpm-lock.yaml .
     RUN --mount type=cache,target=/root/.pnpm-store pnpm install
     SAVE ARTIFACT package.json AS LOCAL package.json
@@ -50,15 +53,15 @@ install:
     SAVE ARTIFACT node_modules AS LOCAL node_modules
 
 sync:
-    COPY --dir +install/node_modules .
-    COPY +install/package.json .
+    COPY --dir +install-deps/node_modules .
+    COPY +install-deps/package.json .
     COPY +src-files/* .
     RUN pnpm run sync
     SAVE ARTIFACT .svelte-kit
 
 typegen:
-    COPY --dir +install/node_modules .
-    COPY +install/package.json .
+    COPY --dir +install-deps/node_modules .
+    COPY +install-deps/package.json .
     COPY +src-files/* .
     RUN pnpm run typegen
     SAVE ARTIFACT ./src/worker-configuration.d.ts AS LOCAL ./src/worker-configuration.d.ts

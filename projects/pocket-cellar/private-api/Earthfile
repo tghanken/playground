@@ -6,6 +6,9 @@ FROM ../../../.earthly/builders/rust-builder+base
 WORKDIR /app
 
 # Core Targets - Intended to be called by a user
+install:
+    RUN echo "Nothing to install!"
+
 build:
     DO ../../../.earthly/builders/rust-builder+ADD_CF_WORKER_TARGET
     COPY +deps/* .
