@@ -32,4 +32,4 @@ jobs:
       - name: 🐳 Docker Login
         run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
       - name: 🔬 Run check
-        run: earthly --org tghanken --sat amd-sat --ci -P --push +check
+        run: earthly --auto-skip --org tghanken --sat amd-sat --ci -P --push +check

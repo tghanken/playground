@@ -38,7 +38,7 @@ jobs:
         run: |
           echo "CLOUDFLARE_API_TOKEN=$CLOUDFLARE_API_TOKEN" >> ./.secrets
           LATEST_COMMIT_MESSAGE=$(git log --format=%B -n 1 $HASH)
-          earthly --org tghanken --secret-file-path ./.secrets --sat amd-sat --ci -P --push +deploy \
+          earthly --auto-skip --org tghanken --secret-file-path ./.secrets --sat amd-sat --ci -P --push +deploy \
             --COMMIT_MESSAGE="$LATEST_COMMIT_MESSAGE" \
             --BRANCH="$BRANCH" \
             --HASH="$HASH"
