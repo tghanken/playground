@@ -1,0 +1,35 @@
+name: PR Updated
+on:
+  pull_request:
+    types: 
+      - opened
+      - reopened
+      - synchronize
+
+jobs:
+  check:
+    name: 🔬 Earthly Check
+    runs-on: ubuntu-22.04
+    timeout-minutes: 10
+    env:
+      EARTHLY_TOKEN: ${{ secrets.EARTHLY_TOKEN }}
+      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+      GITHUB_ACTIONS: true
+      FORCE_COLOR: 1
+    permissions:
+      id-token: "write"
+      contents: "read"
+    steps:
+      - name: 🌎 Install Earthly
+        uses: earthly/actions-setup@v1
+        with:
+          version: v0.8.9
+      - name: 🖥️ Checkout git branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 2
+      - name: 🐳 Docker Login
+        run: docker login --username "$DOCKERHUB_USERNAME" --password "$DOCKERHUB_TOKEN"
+      - name: 🔬 Run check
+        run: earthly --org tghanken --sat amd-sat --ci -P +check

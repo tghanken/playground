@@ -44,6 +44,7 @@
           llvmPackages.bintools
 
           # CF Workers
+          wrangler
           cargo-generate
           worker-build
           wasm-pack
