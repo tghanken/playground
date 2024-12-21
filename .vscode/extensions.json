@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "jnoortheen.nix-ide",
-        "earthly.earthfile-syntax-highlighting"
+        "earthly.earthfile-syntax-highlighting",
+        "rust-lang.rust-analyzer"
     ]
 }
