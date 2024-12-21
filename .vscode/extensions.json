@@ -2,6 +2,7 @@
     "recommendations": [
         "jnoortheen.nix-ide",
         "earthly.earthfile-syntax-highlighting",
-        "rust-lang.rust-analyzer"
+        "rust-lang.rust-analyzer",
+        "tamasfe.even-better-toml"
     ]
 }
