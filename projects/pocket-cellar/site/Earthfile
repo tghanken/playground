@@ -20,6 +20,7 @@ build:
     SAVE ARTIFACT .svelte-kit AS LOCAL .svelte-kit
 
 check:
+    BUILD --auto-skip +sk-check
     BUILD --auto-skip +vitest
     BUILD --auto-skip +playwright
     BUILD --auto-skip +biome
@@ -70,12 +71,20 @@ typegen:
     SAVE ARTIFACT ./src/worker-configuration.d.ts AS LOCAL ./src/worker-configuration.d.ts
 
 # Tests
+sk-check:
+    FROM +build
+    RUN pnpm run check
+
 vitest:
     FROM +build
-    RUN pnpm run test:unit -- --run
+    COPY vitest.config.ts .
+    RUN pnpm run test:unit
 
 playwright:
+    FROM +build
     RUN echo "TODO: Implement playwright tests"
 
 biome:
-    RUN echo "TODO: Implement biome tests"
+    FROM +build
+    COPY biome.json .gitignore .
+    RUN pnpm run lint
