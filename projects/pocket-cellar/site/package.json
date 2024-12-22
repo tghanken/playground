@@ -15,7 +15,7 @@
 		"test": "pnpm run test:unit",
 		"deploy": "wrangler pages deploy",
 		"lint": "biome check",
-		"format": "prettier --write ."
+		"format": "biome check --fix"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
