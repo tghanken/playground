@@ -1,0 +1,9 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Pocket Cellar" type="CompoundRunConfigurationType">
+    <toRun name="Earthly Check" type="ShConfigurationType" />
+    <toRun name="Private API Dev" type="ShConfigurationType" />
+    <toRun name="Public API Dev" type="ShConfigurationType" />
+    <toRun name="Site Dev" type="ShConfigurationType" />
+    <method v="2" />
+  </configuration>
+</component>
