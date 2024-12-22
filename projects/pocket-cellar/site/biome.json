@@ -1,4 +1,9 @@
 {
+	"vcs": {
+		"enabled": true,
+		"clientKind": "git",
+		"useIgnoreFile": true
+	},
 	"formatter": {
 		"enabled": true,
 		"useEditorconfig": true,
@@ -8,39 +13,12 @@
 		"lineEnding": "lf",
 		"lineWidth": 100,
 		"attributePosition": "auto",
-		"bracketSpacing": true,
-		"ignore": [
-          "**/pnpm-lock.yaml",
-          "**/node_modules",
-          "**/.wrangler",
-          "**/.svelte-kit",
-          "build",
-          "**/.DS_Store",
-          "**/Thumbs.db",
-          "**/.env",
-          "**/vite.config.js.timestamp-*",
-          "**/vite.config.ts.timestamp-*",
-          "**/.dev.vars",
-          "src/worker-configuration.d.ts"
-        ]
+		"bracketSpacing": true
 	},
 	"linter": {
 		"rules": {
 			"recommended": true
-		},
-		"ignore": [
-			"**/node_modules",
-			"**/.wrangler",
-			"**/.svelte-kit",
-			"build",
-			"**/.DS_Store",
-			"**/Thumbs.db",
-			"**/.env",
-			"**/vite.config.js.timestamp-*",
-			"**/vite.config.ts.timestamp-*",
-			"**/.dev.vars",
-			"src/worker-configuration.d.ts"
-		]
+		}
 	},
 	"javascript": {
 		"formatter": {
