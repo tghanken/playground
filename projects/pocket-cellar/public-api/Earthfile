@@ -80,6 +80,7 @@ audit:
 
 deny:
     FROM ../../../.earthly/builders/rust-builder+check-base
+    COPY deny.toml .
     COPY +deps/* .
     DO ../../../.earthly/builders/rust-builder+DENY
 
