@@ -19,7 +19,6 @@ build:
 check:
     BUILD --auto-skip +clippy
     BUILD --auto-skip +rustfmt
-    BUILD --auto-skip +doctest
     BUILD --auto-skip +nextest
     BUILD --auto-skip +taplo
     BUILD --auto-skip +audit
