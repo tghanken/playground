@@ -9,6 +9,18 @@ DO ../../utilities/nix+NIX_INSTALL
 # Base Images
 check-base:
     RUN rustup component add rustfmt clippy
+    # Install system dependencies for Rust builds and clean up in the same command
+    RUN apt-get update && apt-get install -y \
+        libssl-dev \
+        pkg-config \
+    && rm -rf /var/lib/apt/lists/*
+    # Install Rust development and analysis tools
+    DO rust+CARGO --args "install cargo-nextest \
+        taplo-cli \
+        cargo-audit \
+        cargo-deny \
+        cargo-hakari \
+        cargo-udeps"
 
 # Target Builders
 ADD_WASM_TARGET:
@@ -47,29 +59,34 @@ RUSTFMT:
 
 DOCTEST:
     FUNCTION
-    RUN echo "TODO"
+    # Run documentation tests to ensure code examples in documentation are correct
+    DO rust+CARGO --args "test --doc"
 
 NEXTEST:
     FUNCTION
-    RUN echo "TODO"
+    DO rust+CARGO --args "nextest run"
 
 TAPLO:
     FUNCTION
-    RUN echo "TODO"
+    ARG FIX
+    IF [ -n "$FIX" ]
+        RUN taplo fmt
+    ELSE
+        RUN taplo lint
+    END
 
 AUDIT:
     FUNCTION
-    RUN echo "TODO"
+    DO rust+CARGO --args "audit"
 
 DENY:
     FUNCTION
-    RUN echo "TODO"
+    DO rust+CARGO --args "deny check"
 
 HAKARI:
     FUNCTION
-    RUN echo "TODO"
+    DO rust+CARGO --args "hakari generate"
 
 UDEPS:
     FUNCTION
-    RUN echo "TODO"
-
+    DO rust+CARGO --args "udeps"
