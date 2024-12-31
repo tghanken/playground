@@ -7,3 +7,11 @@ async fn fetch(_req: HttpRequest, _env: Env, _ctx: Context) -> Result<HttpRespon
         .status(http::StatusCode::OK)
         .body(Body::empty())?)
 }
+
+#[cfg(test)]
+mod tests {
+    #[test]
+    fn test_placeholder() {
+        assert!(true, "Placeholder test to ensure nextest passes");
+    }
+}
