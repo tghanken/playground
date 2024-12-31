@@ -30,8 +30,8 @@ fix:
     RUN echo "TODO: Implement lint fixes"
 
 deploy:
-    COPY --dir +install/node_modules .
-    COPY +install/package.json .
+    COPY --dir +install-deps/node_modules .
+    COPY +install-deps/package.json .
     COPY +src-files/* .
     COPY --dir +build/.svelte-kit ./.svelte-kit
     RUN --push --secret CLOUDFLARE_API_TOKEN pnpm run deploy
