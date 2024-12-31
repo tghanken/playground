@@ -15,7 +15,8 @@ check-base:
         pkg-config \
     && rm -rf /var/lib/apt/lists/*
     # Install Rust development and analysis tools
-    DO rust+CARGO --args "install cargo-nextest \
+    DO rust+CARGO --args "install cargo-binstall"
+    DO rust+CARGO --args "binstall cargo-nextest \
         taplo-cli \
         cargo-audit \
         cargo-deny \
