@@ -1,0 +1,13 @@
+default_job = "dev"
+env.CARGO_TERM_COLOR = "always"
+on_change_strategy = "kill_then_restart"
+
+[jobs]
+
+[jobs.dev]
+command = [
+    "wrangler",
+    "dev",
+]
+need_stdout = true
+background = false

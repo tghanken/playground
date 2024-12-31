@@ -1,0 +1,9 @@
+VERSION --build-auto-skip 0.8
+PROJECT tghanken/playground
+FROM ../../base-images/debian+image
+WORKDIR /app
+DO ../../utilities/nix+NIX_INSTALL
+
+pnpm-builder:
+    DO ../../utilities/nix+MOUNT_CACHE
+    RUN nix profile install nixpkgs#pnpm nixpkgs#nodejs

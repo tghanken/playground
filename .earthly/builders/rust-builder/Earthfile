@@ -1,0 +1,89 @@
+VERSION --build-auto-skip 0.8
+PROJECT tghanken/playground
+IMPORT github.com/earthly/lib/rust AS rust
+FROM ../../base-images/rust+image
+WORKDIR /app
+DO rust+INIT
+DO ../../utilities/nix+NIX_INSTALL
+
+# Base Images
+check-base:
+    RUN rustup component add rustfmt clippy
+    DO ../../utilities/nix+MOUNT_CACHE
+    RUN nix profile install \
+        nixpkgs#cargo-nextest \
+        nixpkgs#taplo \
+        nixpkgs#cargo-audit \
+        nixpkgs#cargo-deny \
+        nixpkgs#cargo-hakari \
+        nixpkgs#cargo-udeps
+
+# Target Builders
+ADD_WASM_TARGET:
+    FUNCTION
+    RUN rustup target add wasm32-unknown-unknown
+
+ADD_CF_WORKER_TARGET:
+    FUNCTION
+    DO +ADD_WASM_TARGET
+    DO ../../utilities/nix+MOUNT_CACHE
+    RUN nix profile install nixpkgs#wasm-pack nixpkgs#binaryen nixpkgs#worker-build
+
+ADD_WRANGLER_TARGET:
+    FUNCTION
+    DO +ADD_CF_WORKER_TARGET
+    RUN nix profile install nixpkgs#wrangler
+
+# Desired checks:
+CLIPPY:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "clippy --fix --allow-no-vcs"
+    ELSE
+        DO rust+CARGO --args "clippy -- --deny warnings"
+    END
+
+RUSTFMT:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        DO rust+CARGO --args "fmt"
+    ELSE
+        DO rust+CARGO --args "fmt --check"
+    END
+
+DOCTEST:
+    FUNCTION
+    # Run documentation tests to ensure code examples in documentation are correct
+    DO rust+CARGO --args "test --doc"
+
+NEXTEST:
+    FUNCTION
+    DO rust+CARGO --args "nextest run"
+
+TAPLO:
+    FUNCTION
+    ARG FIX
+    IF [ -n "$FIX" ]
+        RUN taplo fmt
+    ELSE
+        RUN taplo lint
+    END
+
+AUDIT:
+    FUNCTION
+    DO rust+CARGO --args "audit"
+
+DENY:
+    FUNCTION
+    DO rust+CARGO --args "deny check"
+
+HAKARI:
+    FUNCTION
+    DO rust+CARGO --args "hakari generate"
+
+UDEPS:
+    FUNCTION
+    RUN rustup default nightly
+    DO rust+CARGO --args "udeps"

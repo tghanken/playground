@@ -2,6 +2,7 @@
 name = "pocket-cellar-private-api"
 version = "0.1.0"
 edition = "2021"
+publish = false
 authors = [ "Taylor Hanken <tghanken@gmail.com>" ]
 
 [package.metadata.release]

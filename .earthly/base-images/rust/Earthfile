@@ -1,0 +1,6 @@
+VERSION --build-auto-skip 0.8
+PROJECT tghanken/playground
+IMPORT github.com/earthly/lib/rust AS rust
+
+image:
+    FROM rust:1.83.0-slim-bookworm

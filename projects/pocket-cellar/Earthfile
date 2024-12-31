@@ -1,0 +1,41 @@
+VERSION --build-auto-skip 0.8
+PROJECT tghanken/playground
+
+# Core Targets - Intended to be called by a user
+install:
+    BUILD ./private-api+install
+    BUILD ./public-api+install
+    BUILD ./site+install
+
+build:
+    BUILD --auto-skip ./private-api+build
+    BUILD --auto-skip ./public-api+build
+    BUILD --auto-skip ./site+build
+
+check:
+    BUILD --auto-skip ./private-api+check
+    BUILD --auto-skip ./public-api+check
+    BUILD --auto-skip ./site+check
+
+fix:
+    BUILD ./private-api+fix
+    BUILD ./public-api+fix
+    BUILD ./site+fix
+
+deploy:
+    BUILD --auto-skip +check
+    WAIT
+        BUILD --auto-skip ./private-api+deploy
+    END
+    BUILD --auto-skip ./public-api+deploy
+    BUILD --auto-skip ./site+deploy
+
+deploy-all:
+    BUILD --auto-skip +check
+    WAIT
+        BUILD ./private-api+deploy
+    END
+    BUILD ./public-api+deploy
+    BUILD ./site+deploy
+
+# Utility Targets - Intended to be called only by core targets
