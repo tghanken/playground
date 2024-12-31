@@ -27,7 +27,6 @@ jobs:
             feat
             fix
             chore
-            ci
             docs
             style
             refactor
@@ -35,6 +34,7 @@ jobs:
             test
           scopes: |
             core
+            ci
             frontend
             backend
           requireScope: true
